@@ -1,0 +1,906 @@
+================================================================================
+         MANUAL DE CREACIÓN DE VIDEOJUEGOS EN GDEVELOP
+         Cómo hacer tu propio juego estilo Robotic Cavern desde cero
+         Para estudiantes de bachillerato (grados 8° a 11°)
+         Autor: Jhon rafael mercado - tatiana arango simanca — JT Games
+================================================================================
+
+¡BIENVENIDO! joven programador.
+
+Este manual te va a enseñar, paso a paso y sin necesidad de saber programar,
+cómo hacer tu propio videojuego de plataformas usando GDevelop 5.
+
+GDevelop es un programa gratuito con el que puedes crear videojuegos usando
+bloques visuales de condición y acción, sin escribir ni una sola línea de
+código y si ¡eso es posible!
+
+Al terminar este manual vas a tener un juego funcionando con:
+  - Un personaje que se mueve, salta y dispara
+  - Enemigos que te persiguen y atacan
+  - Fondos animados
+  - Sistema de vidas y puntos
+  - Música y efectos de sonido
+
+No importa si nunca has hecho un videojuego antes. Este manual está escrito
+para que lo puedas seguir sin complicaciones.
+
+A si que ¡Vamos a empezar!
+
+================================================================================
+PARTE 1: PREPARACIÓN — LO QUE NECESITAS ANTES DE EMPEZAR
+================================================================================
+
+
+PASO 1 — DESCARGAR E INSTALAR GDEVELOP
+────────────────────────────────────────────────────────────────────────────────
+
+¿Qué es GDevelop?
+  GDevelop es un programa gratuito para hacer videojuegos. Lo puedes usar
+  en Windows, Mac, Linux, o incluso directamente desde tu navegador de
+  internet sin instalar nada.
+
+¿Cómo descargarlo?
+  1. Abre tu navegador de internet (Chrome, Firefox, Edge, el que uses).
+  2. Ve a esta dirección: https://gdevelop.io
+  AGREGA FOTO DEL NAVEGADOR EN LA WEB ABIERTA
+  AGREGA LA FOTO DEL ENTORNO WEB DE GDEVELOP 5
+  3. Haz clic en el botón que dice "Descargar gratis" o "Download".
+  4. Escoge la versión para tu sistema operativo (Windows si usas PC normal).
+  AGREGA FOTO DE LA WEB PARA DESCARGAR
+  5. Descarga el archivo y ábrelo para instalarlo.
+  6. Sigue los pasos de instalación normal (siguiente, siguiente, instalar).
+  AGREGA LA FOTO DE LOS PASOS DE INSTALACION
+
+¿GDevelop es gratis?
+  Sí, la versión básica es completamente gratis y tiene todo lo que necesitas
+  para este proyecto. La versión de pago tiene funciones extras que no
+  necesitamos aquí, aun que gdevelop5 deja hacer el apk del juego, no vamos a 
+  usar esa funcion porque solo deja hacer un solo apk gratis, de ahi en adelante
+  deberas pagar una suscriocion para poder hacer mas apk.
+
+
+PASO 2 — CONOCER LAS PARTES DE GDEVELOP
+────────────────────────────────────────────────────────────────────────────────
+
+Cuando abres GDevelop por primera vez, vas a ver una pantalla de bienvenida.
+AGREGA TODO DE LA PANTALLA DE BIENVENIDA
+Crea un proyecto nuevo haciendo clic en "Crear un nuevo proyecto" y
+seleccionando "Proyecto vacío".
+AGREGAR FOTO DE ESTE PROCESO
+Una vez dentro del proyecto, vas a ver cuatro partes principales:
+
+LA BARRA DE LA IZQUIERDA (Panel del proyecto):
+  Aquí están todas las "escenas" de tu juego (menú, niveles, game over)
+  y todos los "objetos" que usas (personajes, fondos, efectos). Es como
+  la biblioteca de todo lo que existe en tu juego.
+
+EL ÁREA DEL CENTRO (El editor de escenas):
+  Es donde diseñas cómo se ve cada pantalla del juego. Aquí arrastras
+  los objetos y los colocas en la posición que quieras.
+
+LA BARRA DERECHA (Panel de objetos y propiedades):
+  Muestra las propiedades (características) del objeto seleccionado.
+  Aquí puedes cambiar el tamaño, la posición, el nombre y más.
+
+LA PESTAÑA DE EVENTOS (La más importante):
+  Aquí es donde le dices al juego QUÉ HACER. Por ejemplo: "si el jugador
+  presiona la tecla espacio, entonces crear una burbuja". Esto se llama
+  programación visual por eventos.
+
+[AQUÍ VA LA FOTO: GDevelop abierto con las cuatro partes señaladas con flechas]
+
+[AQUÍ VA LA FOTO: Un proyecto vacío recién creado en GDevelop]
+
+
+PASO 3 — PREPARAR TUS IMÁGENES Y RECURSOS
+────────────────────────────────────────────────────────────────────────────────
+
+Para hacer un videojuego necesitas imágenes. Estas imágenes son los dibujos
+del personaje, los fondos, los enemigos, etc.
+
+¿De dónde sacar las imágenes?
+  Opción 1 — Dibujarlas tú mismo:
+    Puedes usar programas como Piskel (piskelapp.com, gratis y en línea,
+    tambien lo puedes usar en gdevelop5 ya que viene integrado)
+    para dibujar pixel art. El pixel art es el estilo de dibujo donde
+    los dibujos parecen hechos de cuadrados.
+
+  Opción 2 — Descargarlas gratis:
+    Puedes buscar "free game assets" en itch.io (itch.io/game-assets/free).
+    Hay miles de imágenes gratuitas para usar en tus juegos.
+
+  Opción 3 — Usar inteligencia artificial:
+    Herramientas como Adobe Firefly, Canva AI, chatgpt o similares pueden generar
+    imágenes para tu juego. En el proyecto Robotic Cavern se usó IA para
+    crear todos los recursos audio visuales.
+
+¿Qué formato deben tener las imágenes?
+  Las imágenes para videojuegos deben estar en formato PNG.
+  El PNG es especial porque puede tener el fondo transparente, lo que
+  hace que el personaje no tenga un cuadrado blanco alrededor.
+
+  con este formeto es que se van a manejar todoso los recursos que que no sean 
+  fondos para el juego.
+
+¿Qué es un "sprite"?
+  Un sprite es la imagen de un personaje o elemento del juego.
+  Cuando el personaje camina, en realidad el juego está pasando rápido
+  varias imágenes (como un flipbook). Cada imagen es un "frame" y el
+  conjunto de frames es una "animación".
+
+[AQUÍ VA LA FOTO: Ejemplo de un sprite del jugador con sus frames de animación]
+
+[AQUÍ VA LA FOTO: Piskel o herramienta de dibujo con un ejemplo de pixel art]
+
+
+================================================================================
+PARTE 2: CREAR LA ESTRUCTURA BASE DEL JUEGO
+================================================================================
+
+
+PASO 4 — CREAR LAS ESCENAS DEL JUEGO
+────────────────────────────────────────────────────────────────────────────────
+
+¿Qué es una escena?
+  Una escena es una "pantalla" del juego. Por ejemplo, el menú principal
+  es una escena, el nivel 1 es otra escena y el game over es otra más.
+
+Cómo crear las escenas:
+  1. En el panel izquierdo, busca la sección "Escenas".
+  AGREGA LA FOTO QUE MUESTRE ESO
+  2. Haz clic en el botón "+" para agregar una escena nueva.
+  AGREGAR FOTO QUE MUESTRE ESTO
+  3. Ponle un nombre. Para empezar, crea estas escenas:
+  AGREGA FOTO QUE MUESTRE ESTO
+     - "menu" (el menú principal)
+     - "nivel1" (el primer nivel del juego)
+     - "gameover" (la pantalla de fin del juego)
+     AGREGA FOTO DE LAS ESCENAS CREADAS
+  4. Para entrar a editar una escena, haz doble clic en su nombre.
+
+Para el juego Robotic Cavern se crearon 49 escenas en total,
+organizadas así:
+
+  Pantallas de entrada y menú (3 escenas):
+    entrada1 → entrada2 → menu
+
+  Niveles de juego (4 escenas):
+    nivel1 → nivel2 → nivel3 → nivel4
+
+  Pantallas de historia (40 escenas):
+    hist_01 → hist_02 → hist_03 → ... → hist_40
+    (cada una es una pantalla de la historia de PIXEL,
+    intercaladas entre los niveles del juego)
+
+  Fin del juego (2 escenas):
+    game_over → creditos
+
+  Flujo completo:
+    entrada1 → entrada2 → menu → hist_01...hist_17 → nivel1 →
+    hist_18...hist_22 → nivel2 → hist_23...hist_29 → nivel3 →
+    hist_30...hist_36 → nivel4 → hist_37...hist_40 →
+    creditos / game_over → menu
+
+Para tu juego, con 3 escenas básicas es suficiente para empezar.
+
+[AQUÍ VA LA FOTO: El panel de escenas en GDevelop con las escenas listadas]
+
+[AQUÍ VA LA FOTO: La pantalla vacía de una escena recién creada]
+
+
+PASO 5 — CREAR EL PERSONAJE PRINCIPAL
+────────────────────────────────────────────────────────────────────────────────
+
+El personaje es el elemento más importante del juego. Vamos a crearlo paso a paso.
+
+Parte A — Crear el objeto:
+  1. Abre la escena "nivel1" haciendo doble clic en ella.
+  2. En el panel derecho, busca "Objetos" y haz clic en "Agregar un objeto".
+  AGREGA FOTO DE ESTO
+  3. Selecciona el tipo "Sprite" (para objetos con imágenes animadas).
+  AGREGA FOTO DE ESTO
+  4. Dale un nombre: "jugador".
+  AGREGA FOTO DE ESTO
+
+[AQUÍ VA LA FOTO: El menú para agregar un objeto en GDevelop]
+
+[AQUÍ VA LA FOTO: El tipo "Sprite" seleccionado en la lista de tipos de objetos]
+
+Parte B — Agregar las animaciones:
+  1. Dentro del editor del objeto, vas a ver que tiene una sección de animaciones.
+  2. Haz clic en "Agregar una animación".
+  AGREGA FOTO DE ESTO
+  3. Pon el nombre de la animación: "quieto" (cuando el personaje no se mueve).
+  AGREGA FOTO DE ESTO
+  4. Arrastra las imágenes de la animación al espacio que dice "Añadir un frame".
+     Por ejemplo, si tienes 4 imágenes de tu personaje quieto, agrégalas todas.
+     AGREGA FOTO DE ESTO
+  5. Ajusta la velocidad de la animación (empieza con 0.1 segundos por frame).
+  6. Repite para cada animación que necesites:
+     - "correr" (cuando el personaje se mueve)
+     - "saltar" (cuando el personaje está en el aire)
+     - "morir" (cuando el personaje pierde una vida)
+
+[AQUÍ VA LA FOTO: El editor de animaciones del objeto con los frames agregados]
+
+[AQUÍ VA LA FOTO: Las 4 animaciones del personaje en el editor de objetos]
+
+Parte C — Agregar los comportamientos:
+  Los comportamientos son habilidades que le das al objeto sin programar nada.
+  
+  1. En el editor del objeto, haz clic en la pestaña "Comportamientos".
+  2. Haz clic en "Agregar un comportamiento".
+  3. Busca y selecciona "Objeto de plataforma (general mente sale en ingles)".
+     Este comportamiento hace que el personaje pueda caminar y saltar
+     sobre plataformas con gravedad automática.
+     AGREGA FOTO DE ESTO 
+
+[AQUÍ VA LA FOTO: La pestaña de comportamientos con "Objeto de plataforma" agregado]
+
+  5. Ajusta la velocidad de movimiento en el comportamiento:
+     - Velocidad al suelo: 250 (o el número que prefieras, más alto = más rápido)
+     - Velocidad de salto: 600 (más alto = salta más alto)
+     AGREGA FOTO DE ESTO
+
+  6. Coloca el objeto "jugador" en la escena arrastrándolo desde el panel
+     de objetos hacia el área de edición.
+
+[AQUÍ VA LA FOTO: El jugador colocado en la escena del nivel 1]
+
+
+PASO 6 — CREAR EL FONDO Y LAS PLATAFORMAS
+────────────────────────────────────────────────────────────────────────────────
+
+El fondo es lo que el jugador ve detrás del personaje. Las plataformas son
+los suelos y paredes sobre los que el personaje camina.
+
+Parte A — Agregar un fondo de color o imagen:
+  1. Crea un nuevo objeto, esta vez de tipo "Panel tiling" o simplemente
+     agrega un objeto sprite con la imagen de tu fondo.
+     AGREGA FOTO DE ESTO
+  2. Estira el fondo para que cubra toda la pantalla.
+  AGREGA FOTO DEL FONDO PUESTO EN ESCENA
+  3. En sus propiedades, asegúrate de que esté en la capa de fondo
+     (puedes crear una capa llamada "Fondo" desde el menú de capas).
+
+Parte B — Crear las plataformas con Tiled Map Editor (recomendado):
+  Tiled Map Editor es un programa gratuito para diseñar los niveles de tu juego.
+  Funciona como un tablero de cuadritos donde colocas bloques para armar las
+  plataformas, el suelo y los obstáculos. Para hacer Robotic Cavern se siguió
+  un tutorial paso a paso, y así se crearon los 4 niveles del juego.
+
+  ¿Cómo descargarlo?
+    1. Ve a https://www.mapeditor.org
+    2. Descarga e instala Tiled Map Editor (es gratuito).
+    AGREGA LA FOTO DE LA WEB
+
+  ¿QUÉ SON LOS TILESETS?
+    Un tileset (también llamado "mapa de tejas") es una imagen que contiene
+    varios bloques de terreno o decoraciones. A partir de esa imagen, Tiled
+    te permite ir colocando los bloques uno a uno para construir el nivel.
+    Por ejemplo, si tienes una imagen con 4 tipos de bloques (suelo, pared,
+    esquina, decoración), puedes usarlos todos para armar tu nivel.
+
+  [AQUÍ VA LA FOTO: Un tileset de ejemplo mostrando los diferentes tipos de bloques]
+
+  PASO A PASO EN TILED:
+
+  Paso 1 — Crear un proyecto:
+    Al abrir Tiled por primera vez, haz clic en "New Project" (Nuevo Proyecto).
+    AGREGA FOTO DE ESTO
+    El proyecto es una carpeta donde se guardan todos tus mapas y tilesets.
+    Elige una carpeta en tu computador y ponle un nombre descriptivo,
+    por ejemplo "niveles-mi-juego".
+
+  [AQUÍ VA LA FOTO: La pantalla de bienvenida de Tiled con el botón New Project]
+
+  Paso 2 — Crear un nuevo mapa:
+    Haz clic en "New Map" (Nuevo Mapa). Aparece una ventana de configuración:
+    
+    - Orientación: selecciona "Ortogonal". Esto significa que las cuadrículas
+      son cuadradas, que es el estilo de los juegos de plataformas clásicos.
+    
+    - Tamaño del patrón (tile size): es el tamaño de cada bloque individual
+      en píxeles. En Robotic Cavern se usó 25x25 píxeles.
+      Este número debe coincidir con el tamaño de los bloques en tu tileset.
+    
+    - Tamaño del mapa: cuántos bloques de ancho y alto tendrá el nivel.
+      Por ejemplo, 40 bloques de ancho por 20 de alto.
+      Puedes empezar con 20 de ancho por 15 de alto para un nivel sencillo.
+    
+    Haz clic en "OK" para crear el mapa.
+
+  [AQUÍ VA LA FOTO: La ventana de configuración del nuevo mapa en Tiled]
+
+  [AQUÍ VA LA FOTO: El mapa vacío recién creado con la cuadrícula visible]
+
+  Paso 3 — Cargar el tileset:
+    Ahora necesitas cargar la imagen con los bloques de tu juego.
+    
+    1. En el panel "Tilesets" (abajo a la derecha), haz clic en el botón
+       "Nuevo conjunto de patrones" (el ícono de hoja con "+").
+    2. Ponle un nombre al tileset (por ejemplo, "bloques-nivel1").
+    3. Haz clic en "Buscar imagen" y selecciona tu imagen de bloques.
+    4. Configura el tamaño de cada bloque (25x25 en este proyecto).
+    5. Si hay separación de píxeles entre los bloques en la imagen, ponla
+       en "Margen" y "Espaciado". Si no hay separación, déjalos en 0.
+    6. Haz clic en "Guardar como" para guardar el tileset.
+    
+    Ahora verás los bloques disponibles en el panel de tilesets.
+
+  [AQUÍ VA LA FOTO: El panel de tilesets con los bloques cargados y listos para usar]
+
+  Paso 4 — Diseñar el nivel:
+    Ahora sí puedes construir tu nivel. Usa las herramientas de la barra
+    superior para colocar los bloques:
+    
+    - Brocha de estampar (ícono de pincel): selecciona un bloque del tileset
+      y haz clic en el mapa para colocarlo. Es la herramienta principal.
+    
+    - Relleno (ícono de balde): rellena toda un área con el bloque seleccionado
+      de un solo clic. Útil para hacer el suelo rápidamente.
+    
+    - Goma de borrar (ícono de goma): borra bloques que pusiste por error.
+    
+    - Control + Z: deshace el último paso (muy útil cuando te equivocas).
+    
+    Consejo: Usa capas para organizar mejor tu nivel. Por ejemplo:
+    - Capa 1: el suelo y las plataformas
+    - Capa 2: decoraciones
+    - Capa 3: los límites del nivel (bordes invisibles)
+    
+    Para agregar una capa, haz clic en "Nueva capa" en el panel de capas
+    (normalmente en la esquina superior derecha).
+
+  [AQUÍ VA LA FOTO: El nivel siendo construido en Tiled con los bloques colocados]
+
+  [AQUÍ VA LA FOTO: El panel de capas mostrando las diferentes capas del mapa]
+
+  Paso 5 — Agregar las colisiones a los bloques:
+    Este paso es MUY IMPORTANTE. Sin colisiones, el personaje atravesará
+    los bloques como si no existieran.
+    
+    Las colisiones le dicen al motor de juego (GDevelop) qué bloques son
+    sólidos. Para agregarlas:
+    
+    1. Haz doble clic en el tileset en el panel de tilesets.
+       Se abre el "Editor de conjunto de patrones".
+    
+    2. Haz clic en la herramienta "Editor de colisiones"
+       (ícono que parece un rectángulo punteado).
+    
+    3. Para agregar colisiones a todos los bloques a la vez:
+       - Haz clic en el primer bloque del tileset.
+       - Mantén presionada la tecla Shift y haz clic en el último bloque.
+         Así seleccionas todos los bloques al mismo tiempo.
+       - Haz clic en el botón "Detect Bounding Box" (detectar caja delimitadora).
+         Esto agrega automáticamente una colisión cuadrada a cada bloque.
+    
+    4. Agrega la clase "plataforma" a los bloques:
+       - Con todos los bloques todavía seleccionados, busca el campo "Clase"
+         o "Type" en las propiedades y escribe: plataforma
+       - Haz clic derecho sobre la selección y elige
+         "Aplicar colisión sobre todas las tejas seleccionadas".
+    
+    5. Guarda el tileset.
+    
+    Para verificar que las colisiones quedaron bien, ve al menú
+    Ver → "Show Tile Collision Shapes". Cada bloque debe mostrar
+    un rectángulo verde alrededor.
+
+  [AQUÍ VA LA FOTO: El editor de colisiones de Tiled con los bloques seleccionados]
+
+  [AQUÍ VA LA FOTO: Los bloques con las colisiones visibles (rectángulos verdes)]
+
+  Paso 6 — Exportar el mapa en formato JSON:
+    Cuando termines de diseñar el nivel, debes exportarlo para usarlo en GDevelop.
+    
+    1. Ve al menú Archivo → "Exportar como".
+    2. En la lista de formatos, selecciona "JSON".
+    3. Ponle un nombre descriptivo al archivo, como "mapa_nivel1.json".
+    4. Guárdalo en la carpeta de tu proyecto.
+    
+    También puedes hacer "Guardar todo" desde Archivo → "Guardar todo"
+    para guardar tanto el mapa (.tmj) como el tileset (.tsj) de una sola vez.
+    
+    Los archivos que necesitas para importar en GDevelop son:
+    - El mapa exportado en JSON (mapa_nivel1.json)
+    - La imagen del tileset (bloques.png)
+
+  [AQUÍ VA LA FOTO: La ventana de exportación del mapa con el formato JSON seleccionado]
+
+  Parte C — Importar el mapa a GDevelop:
+  1. En GDevelop, agrega un objeto nuevo de tipo "Mapa de patrones" (Tilemap).
+  2. En las propiedades del objeto Tilemap, selecciona el archivo JSON que
+     exportaste desde Tiled.
+  3. También selecciona la imagen del tileset (el archivo PNG con los bloques).
+  4. Agrega el comportamiento "Obstáculo de plataforma" al objeto Tilemap.
+     Este comportamiento activa las colisiones que configuraste en Tiled,
+     haciendo que el jugador pueda caminar sobre los bloques sin atravesarlos.
+  5. Coloca el Tilemap en la escena. Debería aparecer el mapa completo del nivel.
+
+  [AQUÍ VA LA FOTO: El Tilemap configurado en GDevelop con el JSON y el tileset seleccionados]
+
+  [AQUÍ VA LA FOTO: El mapa del nivel 1 apareciendo correctamente en la escena de GDevelop]
+
+
+PASO 7 — PROGRAMAR EL MOVIMIENTO DEL PERSONAJE (EVENTOS)
+────────────────────────────────────────────────────────────────────────────────
+
+Esta es la parte más importante. Los eventos son la "programación" del juego,
+pero sin código. Todo funciona con condiciones y acciones:
+
+  CONDICIÓN: "¿Cuándo pasa algo?"
+  ACCIÓN: "¿Qué hace el juego cuando eso pasa?"
+
+Ejemplo sencillo:
+  CONDICIÓN: La tecla "izquierda" está presionada
+  ACCIÓN: El jugador se mueve a la izquierda
+
+¿Cómo abrir el editor de eventos?
+  1. Estás en la escena nivel1.
+  2. En la parte superior, busca la pestaña "Eventos" y haz clic en ella.
+  3. Verás una pantalla con filas vacías donde vas a agregar tus eventos.
+
+[AQUÍ VA LA FOTO: La pestaña de eventos vacía en GDevelop]
+
+EVENTO 1 — Mover a la izquierda:
+  1. Haz clic en "Agregar un evento".
+  2. Haz clic en "Agregar una condición".
+  3. Busca "Teclado" → "Una tecla está presionada".
+  4. Selecciona la tecla "Izquierda".
+  5. Ahora haz clic en "Agregar una acción".
+  6. Busca tu objeto "jugador" → "Objeto de plataforma" → "Simular la tecla izquierda".
+
+[AQUÍ VA LA FOTO: El evento de mover a la izquierda configurado en GDevelop]
+
+EVENTO 2 — Mover a la derecha (igual pero con la tecla "Derecha"):
+  Repite el mismo proceso pero con la tecla "Derecha" y la acción
+  "Simular la tecla derecha".
+
+EVENTO 3 — Saltar:
+  Condición: Tecla "Arriba" o "Espacio" presionada
+  Acción: jugador → Objeto de plataforma → Simular la tecla de salto
+
+[AQUÍ VA LA FOTO: Los tres eventos de movimiento en el editor de eventos]
+
+EVENTO 4 — Voltear el personaje según la dirección:
+  1. Agrega un evento.
+  2. Condición: jugador → Objeto de plataforma → Está en el suelo (para verificar)
+     En realidad, para el volteo usa:
+     Condición: jugador → Objeto de plataforma → La velocidad X es > 0
+     Acción: jugador → Volteable → Activar volteo horizontal → NO
+  3. Agrega otro evento:
+     Condición: jugador → Objeto de plataforma → La velocidad X es < 0
+     Acción: jugador → Volteable → Activar volteo horizontal → SÍ
+
+  Esto hace que el personaje se dé vuelta cuando camina a la izquierda.
+
+EVENTO 5 — Cambiar la animación según lo que hace:
+  Condición: jugador está en el suelo Y su velocidad X es distinta de 0
+  Acción: jugador → Cambiar la animación → "correr"
+
+  Condición: jugador está en el suelo Y su velocidad X es 0
+  Acción: jugador → Cambiar la animación → "quieto"
+
+  Condición: jugador NO está en el suelo
+  Acción: jugador → Cambiar la animación → "saltar"
+
+[AQUÍ VA LA FOTO: Los eventos de animación en GDevelop]
+
+¡Prueba el juego! Haz clic en el botón "Previsualización" (el triángulo de
+reproducción) en la parte superior. El jugador debería moverse, saltar y
+cambiar de animación.
+
+[AQUÍ VA LA FOTO: El juego corriendo en la previsualización con el personaje moviéndose]
+
+
+================================================================================
+PARTE 3: AGREGAR EL SISTEMA DE DISPAROS Y ENEMIGOS
+================================================================================
+
+
+PASO 8 — CREAR EL SISTEMA DE DISPAROS (BURBUJAS)
+────────────────────────────────────────────────────────────────────────────────
+
+El disparo del jugador funciona así:
+  1. El jugador presiona la tecla de disparo.
+  2. Aparece una burbuja frente al jugador.
+  3. La burbuja vuela en horizontal.
+  4. Al chocar con una pared, sube hacia arriba.
+  5. Al tocar un enemigo, lo atrapa.
+  6. Al pasar cierto tiempo, explota sola.
+
+Crear el objeto burbuja:
+  1. Crea un nuevo objeto sprite y llámalo "burbuja".
+  2. Agrega las imágenes de la burbuja (puede ser un círculo simple para empezar).
+  3. No necesita comportamiento de plataformas.
+
+[AQUÍ VA LA FOTO: El objeto burbuja creado en GDevelop]
+
+Crear el evento de disparo:
+  1. Crea un nuevo evento.
+  2. Condición: Tecla "Espacio" fue presionada recientemente
+     (usar "recientemente" en lugar de "está presionada" para que
+     solo dispare una vez por toque, no de manera continua)
+  3. Acción: Crear objeto "burbuja" en la posición del jugador
+     (usa la posición X y Y del jugador como punto de creación)
+
+[AQUÍ VA LA FOTO: El evento de disparo de la burbuja en GDevelop]
+
+Mover la burbuja:
+  1. Crea un evento sin condición (para que se repita cada frame).
+  2. Acción: burbuja → Agregar fuerza → dirección 0 grados, 300 de velocidad
+     (esto la mueve hacia la derecha)
+
+  IMPORTANTE: Para que la burbuja vaya en la dirección correcta según
+  el lado al que mira el jugador, necesitas usar una variable. Cuando
+  el jugador mire a la derecha, la burbuja va a la derecha (+300) y
+  cuando mire a la izquierda va a la izquierda (-300).
+
+[AQUÍ VA LA FOTO: El movimiento de la burbuja configurado en los eventos]
+
+Hacer que la burbuja suba al chocar con una pared:
+  1. Condición: burbuja está chocando con el Tilemap (las plataformas)
+  2. Acción: burbuja → Cambiar la fuerza → dirección 90 grados (hacia arriba)
+
+Hacer que la burbuja desaparezca con el tiempo:
+  1. Condición: El temporizador de la burbuja es mayor a 4 segundos
+  2. Acción: Suprimir la burbuja (borrarla)
+
+[AQUÍ VA LA FOTO: Los eventos completos del sistema de burbujas]
+
+
+PASO 9 — CREAR LOS ENEMIGOS
+────────────────────────────────────────────────────────────────────────────────
+
+El enemigo es el robot que recorre el nivel y daña al jugador.
+
+Crear el objeto robot:
+  1. Crea un nuevo objeto sprite y llámalo "robot".
+  2. Agrega las animaciones del robot (caminar izquierda, caminar derecha).
+  3. Agrega el comportamiento "Objeto de plataforma" para que tenga gravedad
+     y pueda caminar sobre las plataformas.
+
+[AQUÍ VA LA FOTO: El objeto robot con sus animaciones en GDevelop]
+
+Hacer que el robot camine solo:
+  1. Crea una variable de instancia en el robot llamada "direccion".
+     Las variables de instancia son datos que tiene cada objeto.
+     Esta variable va a guardar si el robot va a la derecha (1) o izquierda (-1).
+  2. Evento al inicio: robot → Cambiar la variable "direccion" → valor 1
+  3. Evento cada frame: robot → Objeto de plataforma → Simular tecla derecha
+     (cuando direccion = 1)
+  4. Evento cada frame: robot → Objeto de plataforma → Simular tecla izquierda
+     (cuando direccion = -1)
+
+Hacer que el robot se dé vuelta al chocar con la pared:
+  1. Condición: robot está chocando con el Tilemap Y la velocidad X del robot es 0
+     (si chocó y se detuvo, significa que llegó a una pared)
+  2. Acción: robot → Cambiar la variable "direccion" → multiplicar por -1
+     (esto invierte la dirección: si iba a 1 pasa a -1 y viceversa)
+
+[AQUÍ VA LA FOTO: Los eventos del movimiento del robot en GDevelop]
+
+Hacer que el robot atrape al jugador:
+  1. Condición: robot está chocando con jugador
+  2. Acción: Quitar una vida al jugador (usando una variable global de vidas)
+
+[AQUÍ VA LA FOTO: El evento de daño al jugador por el robot]
+
+Hacer que la burbuja atrape al robot:
+  1. Condición: burbuja está chocando con robot
+  2. Acción: Suprimir el robot (borrarlo del juego)
+  3. Acción: Suprimir la burbuja
+  4. Acción: Crear una fruta en la posición donde estaba el robot
+
+
+================================================================================
+PARTE 4: SISTEMA DE VIDAS, PUNTOS Y PANTALLAS
+================================================================================
+
+
+PASO 10 — CREAR LAS VARIABLES GLOBALES
+────────────────────────────────────────────────────────────────────────────────
+
+Las variables globales son datos que el juego recuerda aunque cambies de escena.
+Son como los contadores del juego: cuántas vidas tienes, cuántos puntos, etc.
+
+Cómo crear las variables globales:
+  1. En el menú superior, ve a "Proyecto" → "Variables globales del proyecto".
+  2. Crea estas variables:
+     - vidas (número, valor inicial: 2)
+     - puntuacion (número, valor inicial: 0)
+     - nivel_actual (número, valor inicial: 1)
+
+[AQUÍ VA LA FOTO: La ventana de variables globales en GDevelop con las variables creadas]
+
+Mostrar las vidas en pantalla:
+  1. Crea un objeto de texto y llámalo "texto_vidas".
+  2. En los eventos, actualiza el texto cada frame:
+     Acción: texto_vidas → Cambiar el texto → "VIDAS: " + VariableGlobal(vidas)
+
+Mostrar los puntos en pantalla:
+  1. Crea un objeto de texto y llámalo "texto_puntos".
+  2. En los eventos:
+     Acción: texto_puntos → Cambiar el texto → "PUNTOS: " + VariableGlobal(puntuacion)
+
+[AQUÍ VA LA FOTO: El HUD con las vidas y puntos mostrándose en pantalla]
+
+
+PASO 11 — CREAR EL MENÚ PRINCIPAL
+────────────────────────────────────────────────────────────────────────────────
+
+El menú es la primera pantalla que el jugador ve al iniciar el juego.
+
+  1. Abre la escena "menu" haciendo doble clic en ella.
+  2. Agrega una imagen de fondo (puede ser una imagen tuya o un color sólido).
+  3. Agrega un objeto de texto con el nombre del juego.
+  4. Agrega otro objeto de texto que diga "Presiona ESPACIO para jugar".
+  5. En los eventos de la escena "menu" agrega:
+     Condición: Tecla "Espacio" fue presionada recientemente
+     Acción: Cambiar a la escena "nivel1"
+
+[AQUÍ VA LA FOTO: El menú principal diseñado en GDevelop]
+
+[AQUÍ VA LA FOTO: El evento que cambia de la escena menú a nivel1]
+
+
+PASO 12 — CREAR LA PANTALLA DE GAME OVER
+────────────────────────────────────────────────────────────────────────────────
+
+El Game Over aparece cuando el jugador pierde todas sus vidas.
+
+  1. Abre la escena "gameover".
+  2. Agrega una imagen o texto que diga "GAME OVER".
+  3. Agrega un texto con los puntos finales.
+  4. Agrega un texto que diga "Presiona ESPACIO para volver al menú".
+  5. En los eventos:
+     Condición: Tecla "Espacio" fue presionada recientemente
+     Acción: Cambiar a la escena "menu"
+
+En la escena del nivel, agrega el evento de Game Over:
+  Condición: VariableGlobal(vidas) < 0
+  Acción: Cambiar a la escena "gameover"
+
+[AQUÍ VA LA FOTO: La pantalla de Game Over en GDevelop]
+
+[AQUÍ VA LA FOTO: El evento que detecta el Game Over y cambia de escena]
+
+
+================================================================================
+PARTE 5: SONIDO Y DETALLES FINALES
+================================================================================
+
+
+PASO 13 — AGREGAR SONIDOS Y MÚSICA
+────────────────────────────────────────────────────────────────────────────────
+
+Un juego sin sonido se siente vacío. Agregar sonidos es muy sencillo en GDevelop.
+
+¿De dónde sacar los sonidos gratis?
+  - freesound.org: miles de efectos de sonido gratuitos
+  - opengameart.org: música y sonidos para videojuegos
+  - zapsplat.com: efectos de sonido gratuitos
+  Los archivos deben estar en formato OGG o WAV.
+
+Agregar un efecto de sonido:
+  1. Primero, descarga el archivo de sonido y guárdalo en la carpeta de tu proyecto.
+  2. En los eventos, cuando quieras que suene algo:
+     Acción: Audio → Reproducir un sonido → selecciona el archivo
+  
+  Ejemplo: cuando el jugador salta:
+  Condición: Tecla "Arriba" fue presionada recientemente
+  Acción: Reproducir el sonido "sfx_salto.mp3"
+
+[AQUÍ VA LA FOTO: El evento de reproducción de sonido en GDevelop]
+
+Agregar música de fondo:
+  1. En los eventos al inicio de la escena (condición: Al comienzo de la escena):
+     Acción: Audio → Reproducir música → selecciona el archivo de música
+     Marca la opción "en bucle" para que se repita sola.
+
+[AQUÍ VA LA FOTO: El evento de música de fondo al inicio de la escena]
+
+
+PASO 14 — PROBAR Y AJUSTAR EL JUEGO
+────────────────────────────────────────────────────────────────────────────────
+
+Antes de publicar tu juego, debes probarlo varias veces para encontrar errores.
+
+¿Cómo probar en GDevelop?
+  Haz clic en el botón de "Previsualización" (el triángulo ► en la barra superior).
+  Se abre una ventana con el juego corriendo en tiempo real.
+
+Cosas que debes revisar:
+  ✓ ¿El personaje se mueve correctamente en las cuatro direcciones?
+  ✓ ¿El salto funciona bien y no atraviesa las plataformas?
+  ✓ ¿Las burbujas aparecen y se mueven correctamente?
+  ✓ ¿Los enemigos caminan y se dan vuelta?
+  ✓ ¿El jugador pierde vidas al tocar a los enemigos?
+  ✓ ✓ ¿Los puntos aumentan al recoger frutas?
+  ✓ ¿El menú funciona y lleva al juego?
+  ✓ ¿El Game Over aparece al quedarse sin vidas?
+  ✓ ¿La música suena?
+
+Si algo no funciona como esperas, revisa los eventos relacionados.
+Los errores más comunes son:
+  - Escribir mal el nombre de un objeto (debe ser igual en todas partes)
+  - Usar la condición equivocada ("está presionada" en lugar de "fue presionada")
+  - No conectar bien las condiciones con las acciones correctas
+
+[AQUÍ VA LA FOTO: La ventana de previsualización con el juego corriendo]
+
+
+PASO 15 — EXPORTAR EL JUEGO PARA COMPARTIRLO
+────────────────────────────────────────────────────────────────────────────────
+
+Cuando tu juego esté listo, puedes exportarlo para compartirlo.
+
+Exportar para web (la más fácil):
+  1. Ve al menú "Archivo" → "Exportar proyecto".
+  2. Selecciona "Web (HTML5)".
+  3. GDevelop crea una carpeta con un archivo "index.html".
+  4. Puedes subir esa carpeta a plataformas como itch.io para que
+     cualquier persona juegue tu juego desde el navegador, sin instalar nada.
+
+[AQUÍ VA LA FOTO: La ventana de exportación del juego para web]
+
+Exportar para Android (APK):
+  Si quieres hacer una aplicación para Android, necesitas pasos adicionales
+  (se explican en el documento "Pasos_para_hacer_el_APK.txt").
+
+
+================================================================================
+PARTE 6: CONSEJOS Y TRUCOS IMPORTANTES
+================================================================================
+
+
+CONSEJO 1 — ORGANIZA TUS EVENTOS EN HOJAS EXTERNAS
+────────────────────────────────────────────────────────────────────────────────
+  Cuando tu juego crece, los eventos se vuelven muy largos y difíciles de
+  encontrar. GDevelop te permite crear "hojas de eventos externas" que son
+  como carpetas de eventos.
+  
+  Por ejemplo, puedes tener:
+  - Una hoja para los eventos del jugador
+  - Una hoja para los eventos de los enemigos
+  - Una hoja para los eventos del HUD
+  
+  Esto mantiene todo ordenado y es más fácil encontrar lo que buscas.
+
+[AQUÍ VA LA FOTO: Las hojas de eventos externas en el panel del proyecto]
+
+
+CONSEJO 2 — USA NOMBRES CLAROS
+────────────────────────────────────────────────────────────────────────────────
+  Ponle nombres descriptivos a todo:
+  - Objetos: "jugador", "robot_normal", "burbuja", "fruta_manzana"
+  - Variables: "vidas", "puntuacion", "robot_direccion"
+  - Escenas: "menu", "nivel1", "nivel2", "gameover"
+  
+  Evita nombres como "objeto1", "x", "a". Con el tiempo no vas a recordar
+  qué era cada cosa.
+
+
+CONSEJO 3 — GUARDA SIEMPRE
+────────────────────────────────────────────────────────────────────────────────
+  Guarda el proyecto con Ctrl+S cada vez que hagas algo importante.
+  GDevelop también guarda automáticamente, pero es buena costumbre
+  guardar manualmente seguido.
+
+
+CONSEJO 4 — TRABAJA POR FASES
+────────────────────────────────────────────────────────────────────────────────
+  No trates de hacer todo al mismo tiempo. Trabaja una cosa a la vez
+  y prueba que funcione antes de pasar a la siguiente:
+  
+  Fase 1: Personaje que se mueve y salta → prueba
+  Fase 2: Plataformas → prueba
+  Fase 3: Disparos → prueba
+  Fase 4: Enemigos → prueba
+  Fase 5: Vidas y puntos → prueba
+  Fase 6: Menú y Game Over → prueba
+  
+  Si algo no funciona, es mucho más fácil encontrar el error cuando
+  solo has cambiado una cosa a la vez.
+
+
+CONSEJO 5 — CUANDO ALGO NO FUNCIONA
+────────────────────────────────────────────────────────────────────────────────
+  No te frustres. Todos los desarrolladores de videojuegos, incluidos los
+  profesionales, encuentran errores (bugs) en sus juegos. Es parte normal
+  del proceso.
+  
+  Cuando algo no funciona:
+  1. Lee con calma los eventos relacionados con el problema.
+  2. Revisa que los nombres de los objetos sean exactamente iguales.
+  3. Prueba desactivar eventos uno por uno para encontrar cuál causa el error.
+  4. Busca en YouTube "GDevelop [lo que necesitas]". Hay miles de tutoriales.
+  5. Visita el foro oficial de GDevelop: forum.gdevelop.io
+  6. Usa una IA como ChatGPT o Claude y pregúntale cómo resolver el problema
+     en GDevelop. Explica qué quieres que pase y qué está pasando en realidad.
+
+
+================================================================================
+GLOSARIO — PALABRAS QUE DEBES CONOCER
+================================================================================
+
+  Sprite:         La imagen de un personaje u objeto del videojuego.
+
+  Frame:          Una imagen individual de una animación. Como un fotograma
+                  de una película.
+
+  Animación:      Un grupo de frames que se pasan rápido para dar la ilusión
+                  de movimiento.
+
+  Evento:         Una instrucción del juego formada por condiciones y acciones.
+                  Es la "programación" sin código de GDevelop.
+
+  Condición:      La parte del evento que dice CUÁNDO ocurre algo.
+                  (Ejemplo: "cuando se presiona la tecla espacio")
+
+  Acción:         La parte del evento que dice QUÉ PASA cuando se cumple la condición.
+                  (Ejemplo: "crear una burbuja")
+
+  Variable:       Un espacio de memoria donde el juego guarda un dato.
+                  Como una cajita con un número o texto adentro.
+
+  Variable global: Una variable que el juego recuerda aunque cambies de escena.
+
+  Escena:         Una "pantalla" del juego (menú, nivel, game over, etc.)
+
+  Tilemap:        Un mapa de plataformas diseñado con bloques cuadrados.
+
+  Tileset:        La imagen que contiene todos los bloques del tilemap.
+
+  Paralaje:       Efecto visual donde varias capas del fondo se mueven a
+                  velocidades diferentes, creando sensación de profundidad.
+
+  HUD:            Las letras en inglés de "Heads-Up Display". Son los elementos
+                  informativos que se muestran en pantalla durante el juego
+                  (vidas, puntos, nivel, corazones, etc.)
+
+  Bug:            Un error en el juego que hace que algo no funcione como
+                  se espera.
+
+  APK:            El archivo de instalación de una aplicación Android.
+                  Como el equivalente de un ".exe" pero para celulares Android.
+
+  GDevelop:       Motor de videojuegos gratuito basado en eventos visuales,
+                  sin necesidad de saber programar.
+
+  Comportamiento: Una habilidad que le das a un objeto en GDevelop sin
+                  programar nada. Ejemplo: "Objeto de plataforma" le da
+                  gravedad y movimiento al personaje automáticamente.
+
+
+================================================================================
+RECURSOS ÚTILES
+================================================================================
+
+  GDevelop (motor del juego)   : https://gdevelop.io
+  Tiled Map Editor (mapas)     : https://www.mapeditor.org
+  Piskel (pixel art gratis)    : https://www.piskelapp.com
+  Assets gratis                : https://itch.io/game-assets/free
+  Arte libre para juegos       : https://opengameart.org
+  Sonidos gratis               : https://freesound.org
+  Tutorial GDevelop (español)  : Buscar "GDevelop tutorial español" en YouTube
+  Foro oficial GDevelop        : https://forum.gdevelop.io
+
+
+================================================================================
+RECUERDA:
+  Hacer un videojuego requiere tiempo, paciencia y muchas pruebas.
+  No importa si el primer resultado no es perfecto.
+  Lo importante es aprender, mejorar con cada intento y disfrutar el proceso.
+
+  El juego Robotic Cavern que sirvió de base para este manual fue hecho por
+  un estudiante universitario en aproximadamente 173 horas de trabajo.
+  Todo empieza con el primer paso: abrir GDevelop y crear tu primera escena.
+
+  ¡Tú puedes hacerlo!
+================================================================================
+
+FIN DEL MANUAL
+Manual_de_Creacion.txt — JhonRMA / JT Games — Noviembre 2026

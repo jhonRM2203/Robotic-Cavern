@@ -1,0 +1,56 @@
+﻿================================================================================
+ PROGRAMACION HOJA DE EVENTOS "ROBOT" - GDEVELOP (CAVERN REDISEÑO)
+ Estado: Fase 4 cerrada en nivel1 (29/10/2026)
+================================================================================
+
+OBJETOS
+  robot0 (normal) y robot1 (agresivo). Sprites: caminar (8 frames por
+  direccion), disparar (3 frames). bolt_robot0 / bolt_robot1 (2 frames).
+  Variables de objeto del robot: direccion, vel, timer_dir, timer_disparo,
+  tipo (0 normal / 1 agresivo). (Ajustar nombres segun proyecto.)
+
+SPAWN (en nivel1, por ahora)
+  - Crear robot cada 81 frames (1.35 s) en hueco libre de la fila superior.
+  - Total enemigos = 10 + nivel_actual.
+  - Agresivos = 1 + int(nivel_actual / 1.5); el resto normales.
+  - Maximo simultaneo en pantalla = min((nivel_actual + 6) / 2, 8).
+  - Lista de pendientes barajada (orden aleatorio).
+
+MOVIMIENTO
+  - Velocidad horizontal aleatoria: robot0 entre 60 y 180 px/s (1-3 px/frame);
+    robot1 entre 60 y 180 px/s con aceleracion 2 (vel max 3 px/frame).
+  - Al chocar con pared -> invertir direccion.
+  - Cada 100-250 frames -> cambiar direccion aleatoriamente.
+  - Con 2/3 de probabilidad moverse hacia el jugador (comparar X).
+  - Gravedad 1.2 px/frame², caida maxima 10 px/frame (comportamiento
+    Platformer o manual). Robot no salta.
+
+DISPARO (BOLT)
+  - Probabilidad base por frame: 0.001 + 0.0001 * min(nivel_actual, 100).
+  - Si el jugador esta en la misma franja vertical (± tolerancia): x10.
+  - El bolt se dispara 8 frames despues de que el robot "decide" disparar
+    (sincroniza con la animacion de disparo).
+  - Velocidad del bolt: 7 px/frame (420 px/s) horizontal, sin gravedad.
+  - Animacion bolt[dir][frame], alterna cada 4 frames.
+  - Robot agresivo: detecta burbujas en su misma altura y a menos de 200 px
+    -> gira hacia la burbuja y dispara para destruirla (recarga >= 24 frames).
+
+COLISIONES
+  - bolt + jugador (con inv_tiempo <= 0 y muriendo = 0): restar 1 corazon,
+    inv_tiempo = 3.33 s, sacudida = 0.4 s, animacion de muerte si corazones <= 0.
+    (Reemplaza la tecla H temporal de la hoja jugador_dano.)
+  - bolt + pared/borde -> destruir bolt.
+  - bolt + burbuja -> forzar explosion de la burbuja (vida = 0, fase = 2).
+  - burbuja + robot -> robot desaparece, burbuja cambia a animacion atrapa1
+    (robot0) o atrapa2 (robot1), variable atrapado = 1 o 2, sigue flotando.
+  - Al explotar burbuja con robot atrapado -> generar fruta (Fase 5).
+
+ANIMACIONES
+  - caminar izquierda/derecha segun direccion (bucle).
+  - disparar: 3 frames al decidir disparar (sin bucle o con bucle corto).
+  - Nombres exactos como en el objeto (robot000..robot017, etc.).
+
+NOTAS
+  - La logica de la hoja "robot" se implementa por ahora solo en nivel1.
+  - Falta copiarla a nivel2, nivel3 y nivel4 (al final, junto con el resto).
+  - Empuje lateral y bloqueo de movimiento se descartaron (no se implementan).

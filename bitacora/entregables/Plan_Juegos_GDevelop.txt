@@ -1,0 +1,408 @@
+================================================================================
+         PLAN DE JUEGO EN GDEVELOP
+         Proyecto: Robotic Cavern (Inspirado en Bubble Bobble)
+         Institución: Uniremington
+         Materia: Taller de Desarrollo de Videojuegos
+         Fecha de elaboración: Noviembre 2026
+================================================================================
+
+
+DATOS GENERALES DEL PROYECTO
+--------------------------------------------------------------------------------
+Nombre del juego      : Robotic Cavern
+Subtítulo             : Un rediseño de Cavern (Bubble Bobble)
+Desarrollador         : JhonRMA (Ingeniero de Sistemas)
+Empresa / Estudio     : JT Games
+Motor de desarrollo   : GDevelop 5 (sin código, basado en eventos)
+Plataforma objetivo   : Android (APK) y Web
+Género                : Plataformas arcade
+Número de niveles     : 4 niveles completos
+Número de escenas     : 49 escenas en total
+Resolución            : 1220 x 670 píxeles
+Orientación           : Horizontal (landscape)
+FPS máximo            : 60
+Versión del juego     : 1.0.4
+Paquete Android       : com.ingenierojhon.cavernbubble
+Fecha de inicio       : Lunes 19 de octubre de 2026
+Fecha de entrega      : Miércoles 11 de noviembre de 2026
+
+
+================================================================================
+1. DESCRIPCIÓN DEL JUEGO
+================================================================================
+
+Robotic Cavern es un videojuego de plataformas estilo arcade inspirado en el
+clásico Bubble Bobble. El jugador controla a PIXEL, un pequeño robot rosado con
+la capacidad de soplar burbujas de energía para atrapar enemigos y de viajar
+entre épocas distintas del tiempo.
+
+El juego transcurre en el año 40221, en un mundo donde los robots de mantenimiento
+llamados Unidades Amarillas.1 han sido corrompidos por fragmentos de código roto
+llamados "glitches". Pixel, creado por tres ingenieros en secreto, despierta solo
+y debe recorrer cuatro cavernas de distintas épocas para limpiarlas de enemigos
+y restaurar el equilibrio del mundo.
+
+Mecánica principal: el jugador dispara burbujas que atrapan a los enemigos. Cuando
+la burbuja con el enemigo adentro explota, aparece una fruta que da puntos. Si el
+jugador recoge todas las frutas y elimina todos los enemigos, pasa al siguiente nivel.
+
+
+================================================================================
+2. HISTORIA DEL JUEGO (RESUMEN)
+================================================================================
+
+En el año 40221, robots de mantenimiento llamados Unidades Amarillas.1 comenzaron
+a absorber "glitches" (fragmentos de código roto) y perdieron el control. El caos
+se extendió por cuatro épocas: la ciudad tecnológica, la selva robótica, los
+volcanes y las ruinas de acero.
+
+Tres ingenieros crearon en secreto a PIXEL, un robot rosado capaz de atrapar
+enemigos sin hacerles daño y de viajar en el tiempo. El día de su activación,
+los robots corrompidos atacaron el laboratorio. Uno de los ingenieros, en sus
+últimos segundos, activó la cuenta regresiva de Pixel.
+
+Pixel despierta sin recuerdos, solo con sus burbujas y el instinto de seguir
+adelante. Con el tiempo, encuentra grabaciones de sus creadores que le revelan
+su propósito: limpiar las cuatro épocas para que el mundo pueda comenzar de nuevo.
+
+Personaje principal    : PIXEL (robot rosado, pequeño, habilidad de soplar burbujas
+                          y viajar en el tiempo)
+Enemigos               : Robot Normal (azul, se mueve en patrones simples)
+                          Robot Agresivo (amarillo, dispara para destruir burbujas)
+Antagonistas indirectos: Los "glitches" que corrompieron a los robots
+
+
+================================================================================
+3. MECÁNICAS DEL JUEGO
+================================================================================
+
+CONTROLES (teclado):
+  Flecha izquierda / derecha  : Mover al personaje
+  Flecha arriba                : Saltar
+  Barra espaciadora            : Soplar burbuja (mantener para más alcance)
+
+CONTROLES (pantalla táctil / móvil):
+  Botón izquierda              : Mover a la izquierda
+  Botón derecha                : Mover a la derecha
+  Botón salto                  : Saltar
+  Botón disparo                : Soplar burbuja
+
+SISTEMA DE BURBUJAS:
+  - El jugador puede tener máximo 5 burbujas activas al mismo tiempo.
+  - La burbuja primero vuela en horizontal, rebota en la pared y luego sube.
+  - Si la burbuja choca con un enemigo, lo atrapa dentro y sigue flotando.
+  - Al explotar la burbuja con enemigo, aparece una fruta en esa posición.
+  - Las burbujas desaparecen solas después de 4 segundos si nadie las toca.
+
+SISTEMA DE VIDAS Y CORAZONES:
+  - El jugador empieza con 2 vidas grandes y 3 corazones pequeños.
+  - Cada golpe de un enemigo quita 1 corazón.
+  - Sin corazones: se pierde una vida grande y se reaparece con 3 corazones.
+  - Sin vidas: pantalla de Game Over.
+  - Al recibir daño, el jugador es invulnerable por 3 segundos y parpadea.
+
+SISTEMA DE PUNTUACIÓN:
+  - Manzana recogida    : +100 puntos
+  - Frambuesa recogida  : +200 puntos
+  - Limón recogido      : +300 puntos
+  - Las frutas aparecen también de forma aleatoria cada cierto tiempo.
+
+TELETRANSPORTES:
+  - Si el jugador sale por arriba, aparece por abajo (y viceversa).
+  - Funciona en los cuatro lados de cada nivel.
+
+CONDICIÓN PARA PASAR DE NIVEL:
+  - Deben aparecer todos los enemigos del nivel.
+  - Deben eliminarse (atrapando con burbuja) todos los enemigos.
+  - No debe quedar ninguna burbuja con enemigo ni fruta en pantalla.
+
+
+================================================================================
+4. ESTRUCTURA DE ESCENAS (PANTALLAS DEL JUEGO)
+================================================================================
+
+El juego tiene un total de 49 escenas organizadas en 5 bloques:
+
+── BLOQUE 1: PANTALLAS DE ENTRADA Y MENÚ ──────────────────────────────────────
+
+  Escena: entrada1   → Animación del logo de JT Games (el estudio del juego)
+  Escena: entrada2   → Animación del logo de Uniremington (la universidad)
+  Escena: menu       → Menú principal: título animado, botón "Press Space",
+                        fondo animado y música de fondo
+
+── BLOQUE 2: NIVELES DE JUEGO ─────────────────────────────────────────────────
+
+  Escena: nivel1     → Nivel 1 - Ciudad Tecnológica (fondo azul neón)
+  Escena: nivel2     → Nivel 2 - Selva Robótica / Lava (fondo de lava)
+  Escena: nivel3     → Nivel 3 - Jungla Robótica (fondo de jungla)
+  Escena: nivel4     → Nivel 4 - Ruinas de Acero (fondo metálico)
+
+── BLOQUE 3: HISTORIA DEL JUEGO (40 pantallas) ────────────────────────────────
+
+  Las escenas de historia presentan la narrativa del juego al jugador
+  antes de que empiece a jugar. Cada escena es una pantalla con una imagen
+  y un texto narrado, siguiendo el orden de la historia de PIXEL.
+
+  Escena: hist_01    → Prólogo — "En el año 40221..." (presentación del mundo)
+  Escena: hist_02    → Las Unidades Amarillas.1 (los primeros robots)
+  Escena: hist_03    → Los robots de mantenimiento en las cavernas
+  Escena: hist_04    → Los primeros errores: "ya no obedecían"
+  Escena: hist_05    → Los ingenieros llaman al fenómeno "interferencia de datos"
+  Escena: hist_06    → Las cuevas se llenan de glitches (código roto)
+  Escena: hist_07    → Los glitches AZULES (Glitches de Eco, atrapados en bucles)
+                        y los AMARILLOS (Glitches de Chispa, erráticos)
+  Escena: hist_08    → El daño ocurrió en cuatro épocas distintas
+                        (ciudad tecnológica, selva robótica, volcanes, acero)
+  Escena: hist_09    → "El mundo de afuera no lo sabía" — Los tres ingenieros
+  Escena: hist_10    → Los tres ingenieros trabajando en secreto
+  Escena: hist_11    → Creación de PIXEL — "Lo llamaron PIXEL"
+  Escena: hist_12    → Las habilidades de PIXEL: soplar burbujas y viajar
+                        en el tiempo
+  Escena: hist_13    → Las copias de PIXEL en cada época, esperando
+  Escena: hist_14    → "PIXEL no lo sabía. Ni siquiera estaba despierto"
+  Escena: hist_15    → El ataque al laboratorio el día de la activación
+  Escena: hist_16    → El ingeniero activa la cuenta regresiva en sus últimos
+                        segundos
+  Escena: hist_17    → PIXEL despierta solo, sin recuerdos
+  Escena: hist_18    → PIXEL despierta — "¿Hola?"
+  Escena: hist_19    → "No recuerdo nada. Solo sé que estoy aquí"
+  Escena: hist_20    → PIXEL descubre su habilidad de soplar burbujas
+  Escena: hist_21    → PIXEL encuentra frutas, corazones de luz y el símbolo
+                        de energía extra
+  Escena: hist_22    → "Cuando termino en un lugar... aparezco en otro"
+  Escena: hist_23    → PIXEL encuentra una pantalla encendida en las cavernas
+  Escena: hist_24    → Son grabaciones. Voces que hablan de él
+  Escena: hist_25    → Grabación: "Lo llamamos PIXEL. Es rosado porque..."
+  Escena: hist_26    → Grabación: "Las burbujas son proyecciones de campo cuántico"
+  Escena: hist_27    → Grabación: "Su sistema no entiende el tiempo de forma lineal"
+  Escena: hist_28    → PIXEL entiende que viajaba en el tiempo sin saberlo
+  Escena: hist_29    → "Eran mundos distintos. Tiempos distintos."
+  Escena: hist_30    → El último video: una voz diferente, más triste
+  Escena: hist_31    → "Pixel... si estás viendo esto, nosotros ya no estamos"
+  Escena: hist_32    → "Los robots no son malos. Solo están rotos"
+  Escena: hist_33    → "Tú puedes atraparlos sin hacerles daño"
+  Escena: hist_34    → "En cada época hay una copia tuya, esperando"
+  Escena: hist_35    → "Ojalá pudiéramos haber estado ahí cuando despertaras"
+  Escena: hist_36    → La grabación termina. PIXEL sabe quién es y qué debe hacer
+  Escena: hist_37    → Entre niveles: "Línea temporal salvada. Saltando..."
+  Escena: hist_38    → Después del nivel 4: los saltos ya no siguen el mismo orden
+  Escena: hist_39    → Los Glitches liberados ya no atacan, solo se van
+  Escena: hist_40    → Final del juego: las cuevas en silencio por primera vez
+
+── BLOQUE 4: PANTALLA DE GAME OVER ────────────────────────────────────────────
+
+  Escena: game_over  → Imagen animada de Game Over, puntuación final,
+                        opción de volver al menú principal
+
+── BLOQUE 5: CRÉDITOS ─────────────────────────────────────────────────────────
+
+  Escena: creditos   → Pantalla final de créditos del juego con el nombre del
+                        desarrollador, el motor usado y agradecimientos
+
+──────────────────────────────────────────────────────────────────────────────
+
+FLUJO COMPLETO DEL JUEGO:
+  entrada1 → entrada2 → menu → hist_01...hist_17 → nivel1 → hist_18...hist_22
+  → nivel2 → hist_23...hist_29 → nivel3 → hist_30...hist_36 → nivel4
+  → hist_37...hist_40 → creditos / game_over → menu
+
+
+================================================================================
+5. RECURSOS GRÁFICOS UTILIZADOS
+================================================================================
+
+PERSONAJE PRINCIPAL (PIXEL):
+  - Animación quieto    : 4 frames (jugador_quieto_00 a jugador_quieto_03)
+  - Animación correr    : 6 frames (jugador_correr_00 a jugador_correr_05)
+  - Animación saltar    : 6 frames (jugador_salto_00 a jugador_salto_05)
+  - Animación soplar    : 7 frames (jugador_soplar_00 a jugador_soplar_06)
+  - Animación morir     : 6 frames (jugador_muerte_00 a jugador_muerte_05)
+  - Tamaño de sprite    : 64 x 64 píxeles
+  - Formato             : PNG con fondo transparente
+
+ENEMIGOS:
+  - Robot Normal (robot0)   : 8 frames de caminar + 3 de disparar por dirección
+  - Robot Agresivo (robot1) : 8 frames de caminar + 3 de disparar por dirección
+  - Disparos (bolt)         : 2 frames de animación por tipo de robot
+
+BURBUJAS Y EFECTOS:
+  - Orbe creciendo          : 6 frames (orb1 a orb6)
+  - Burbuja con trampa      : 8 frames por tipo de robot (trap00-trap07 / trap10-trap17)
+  - Explosión grande        : 5 frames (pop10 a pop14)
+  - Efecto recoger ítem     : 6 frames (pop00 a pop05)
+
+FRUTAS Y COLECCIONABLES:
+  - Manzana                 : 3 frames (fruit00, fruit01, fruit02)
+  - Frambuesa               : 3 frames (fruit10, fruit11, fruit12)
+  - Limón                   : 3 frames (fruit20, fruit21, fruit22)
+  - Corazón (vida pequeña)  : health.png / health_empty.png
+  - Vida grande             : life_00.png a life_05.png
+
+FONDOS ANIMADOS:
+  - Nivel 1 (azul/tech)    : 24 frames animados con efecto paralaje 3 capas
+  - Nivel 2 (lava)         : 24 frames animados con efecto paralaje 3 capas
+  - Nivel 3 (jungla)       : 24 frames animados con efecto paralaje 3 capas
+  - Nivel 4 (acero)        : 24 frames animados con efecto paralaje 3 capas
+  - Menú principal         : 22 frames animados
+  - Game Over              : 22 frames animados
+
+INTERFAZ DE USUARIO (HUD):
+  - Corazones de vida       : health.png / health_empty.png
+  - Icono de vida grande    : life_00.png
+  - Símbolo "+"             : plus_00.png a plus_05.png
+  - Fuentes del proyecto    : CavernPixel.ttf (fuente principal de pixel art),
+                               PressStart2P-Regular.ttf, ArchitectsDaughter.ttf,
+                               Kenney Mini Square.ttf, Charm-Regular.ttf,
+                               CarterOne-Regular.ttf
+  - Pantalla de título      : 24 frames animados (titulo_00 a titulo_23)
+  - Botón Press Space       : 16 frames animados
+  - Pantalla Game Over      : 24 frames animados (gameover_00 a gameover_23)
+  - Botones táctiles        : 4 botones (izquierda, derecha, salto, disparo)
+                               con estado normal y presionado
+
+
+================================================================================
+6. RECURSOS DE SONIDO UTILIZADOS
+================================================================================
+
+EFECTOS DE SONIDO (todos en formato MP3, carpeta: img new/soundtrack/efectos de sonido/):
+  - Saltar              : sfx_salto.mp3
+  - Soplar burbuja      : sfx_burbuja_sale.mp3
+  - Jugador recibe daño : sfx_dano.mp3
+  - Game Over           : sfx_game_over.mp3
+  - Última vida         : sfx_ultima_vida.mp3
+  - Nuevo top / récord  : sfx_nuevo_top1.mp3
+
+MÚSICA (en formato MP3, carpeta: img new/soundtrack/musica del juego/):
+  - 20 soundtracks originales propios del juego: musica_1.mp3 a musica_20.mp3
+    Se usan en rotación para el menú, los niveles y las pantallas de historia.
+
+NOTA: El juego original Cavern (Python) incluía efectos en formato OGG
+  (blow, pop, trap, laser, etc.) que sirvieron como referencia de diseño
+  de sonido, pero el proyecto final Robotic Cavern usa exclusivamente
+  los archivos MP3 propios listados arriba.
+
+
+================================================================================
+7. HERRAMIENTAS UTILIZADAS EN EL DESARROLLO
+================================================================================
+
+  GDevelop 5          : Motor principal del juego (sin código, basado en eventos)
+  Tiled Map Editor    : Diseño de los tilemaps de los 4 niveles
+  Inteligencia Artif. : Generación de imágenes y animaciones de los fondos,
+                         personajes y elementos visuales del juego
+  Claude AI (IA)      : Asistente de programación lógica en GDevelop
+  Android Studio      : Compilación del APK para Android
+  Apache Cordova      : Puente entre el juego web y la app de Android
+  Gradle              : Sistema de construcción del proyecto Android
+
+
+================================================================================
+8. FASES DE DESARROLLO Y FECHAS
+================================================================================
+
+  Fase 0 - Base del proyecto        : Semana del 19 al 24 de octubre de 2026
+    (niveles, jugador, cámara, fondos animados, assets)
+
+  Fase 1 - Variables y HUD          : 24 de octubre de 2026
+    (variables globales: vidas, corazones, puntuación, nivel)
+
+  Fase 2 - Jugador completo         : 25 de octubre de 2026
+    (sistema de daño, invulnerabilidad, muerte, respawn)
+
+  Fase 3 - Burbujas                 : 25 de octubre de 2026
+    (disparo, movimiento, flotación, límite de 5 burbujas)
+
+  Fase 4 - Enemigos                 : 26 al 29 de octubre de 2026
+    (robots, movimiento, disparo, atrapamiento en burbuja)
+
+  Fase 5 - Frutas e ítems           : 30 de octubre de 2026
+    (frutas con gravedad, puntos, corazones, vidas extra)
+
+  Fase 6 - Lógica de nivel          : 3 de noviembre de 2026
+    (condición de paso de nivel, secuencia nivel 1 a 4)
+
+  Fase 7 - Menú y Game Over         : 3 de noviembre de 2026
+    (pantallas de entrada, menú, game over, flujo completo)
+
+  Fase 8 - Sonido y pulido final    : 4 al 6 de noviembre de 2026
+    (efectos de sonido, soundtracks, botones táctiles, ajustes finales)
+
+  Documentación y entrega           : 7 al 11 de noviembre de 2026
+
+
+================================================================================
+9. VARIABLES GLOBALES DEL PROYECTO
+================================================================================
+
+  El juego maneja 19 variables globales que persisten entre escenas:
+
+  VARIABLES DE ESTADO DEL JUGADOR:
+  - vidas               (número, inicio: 2) — vidas grandes disponibles
+  - corazones           (número, inicio: 3) — corazones de vida pequeños
+  - puntuacion          (número, inicio: 0) — puntuación acumulada
+  - nivel_actual        (número, inicio: 1) — nivel en curso
+
+  VARIABLES DE CONTROL DE ENEMIGOS Y NIVEL:
+  - enemigos_pendientes (número, inicio: 0) — robots que aún faltan por aparecer
+  - t_spawn             (número, inicio: 0) — temporizador de aparición de robots
+  - agresivos_pendientes(número, inicio: 0) — robots agresivos que faltan
+  - atrapadas           (número, inicio: 0) — burbujas con robot dentro activas
+  - pasando             (número, inicio: 0) — indica que se está cambiando de nivel
+  - siguiente           (número, inicio: 0) — número del siguiente nivel a cargar
+  - llego_4             (número, inicio: 0) — indica si el jugador llegó al nivel 4
+
+  VARIABLES DE ÍTEMS:
+  - t_fruta             (número, inicio: 1.67) — temporizador de aparición de frutas
+  - tipo_nuevo          (número, inicio: 0) — tipo de fruta a generar
+
+  VARIABLES DE HISTORIA Y NAVEGACIÓN:
+  - escena_actual       (número, inicio: 1) — escena de historia activa
+  - hist_actual         (número, inicio: 1) — número de pantalla de historia
+  - avanzar             (booleano, inicio: falso) — señal para pasar de pantalla
+
+  VARIABLES DE RANKING Y GUARDADO:
+  - HighScores          (array) — tabla de mejores puntuaciones (top scores)
+  - Guardado            (booleano, inicio: falso) — indica si el score fue guardado
+  - json_temp           (texto) — almacenamiento temporal del JSON del ranking
+
+
+================================================================================
+10. HOJAS DE EVENTOS EXTERNAS
+================================================================================
+
+  El proyecto organiza su lógica en 9 hojas de eventos externas reutilizables,
+  incluidas en cada escena que las necesita:
+
+  - personaje           : animaciones y volteo del jugador según movimiento
+  - fondo-camara-paralax: cámara que sigue al jugador y efecto paralaje
+  - HUD                 : actualización de corazones, vidas y puntuación
+  - jugador_dano        : daño, invulnerabilidad, muerte y respawn
+  - burbuja             : disparo, movimiento, flotación y explosión de burbujas
+  - robots              : spawn, movimiento, disparo y atrapamiento de enemigos
+  - fruta               : aparición, gravedad, recogida y expiración de frutas
+  - fin_nivel           : condición de paso al siguiente nivel
+  - historia_control    : navegación entre pantallas de historia
+
+  Semana 1 (Lun 19 - Dom 25 de octubre)  : 59 horas y 30 minutos
+  Semana 2 (Mar 27 oct - Lun 2 de nov)   : 56 horas y 5 minutos
+  Semana 3 (Lun 2 - Vie 6 de noviembre)  : ~57 horas y 30 minutos (estimado)
+
+  TOTAL APROXIMADO DEL PROYECTO           : ~173 horas de trabajo
+
+
+================================================================================
+11. RESUMEN DE HORAS TRABAJADAS
+================================================================================
+
+  Semana 1 (Lun 19 - Dom 25 de octubre)  : 59 horas y 30 minutos
+  Semana 2 (Mar 27 oct - Lun 2 de nov)   : 56 horas y 5 minutos
+  Semana 3 (Lun 2 - Vie 6 de noviembre)  : ~57 horas y 30 minutos (estimado)
+
+  TOTAL APROXIMADO DEL PROYECTO           : ~173 horas de trabajo
+
+
+================================================================================
+FIN DEL DOCUMENTO
+Plan_Juegos_GDevelop.txt — Proyecto Robotic Cavern — JhonRMA / JT Games
+================================================================================

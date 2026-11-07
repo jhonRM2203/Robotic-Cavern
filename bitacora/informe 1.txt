@@ -1,0 +1,420 @@
+================================================================================
+         ANÁLISIS DEL PROYECTO GDevelop - CAVERN REDISEÑO
+         Estado actual y lista de lo que falta implementar
+         Archivo generado el 24/10/2026
+================================================================================
+
+NOTA: Este análisis se basa en la revisión del archivo del proyecto
+      "juego-cavern-Bubble Bobble.json" y todos los recursos encontrados
+      en la carpeta del proyecto.
+
+
+================================================================================
+1. LO QUE YA ESTÁ HECHO ✓
+================================================================================
+
+ESCENAS CREADAS:
+  ✓ nivel1 (tech/azul)
+  ✓ nivel2 (lava)
+  ✓ nivel3 (jungla)
+  ✓ nivel4 (acero/metal)
+
+EN CADA NIVEL YA EXISTE:
+  ✓ Tilemap del nivel (mapa de colisión incluido)
+  ✓ Fondo animado (paralax con múltiples capas: background1, background2, background3)
+  ✓ Sistema de efecto paralaje horizontal (3 capas a velocidades 0.40, 0.75 y 0.90)
+  ✓ Bloqueo de cámara (ClampCamera con límites definidos)
+  ✓ Cámara que sigue al jugador (CenterCameraOnObject)
+  ✓ Teletransporte superior → inferior (izquierdo y derecho)
+  ✓ Teletransporte inferior → superior (izquierdo y derecho)
+  ✓ Objeto sombra y sombra0 (efectos visuales de suelo)
+  ✓ Tileset de bloques por nivel (block0 a block3)
+
+JUGADOR (objeto global):
+  ✓ Sprites de animación: quieto, correr, saltar, muerte, soplar
+  ✓ Comportamiento Platformer (PlatformerObject)
+  ✓ Comportamiento Flippable (voltear sprite según dirección)
+  ✓ Animaciones: correr, quieto, saltar, caer, soplar
+  ✓ Flip horizontal automático según dirección (izquierda/derecha)
+  ✓ Lógica de animaciones en hoja de eventos externa "personaje"
+
+RECURSOS GRÁFICOS DISPONIBLES (listos para usar):
+  ✓ Enemigo robot0 (normal): sprites completos (caminar x4, disparar x3 = frames 0,5,6,7)
+  ✓ Enemigo robot1 (agresivo): sprites completos (mismos frames)
+  ✓ Disparos de enemigos: bolt_robot0 y bolt_robot1 (2 frames de animación cada uno)
+  ✓ Burbujas/orbes: orb1 a orb6 (crecimiento y flotación)
+  ✓ Burbujas con trampa: trap00-trap07 (robot normal) y trap10-trap17 (robot agresivo)
+  ✓ Explosión de burbuja: pop10-pop14 (burbuja grande)
+  ✓ Animación de recoger ítem: pop00-pop05 (pop pequeño)
+  ✓ Frutas: fruit00-fruit02 (manzana), fruit10-fruit12 (frambuesa), fruit20-fruit22 (limón)
+  ✓ Iconos de UI: health (corazón), health_empty, life_00-life_05, plus_00-plus_05
+  ✓ Fuentes: font048 a font090 (números 0-9 y letras A-Z)
+  ✓ Pantalla de título: titulo_00 a titulo_07 (animación de 8 frames)
+  ✓ Pantalla de Game Over: gameover_00 a gameover_07 (animación de 8 frames)
+  ✓ Botón "Press Space": space0 a space9 (animación de 10 frames)
+  ✓ Sonidos completos en cavern-master/sounds/
+  ✓ Música en cavern-master/music/theme.ogg
+
+
+================================================================================
+2. LO QUE FALTA POR IMPLEMENTAR ✗
+================================================================================
+
+--------------------------------------------------------------------------------
+A. ESCENAS FALTANTES
+--------------------------------------------------------------------------------
+
+  ✗ Escena MENÚ / LOBBY
+    - No existe ninguna escena de menú principal en el proyecto.
+    - Necesita: imagen de título animada, animación "Press Space", música de fondo.
+    - Al presionar Space → cambiar a escena nivel1.
+
+  ✗ Escena GAME OVER
+    - No existe ninguna escena de Game Over.
+    - Necesita: mostrar imagen gameover animada, mostrar puntuación final.
+    - Al presionar Space → volver a escena de menú.
+
+  ✗ Escena de TRANSICIÓN ENTRE NIVELES (opcional pero recomendada)
+    - Puede ser solo un cambio de escena directo o una pantalla con
+      el texto "NIVEL X" antes de cargar el siguiente nivel.
+
+
+--------------------------------------------------------------------------------
+B. VARIABLES GLOBALES (no existe ninguna actualmente)
+--------------------------------------------------------------------------------
+
+  Se necesitan crear estas variables globales para que funcionen entre escenas:
+
+  ✗ Variable: vidas         (número, valor inicial: 2)
+  ✗ Variable: corazones     (número, valor inicial: 3)
+  ✗ Variable: puntuacion    (número, valor inicial: 0)
+  ✗ Variable: nivel_actual  (número, valor inicial: 1)
+  ✗ Variable: enemigos_restantes   (número, para controlar paso de nivel)
+  ✗ Variable: timer_invulnerabilidad (número, para el parpadeo al recibir daño)
+
+
+--------------------------------------------------------------------------------
+C. SISTEMA DE VIDA Y CORAZONES (HUD / UI)
+--------------------------------------------------------------------------------
+
+  ✗ Objeto visual de corazones en pantalla
+    - Mostrar hasta 3 corazones llenos/vacíos (usar health.png y health_empty.png)
+    - Actualizar cuando el jugador recibe daño
+    - Los assets ya existen: health.png y health_empty.png
+
+  ✗ Objeto visual de vidas grandes en pantalla
+    - Mostrar icono de vida (life_sheet o life_00.png)
+    - Mostrar símbolo "+" si hay más de 2 vidas (plus_00.png)
+    - Los assets ya existen en img new/iconos/
+
+  ✗ Marcador de puntuación en pantalla
+    - Texto con la puntuación actual, actualizado en tiempo real
+    - Usar la fuente personalizada (font048-font090) o un objeto de texto nativo
+    - Posición: esquina inferior derecha
+
+  ✗ Indicador de nivel actual
+    - Texto "NIVEL X" en la parte inferior central de la pantalla
+
+
+--------------------------------------------------------------------------------
+D. SISTEMA DE DAÑO AL JUGADOR
+--------------------------------------------------------------------------------
+
+  ✗ Lógica de recibir daño
+    - Detectar colisión entre jugador y bolt (disparo enemigo)
+    - Restar 1 corazón (variable corazones -= 1)
+    - Activar período de invulnerabilidad (~200 frames / ~3.3 segundos)
+    - Hacer parpadear el sprite del jugador durante la invulnerabilidad
+    - Empujar al jugador lateralmente (impulso en dirección del disparo)
+
+  ✗ Lógica de muerte del jugador (corazones = 0)
+    - Activar animación de muerte (sprites jugador_muerte_00 a jugador_muerte_05)
+    - Desactivar controles temporalmente
+    - Restar 1 vida grande (variable vidas -= 1)
+    - Si vidas >= 0: hacer respawn (volver al punto de inicio con 3 corazones)
+    - Si vidas < 0: cambiar a escena GAME OVER
+
+  ✗ Animación de soplar burbuja
+    - Usar sprites jugador_soplar_00 a jugador_soplar_06
+    - Activar cuando se presiona la tecla de disparo
+
+
+--------------------------------------------------------------------------------
+E. SISTEMA DE BURBUJAS / ORBES (disparo del jugador)
+--------------------------------------------------------------------------------
+
+  ✗ Objeto burbuja (Orb)
+    - Crear objeto sprite con animaciones: crecimiento (orb1-orb3), flotación (orb3-orb6)
+    - Al disparar: crear instancia delante del jugador, a la altura -35px
+    - Fase 1 - movimiento horizontal: velocidad 4px hacia la dirección del jugador
+    - Al chocar con pared → iniciar fase 2
+    - Fase 2 - flotación: moverse hacia arriba a 1-2px por frame (velocidad variable)
+    - Temporizador de vida: destruir la burbuja tras ~250 frames (aprox. 4 segundos)
+    - Si sale por la parte superior de la pantalla → destruir
+    - Máximo 5 burbujas en pantalla al mismo tiempo
+    - Tiempo de recarga entre disparos: 20 frames (0.33 segundos)
+    - Los assets ya existen en img new/burbujas/
+
+  ✗ Burbuja con enemigo atrapado (Trap)
+    - Si la burbuja colisiona con un enemigo → enemigo desaparece, burbuja cambia a
+      animación "trap" (trap00-trap07 para robot0, trap10-trap17 para robot1)
+    - La burbuja atrapada sigue flotando hacia arriba
+    - Al explotar → generar ítem/fruta en esa posición
+    - Los assets ya existen en img new/trampas/
+
+  ✗ Explosión de burbuja (Pop grande)
+    - Animación al explotar (pop10-pop14, luego destruir objeto)
+    - Los assets ya existen en img new/burbujas/
+
+
+--------------------------------------------------------------------------------
+F. SISTEMA DE ENEMIGOS (Robots)
+--------------------------------------------------------------------------------
+
+  ✗ Objeto Robot Normal (robot0)
+    - Sprite con animaciones: caminar izquierda/derecha (robot000-robot017),
+      disparar izquierda/derecha (robot005-robot007 / robot015-robot017)
+    - Comportamiento de plataformas (o gravedad manual)
+    - Movimiento horizontal en la dirección actual a velocidad aleatoria (1-3 px)
+    - Al chocar con pared → invertir dirección
+    - Cada 100-250 frames → cambiar dirección aleatoriamente
+    - Con 2/3 de probabilidad, moverse hacia el jugador
+    - Spawn desde la fila superior del nivel (caen desde arriba)
+    - Los assets ya existen en img new/enemigos/robot0/
+
+  ✗ Objeto Robot Agresivo (robot1)
+    - Igual que robot0 pero con sprites de robot1
+    - Lógica adicional: detectar burbujas en su misma altura y a menos de 200px
+      → girar hacia la burbuja y disparar para destruirla
+    - Los assets ya existen en img new/enemigos/robot1/
+
+  ✗ Sistema de disparo de enemigos (Bolt)
+    - Crear objeto bolt (bolt_robot0 / bolt_robot1)
+    - Velocidad horizontal fija: 7 px/frame, sin gravedad
+    - Probabilidad de disparo por frame: 0.001 base + 0.0001 * nivel_actual
+    - Si el jugador está a la misma altura → probabilidad x10
+    - El bolt se dispara 8 frames después de que el robot "decide" disparar
+      (para sincronizar con la animación)
+    - Al colisionar con pared, borde o jugador → destruir
+    - Al colisionar con burbuja → forzar explosión de la burbuja
+    - Los assets ya existen en img new/enemigos/robot0/ y robot1/
+
+  ✗ Sistema de spawn de enemigos por nivel
+    - Total enemigos = 10 + número_de_nivel
+    - Enemigos agresivos = 1 + int(nivel / 1.5)
+    - Crear un enemigo cada 81 frames (1.35 segundos)
+    - Máximo simultáneo en pantalla = min((nivel + 6) / 2, 8)
+    - Spawn en columna aleatoria de la fila superior del nivel
+
+  ✗ Sistema de muerte de enemigo
+    - Al ser atrapado por burbuja → desaparecer (la burbuja muestra al enemigo dentro)
+    - No existe animación de muerte fuera de la burbuja (solo atrapamiento)
+
+
+--------------------------------------------------------------------------------
+G. SISTEMA DE FRUTAS / ÍTEMS
+--------------------------------------------------------------------------------
+
+  ✗ Objeto Fruta (Fruit)
+    - Tipos: manzana (fruit0x), frambuesa (fruit1x), limón (fruit2x)
+    - Tipos especiales: corazón extra (health), vida extra (life)
+    - Aparece al explotar burbuja con enemigo atrapado
+    - También aparece cada 100 frames en posición aleatoria
+    - Tiene gravedad (cae y aterriza en plataformas)
+    - Tiempo de vida: 500 frames (~8 segundos), luego desaparece con animación pop
+    - 4 frames de animación [0, 1, 2, 1] ciclando
+    - Al colisionar con jugador → aplicar efecto y destruir:
+        · Manzana:    +100 puntos
+        · Frambuesa:  +200 puntos
+        · Limón:      +300 puntos
+        · Corazón:    +1 corazón (máximo 3)
+        · Vida:       +1 vida grande
+    - Los assets ya existen en img new/frutas/ e img new/iconos/
+
+  ✗ Animación Pop pequeño (al recoger ítem o al desaparecer fruta)
+    - Assets: pop00-pop05 en img new/recoger/
+
+
+--------------------------------------------------------------------------------
+H. CONDICIÓN PARA PASAR DE NIVEL
+--------------------------------------------------------------------------------
+
+  ✗ Lógica de fin de nivel
+    Condición: cuando se cumplan TODOS estos criterios al mismo tiempo:
+      1. Variable enemigos_pendientes = 0 (todos los enemigos del nivel han aparecido)
+      2. Número de robots en escena = 0 (todos eliminados)
+      3. No hay burbujas con enemigo atrapado en pantalla
+      4. No hay frutas activas en pantalla
+      5. No hay animaciones de pop activas
+
+    Acción al cumplir: cambiar a la siguiente escena de nivel
+      nivel1 → nivel2 → nivel3 → nivel4 → (volver a nivel1 con dificultad aumentada)
+
+    IMPORTANTE: incrementar variable nivel_actual al pasar de nivel.
+
+
+--------------------------------------------------------------------------------
+I. MENÚ DE INICIO (Escena que falta crear)
+--------------------------------------------------------------------------------
+
+  ✗ Escena "menu" o "lobby"
+    Objetos necesarios:
+      - Imagen de título animada (titulo_00 a titulo_07, 8 frames)
+      - Animación "Press Space" (space0 a space9, 10 frames)
+        · Fórmula del original: aparece en 40 frames, se queda en frame 9
+          por 120 frames, luego repite el ciclo
+      - Música de fondo: theme.ogg
+      - (Opcional) fondo del nivel corriendo sin jugador activo
+
+    Lógica:
+      - Al presionar Space → inicializar variables globales + cambiar a nivel1
+
+    Assets disponibles:
+      - img new/titulo/ → titulo_00.png a titulo_07.png
+      - img new/boton inicio/ → space0.png a space9.png
+
+
+--------------------------------------------------------------------------------
+J. PANTALLA DE GAME OVER (Escena que falta crear)
+--------------------------------------------------------------------------------
+
+  ✗ Escena "game_over"
+    Objetos necesarios:
+      - Imagen de Game Over animada (gameover_00 a gameover_07, 8 frames)
+      - Mostrar puntuación final del jugador
+      - Mostrar nivel al que llegó
+      - Sonido "over" al entrar a esta escena
+
+    Lógica:
+      - Al presionar Space → cambiar a escena de menú (reiniciar variables globales)
+
+    Assets disponibles:
+      - img new/gameover/ → gameover_00.png a gameover_07.png
+
+
+--------------------------------------------------------------------------------
+K. SONIDOS (no hay ninguno implementado actualmente)
+--------------------------------------------------------------------------------
+
+  ✗ Ningún sonido está implementado en los eventos del proyecto.
+  Todos los archivos de sonido están en cavern-master/sounds/ y deben importarse:
+
+  Acción                      | Archivo de sonido
+  ----------------------------|----------------------------------
+  Disparar burbuja            | blow0.ogg - blow3.ogg (elegir al azar)
+  Burbuja explota             | pop0.ogg - pop3.ogg  (elegir al azar)
+  Enemigo atrapado            | trap0.ogg - trap3.ogg (elegir al azar)
+  Enemigo dispara             | laser0.ogg - laser3.ogg (elegir al azar)
+  Jugador salta               | jump0.ogg
+  Jugador recibe daño         | ouch0.ogg - ouch3.ogg (elegir al azar)
+  Jugador muere               | die0.ogg
+  Recoger corazón/vida        | bonus0.ogg
+  Recoger fruta (puntos)      | score0.ogg
+  Inicio de nivel             | level0.ogg
+  Game Over                   | over0.ogg
+  Música de fondo             | theme.ogg (ya disponible)
+
+
+--------------------------------------------------------------------------------
+L. DETALLES VISUALES FALTANTES
+--------------------------------------------------------------------------------
+
+  ✗ Parpadeo del jugador al recibir daño
+    - El sprite debe alternar visible/invisible cada frame durante ~200 frames
+
+  ✗ Animación de golpe/rebote al recibir daño
+    - El jugador se desliza lateralmente en la dirección del disparo
+
+  ✗ HUD completo en pantalla durante el juego:
+    - Corazones (izquierda abajo): 3 iconos de health.png / health_empty.png
+    - Vidas grandes (junto a corazones): iconos life_00.png (máx. 2 visibles + plus)
+    - Puntuación (derecha abajo): texto numérico
+    - Nivel actual (centro abajo): texto "NIVEL X"
+
+  ✗ Animación de soplar del jugador (al disparar burbuja)
+    - Activar animación "soplar" (jugador_soplar_00 a jugador_soplar_06)
+    - Solo mientras fire_timer > 0 (~20 frames después de disparar)
+
+  ✗ Animación de muerte completa
+    - Usar jugador_muerte_00 a jugador_muerte_05
+    - El jugador cae atravesando las plataformas (desactivar colisiones)
+    - Esperar que salga de pantalla antes de hacer respawn
+
+
+================================================================================
+3. ORDEN SUGERIDO DE IMPLEMENTACIÓN
+================================================================================
+
+Se recomienda implementar en este orden para tener siempre algo jugable:
+
+  Fase 1 - Variables y UI básica:
+    1. Crear variables globales (vidas, corazones, puntuacion, nivel_actual)
+    2. Crear HUD: corazones y vidas en pantalla
+    3. Crear contador de puntuación
+
+  Fase 2 - Jugador completo:
+    4. Sistema de daño al jugador (colisión con bolt → restar corazón)
+    5. Invulnerabilidad y parpadeo
+    6. Muerte y respawn
+    7. Animación de soplar al disparar
+
+  Fase 3 - Burbujas:
+    8. Objeto burbuja con movimiento horizontal y flotación
+    9. Límite de 5 burbujas y recarga de disparo
+    10. Colisión burbuja con enemigo → atrapar
+
+  Fase 4 - Enemigos:
+    11. Objeto robot0 con movimiento y rebote en paredes
+    12. Sistema de disparo de enemigos (bolt)
+    13. Robot1 con IA de disparo a burbujas
+    14. Sistema de spawn por nivel
+
+  Fase 5 - Frutas y ítems:
+    15. Objeto fruta con gravedad y tiempo de vida
+    16. Efecto al recoger (puntos, corazón, vida)
+    17. Aparición aleatoria periódica
+
+  Fase 6 - Lógica de nivel:
+    18. Condición para pasar de nivel
+    19. Transición entre niveles
+
+  Fase 7 - Pantallas de menú y game over:
+    20. Escena de menú con animación de título
+    21. Escena de Game Over
+    22. Flujo completo: menú → juego → game over → menú
+
+  Fase 8 - Sonido y pulido:
+    23. Implementar todos los sonidos
+    24. Ajustar dificultad por nivel
+    25. Pruebas y balance
+
+
+================================================================================
+4. OBSERVACIONES ADICIONALES
+================================================================================
+
+  - El nivel4 usa los mismos objetos que nivel2 (paralax_nivel2, nivel2, fondo_nivel2)
+    aunque debería usar objetos propios del nivel 4 (acero). Esto parece ser un error
+    o está pendiente de corregir.
+
+  - El proyecto no tiene ninguna variable global definida todavía. Todas las
+    mecánicas de vidas, puntuación y progresión de nivel dependen de crearlas.
+
+  - El jugador (objeto global) solo tiene movimiento básico de plataformas y
+    animaciones. Todo lo relacionado con disparo, daño y muerte está pendiente.
+
+  - La hoja de eventos "personaje" ya maneja bien las animaciones correr/quieto/
+    saltar/caer y el flip horizontal. Esa parte no necesita tocarse.
+
+  - Los assets de UI (corazones, vidas, plus, fuentes) están todos listos.
+    Solo falta crear los objetos y la lógica en GDevelop.
+
+  - Los 4 niveles ya tienen teleports arriba/abajo funcionando correctamente.
+
+  - La música theme.ogg existe pero no está implementada en ninguna escena.
+
+
+================================================================================
+FIN DEL DOCUMENTO
+Análisis generado para el proyecto de rediseño de Cavern en GDevelop.
+================================================================================

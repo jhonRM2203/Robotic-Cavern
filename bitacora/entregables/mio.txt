@@ -1,0 +1,92 @@
+bueno aqui te digo como fue todo el proceso que hice para hacer el proyecto lo mas desmenusado posible para que cualquier
+persona que no sabe nada del tema entienda como lo hice y pueda recrear el proyecto (esto esta pensado mas que todo para
+estudiantes de grado 8 a 11 de bachillerato)
+
+lo primero que hice despues de mirar el juego clasico fue entender como era que se hacian las cosas en ese juego, mecanicas
+acciones, condiciones, funciones, personajes y de una ves ir ideando una posible historia para ese juego
+
+luego me pude a hacer todo el material audio visual que usaria, fondos, los sprites de los personajes, botones, audios para el juego 
+como la musica que se escucha y tambien los efectos de sonido que estaria utilizando, todo esto lo hice usando la generacion de 
+imagenes por codigo de claude ia, la generacion de imagenes detalladas de chatgpt, musica del juego con suno ia y los efectos de sonido
+los saque de diferentes audios subidos en youtube
+
+luego me pude a hacer la historia, el concepto sale del como se juega el juego clasico, todo lo que se ve me llevo a idear la
+historia que vemos en el juego
+
+teniendo todo esto entonces si me puse a empezar la creacion del juego
+
+para la creacion del juego me puse a revisar la documentacion de gdevelop5 y tambien me ayude mucho con una play list de youtube llamada
+como hacer un video juego con gdevelop5 https://youtube.com/playlist?list=PLO93miOntN62bf1ng-gulzhaNjigi2g-Z&si=CuiyATrmvpsQLnA6 esos videos fueron
+de mucha ayuda ya que me dieron las bases necesarias para poder hacer la recreacion del juego clasico en gdevelop5 tal y como queria
+
+entonces empece a descargar primero todo lo que necesitaba
+(agrega por favor todo lo que se necesito instalar para la creacion del proyecto segun lo que dice los demas txt en la carpeta entregables
+y pon los pasos para descargar y instalar cada cosa por favor)
+
+luego de haber descargado todo eso entonces si me puse a crear el proyecto segun las indicaciones de la play list anteriormente mencionada, apoyandome
+en la documentacion de gdevelop5 y en la ia de claude para entender mucho mejor la logica de como se colocan las acciones, las condiciones
+los sonidos, la musica, tambien como se hacen las escenas, los grupos de escenas, variables de escena, variables gobales, variables de objeto
+tambien como se usan los eventos externos, las extenciones, como usar los recursos que brinda el juego, todo esto lo reise primero antes de comenzar a 
+hacer el juego como tal
+
+luego de ver todo esto entonces si cree la primera escena del juego, agregre los sprites correspondientes de cada objeto de escena y todos los que iba a 
+usar en los demas niveles los hice globales, agrege todas las variables que usaria, de escena, globales y de objeto de cada objeto y escena
+
+posteriormente a eso ya que tenia la historia me pude a dividir la historia en fragmentos para que se pudieran colocar en las escenas en las que iban
+luego de tener ese material listo, cree un grupo de escenas en las que tengo todos los grupos de escenas para cada momento de la historia, asi que 
+active las cuadriculas en la escena y de di a mostrar la mascara y en cada escena de ese grupo que serian la de la historia, fui agregando un objeto sprite
+con los frames de cada escena, hice un objeto de un cuadrado negor para usarlo como findo en las letras y agregue objetos de texto en cada escena
+para poner el texto
+
+luego de eso con claude cree un boton que seria el que usaria para ir de una escena a otra, lo coloque en todas las escenas de la historia mas de de los creditos
+y cuando termine de poner todo eso ya tenia todo lo que seria el modo historia terminado, solo faltaba hacer la programacion de todo esto
+
+luego de haber terminado y entendido como se agrega cada cosa en las escenas me puse a poner todos los objetos que necesitaba en los objetos globales
+cree nuevas escenas para el game over, el menu, el nivel 1, 2, 3 y 5 y luego tambien las escenas de las entradas antes de comenzar el juego
+termiando todo esto entonces ya lo que faltaba era hacer que todo cobrara vida por haci decirlo
+
+asi que abri las hojas de los eventos de todas las escenas que necesitava y tambien cree hojas de eventos externos para poder usar esa misma 
+programacion en otras escenas (añade el nombre de las hojas de eventos externos que hay y en donde funcionan cada una)
+
+luego de crearlas todas ya solo faltaba empesar poner las configuraciones de cada hoja de eventos y asi poder darle vida el juego
+
+primero empece con el perjosaje (jugador)
+(añade de la misma manera en la que se esta hablando todo lo que es configuracion del jugador, en que hoja de eventos estan, a que hoja de eventos se llama
+y como poner todas las condiciones, acciones y comentarios de cada uno de los eventos del jugador)
+
+luego me puse a hacer todo lo referente a los Enemigos
+(de la mis ma forma que antes tambien haras lo mismo para los enemigos)
+
+despues lo de los bolt que serian los disparos de los enemigos y ahi tenia que asignarle algunas cosas al jugador para que perdiera vida 
+ya que en un principio le asigne la tecla h solo para probar que si recivia daño y perdia vida
+
+luego de hacer todo esto me pase a poner las configuraciones del HUD que seria en donde salen las vidas, los puntos, controles tactiles y el nombre
+del nivel, habiando puesto el HUD lo que hice fue pasarme a hacer las configuraciones del paralaje pero para eso necesitaba crear los mapas
+
+use tiled para hacer todos los mapas y los recursos que iba a usar los hice con chatgpt descargue las imagenes con claude las separe una por una con un formato 
+establecido pra todas y luego en tiled use los bloques de objetos de escena (los cuadritos que se usand en el mapa por ejemplo) para crear los mapas de cada nivel
+no use pacas en este momento, las capas las uso en el paralaje y en la creacion de los niveles para que todo quede en donde debe y nada este superpuesto por encima de alguna otra cosa
+
+luego de hacer la configuraciones del para lax para que todo se moviera como devia (coloca tambien esas configuraciones aqui) me puse a hacer 
+un top de los mejores puntajes (tambien pon esas configuraciones)
+
+y liego de eso cada que hacia algo nuevo volvia a ejecutar la vista previa para poder testear lo que habia hecho anteriormente
+
+cuando estaba haciendo los niveles en cada uno tube que hacer configuraciones en sus hojas de eventos, tambien poner los puntos en los que
+se teletrasporta el jugador y tambien los eneigos, (toda esta informacion la puedes encontrar en las coversaciones que tube con claude, todo esto esta
+recopilado en la carpeta chats con ia)
+
+teniendo en cuenta todo esto quisiera que me hagas aqui mismo un txt muy pero muy elaborado con lenguaje natural y simple
+
+ese txt sera la el manual de creacion del juego de principio a fin, muy pero muy detallado, de como se hace todo, explica bien como se hace cada evento, escena, condicion, accion y todo lo que tube que hacer
+para crear este proyecto
+
+todo muy minusiosamente para poder hacer que ese manual de creacion sea lo mas digerible posible, todo lo que se repita como por ejemplo repeter el como crear una escena con todas las escenas eso no lo hagas
+
+coloca una parte que sea teorica para saber como se coloca cada vairable global o no, objetos globales o no, las escenas, las condiciones, las acciones y todo lo que haga falta
+
+no escatimes en lo largo del documento y no omitas nada, a menos que sean procesos que se repiten
+
+necesito que pongas todo, como hacer cada parte del proyecto de punta a punta
+
+vas a crear ese txt en esta misma carpeta en la que esta este document y lo llamaras manual final.txt

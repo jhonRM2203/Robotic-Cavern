@@ -1,0 +1,773 @@
+================================================================================
+         BITÁCORA DE DESARROLLO
+         Proyecto: Robotic Cavern (Rediseño de Cavern en GDevelop)
+         Desarrollador: JhonRMA — JT Games
+         Período: Lunes 19 de octubre — Miércoles 11 de noviembre de 2026
+================================================================================
+
+NOTA SOBRE ESTE DOCUMENTO:
+  Esta bitácora registra todo el proceso de creación del juego Robotic Cavern,
+  desde el primer día de trabajo hasta la entrega final. Incluye los avances
+  logrados cada día, los problemas que surgieron y cómo se resolvieron.
+  En los espacios indicados deben insertarse las capturas de pantalla
+  correspondientes.
+
+
+================================================================================
+SEMANA 1: DEL 19 AL 25 DE OCTUBRE DE 2026
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+LUNES 19 DE OCTUBRE
+Horas trabajadas: 6 horas y 20 minutos
+(2:00 PM – 5:00 PM y 8:40 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Este fue el primer día oficial de trabajo en el proyecto. Se partió desde
+  un juego llamado "Cavern" (inspirado en Bubble Bobble), hecho en Python,
+  que se descargó como referencia. La idea era recrearlo completamente en
+  GDevelop 5 con gráficos nuevos, historia propia y mecánicas similares.
+
+  El primer paso fue estudiar el juego original y entender cómo funcionaba.
+  Se identificaron los sprites de los personajes, los enemigos, las burbujas
+  y los fondos. Luego se empezó a crear la estructura base del proyecto en
+  GDevelop.
+
+ACTIVIDADES REALIZADAS:
+  - Descarga y análisis del juego original Cavern (Python)
+  - Creación del proyecto nuevo en GDevelop 5
+  - Importación inicial de los sprites del jugador
+  - Creación de la primera escena (nivel 1)
+  - Configuración inicial del personaje con comportamiento de plataformas
+
+[AQUÍ VA LA FOTO: Carpeta del proyecto en GDevelop mostrando la estructura inicial]
+
+[AQUÍ VA LA FOTO: Juego original de Python (Cavern) ejecutándose como referencia]
+
+HORAS DEL DÍA: 6 horas y 20 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+MARTES 20 DE OCTUBRE
+Horas trabajadas: 6 horas y 20 minutos
+(2:00 PM – 5:00 PM y 8:40 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se trabajó en los fondos animados del primer nivel. Se crearon los gráficos
+  de fondo usando inteligencia artificial y se organizaron en frames para
+  hacer una animación fluida. Se implementó el primer fondo con paralaje
+  (efecto de profundidad donde las capas del fondo se mueven a velocidades
+  distintas, dando sensación de distancia).
+
+  También se empezó a trabajar en el diseño del nivel 1 con Tiled Map Editor,
+  que es una herramienta para dibujar los mapas de plataformas. Para aprender
+  a usarlo se siguió un tutorial en video que explicaba paso a paso cómo
+  crear mapas de niveles para videojuegos.
+
+  El proceso seguido para crear los mapas de niveles con Tiled fue:
+
+  CÓMO SE CREARON LOS MAPAS CON TILED MAP EDITOR:
+
+  ¿Qué es Tiled?
+    Tiled es un editor de mapas 2D gratuito que permite diseñar niveles para
+    videojuegos usando bloques de terreno (llamados "tiles" o "tilesets").
+    Los mapas que se diseñan en Tiled se pueden exportar y usar en cualquier
+    motor de videojuegos, incluyendo GDevelop.
+
+  ¿Qué es un tileset?
+    Un tileset (mapa de tejas) es una imagen que contiene varios trozos de
+    terreno o elementos decorativos. A partir de esa imagen se van colocando
+    los bloques para construir el nivel.
+
+  Paso 1 — Crear un proyecto en Tiled:
+    Al abrir Tiled, se crea un nuevo proyecto (New Project). El proyecto
+    agrupa todos los mapas y tilesets del juego en un solo lugar.
+    Se creó una carpeta llamada "mi plataforma" para guardar todos los
+    archivos de los niveles del juego.
+
+  Paso 2 — Crear un nuevo mapa:
+    Se crea un nuevo mapa (New Map). Las configuraciones usadas fueron:
+    - Orientación: Ortogonal (cuadrículas cuadradas, el estilo más común
+      para juegos de plataformas)
+    - Tamaño de cada bloque: 25 x 25 píxeles (para que coincida con los
+      sprites de los bloques del juego)
+    - Tamaño del mapa: el número de bloques de ancho y alto del nivel
+
+  Paso 3 — Agregar el tileset:
+    Se cargó la imagen que contiene los bloques del juego (block0 a block3).
+    Se configuró el tamaño de cada bloque (25x25 px) y los márgenes entre
+    ellos. Esto permite que Tiled divida la imagen correctamente en bloques
+    individuales listos para usar.
+
+  Paso 4 — Diseñar el nivel:
+    Con las herramientas de Tiled se fue construyendo el nivel:
+    - Brocha de estampar: para colocar bloques uno a uno
+    - Herramienta de relleno: para llenar áreas grandes rápidamente
+    - Goma de borrar: para corregir errores
+    Se usaron capas separadas para el suelo, las plataformas y los límites
+    del nivel. Trabajar con capas permite modificar cada parte sin afectar
+    las demás.
+
+  Paso 5 — Agregar colisiones:
+    En el editor de tilesets de Tiled se configuraron las máscaras de colisión
+    de cada bloque. Este paso es muy importante: le indica al motor de juego
+    (GDevelop) cuáles bloques son sólidos y cuáles no.
+    Se seleccionaron todos los bloques a la vez y se aplicó la colisión
+    automática (Detect Bounding Box). También se les asignó la clase
+    "plataforma" para que GDevelop los reconociera correctamente.
+
+  Paso 6 — Exportar en formato JSON:
+    El mapa se exportó en formato JSON (Archivo → Exportar como → JSON).
+    Este formato es el que GDevelop puede leer directamente.
+    Cada nivel generó dos archivos: el mapa (.tmj / .json) y el tileset (.tsj).
+
+  Paso 7 — Importar a GDevelop:
+    En GDevelop se creó un objeto de tipo "Tilemap", se apuntó al archivo
+    JSON exportado y se le agregó el comportamiento "Obstáculo de plataforma"
+    para que el jugador pudiera caminar sobre los bloques.
+
+ACTIVIDADES REALIZADAS:
+  - Generación de imágenes de fondo del nivel 1 (ciudad tecnológica azul)
+  - Separación del fondo en frames para animación
+  - Implementación del efecto paralaje con 3 capas
+  - Estudio del tutorial de Tiled Map Editor para aprender a usarlo
+  - Creación del proyecto en Tiled y configuración del tileset de bloques
+  - Primer diseño del mapa del nivel 1 en Tiled Map Editor
+  - Configuración de colisiones en los bloques del tileset
+  - Exportación del mapa a JSON e importación a GDevelop
+
+[AQUÍ VA LA FOTO: Fondo animado del nivel 1 en GDevelop con el efecto paralaje]
+
+[AQUÍ VA LA FOTO: Tiled Map Editor con el diseño del mapa del nivel 1]
+
+[AQUÍ VA LA FOTO: El editor de colisiones de Tiled con los bloques ya configurados]
+
+[AQUÍ VA LA FOTO: La ventana de exportación del mapa en JSON desde Tiled]
+
+HORAS DEL DÍA: 6 horas y 20 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+MIÉRCOLES 21 DE OCTUBRE
+Horas trabajadas: 6 horas y 20 minutos
+(2:00 PM – 5:00 PM y 8:40 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se terminó el mapa del nivel 1 y se crearon los mapas de los niveles 3 y 4
+  siguiendo el mismo proceso aprendido el día anterior con Tiled Map Editor.
+  Cada nivel tiene su propio tileset de bloques con un diseño visual diferente:
+  azul tecnológico, lava, jungla y acero metálico.
+
+  También se generaron los fondos animados de los cuatro niveles y se configuró
+  el sistema de cámara para que siguiera al jugador en cada nivel.
+
+ACTIVIDADES REALIZADAS:
+  - Diseño del mapa del nivel 3 (jungla) en Tiled Map Editor
+  - Diseño del mapa del nivel 4 (acero metálico) en Tiled Map Editor
+  - Configuración de colisiones en los tilesets de nivel 3 y nivel 4
+  - Exportación de los mapas a JSON e importación de los 4 niveles a GDevelop
+  - Generación de fondos animados para los 4 niveles (24 frames cada uno)
+  - Configuración de la cámara que sigue al jugador en cada escena
+  - Configuración del bloqueo de cámara para que no salga del nivel
+  - Implementación de los teletransportes (entrar por arriba = salir por abajo)
+
+[AQUÍ VA LA FOTO: Los 4 mapas de niveles terminados en Tiled Map Editor]
+
+[AQUÍ VA LA FOTO: Los 4 fondos animados de los niveles en la carpeta del proyecto]
+
+[AQUÍ VA LA FOTO: El juego corriendo con el nivel 1 y el fondo animado visible]
+
+[AQUÍ VA LA FOTO: El Tilemap importado en GDevelop con las plataformas y colisiones]
+
+PROBLEMA ENCONTRADO:
+  El teletransporte no funcionaba bien. El jugador siempre aparecía en el mismo
+  lado derecho sin importar por dónde saliera.
+
+SOLUCIÓN:
+  Se revisó el código de eventos y se encontró que había acciones duplicadas
+  que sobreescribían la posición X del jugador. Al eliminar las acciones
+  duplicadas, los teletransportes funcionaron correctamente en las cuatro
+  direcciones.
+
+HORAS DEL DÍA: 6 horas y 20 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+JUEVES 22 DE OCTUBRE
+Horas trabajadas: 8 horas y 30 minutos
+(12:00 PM – 5:00 PM y 8:30 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Día muy productivo. Se terminaron los mapas de los 4 niveles y se empezó
+  a trabajar en los recursos gráficos personalizados: los sprites del jugador
+  PIXEL, los enemigos robots, las burbujas y los efectos visuales. Se tomó
+  como base los sprites del juego original y se rediseñaron con un estilo
+  de pixel art más moderno.
+
+ACTIVIDADES REALIZADAS:
+  - Terminación del mapa del nivel 2 (lava) en Tiled Map Editor
+  - Organización y clasificación de todos los sprites disponibles
+  - Importación de los sprites del jugador (quieto, correr, saltar, soplar, muerte)
+  - Importación de los sprites de los enemigos (robot0 y robot1)
+  - Importación de las burbujas, trampas, frutas y efectos de explosión
+  - Configuración de las animaciones del jugador en GDevelop
+
+[AQUÍ VA LA FOTO: Panel de animaciones del jugador en GDevelop con todos los frames]
+
+[AQUÍ VA LA FOTO: Los sprites del jugador PIXEL mostrando las 5 animaciones]
+
+HORAS DEL DÍA: 8 horas y 30 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+VIERNES 23 DE OCTUBRE
+Horas trabajadas: 9 horas y 30 minutos
+(11:00 AM – 5:00 PM y 8:30 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se terminó la configuración base del jugador y se empezó a implementar
+  el sistema de animaciones automáticas: el personaje cambia de animación
+  según lo que hace (corre cuando se mueve, salta cuando está en el aire,
+  se da vuelta cuando cambia de dirección). Todo esto se hizo en una hoja
+  de eventos separada llamada "personaje" para mantener el proyecto ordenado.
+
+ACTIVIDADES REALIZADAS:
+  - Implementación de la lógica de animaciones automáticas del jugador
+  - Configuración del volteo de sprite según dirección (izquierda/derecha)
+  - Creación de la hoja de eventos externa "personaje"
+  - Creación de la hoja de eventos externa "fondo-camara-paralax"
+  - Importación de los botones táctiles para la versión móvil
+  - Pruebas generales del movimiento del jugador en los 4 niveles
+
+[AQUÍ VA LA FOTO: La hoja de eventos "personaje" en GDevelop con la lógica de animaciones]
+
+[AQUÍ VA LA FOTO: El jugador PIXEL corriendo y saltando en el nivel 1]
+
+HORAS DEL DÍA: 9 horas y 30 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+SÁBADO 24 DE OCTUBRE
+Horas trabajadas: 11 horas y 50 minutos
+(1:00 PM – 8:00 PM y 9:00 PM – 1:50 AM del domingo)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Día de mucho trabajo. Se implementó el sistema de HUD (la barra de información
+  en pantalla: corazones, vidas, puntuación y número de nivel). También se
+  crearon todas las variables globales que el juego necesita para funcionar
+  entre escenas (vidas, corazones, puntuación y nivel actual).
+
+ACTIVIDADES REALIZADAS:
+  - Creación de variables globales: vidas=2, corazones=3, puntuacion=0, nivel_actual=1
+  - Diseño y colocación de la franja inferior del HUD
+  - Implementación de los 3 iconos de corazón en pantalla
+  - Implementación de los iconos de vida grande
+  - Implementación del símbolo "+" para cuando hay más de 2 vidas
+  - Implementación del texto de puntuación (posición dinámica)
+  - Implementación del texto "NIVEL X"
+
+[AQUÍ VA LA FOTO: El HUD completo en la parte inferior del nivel 1]
+
+[AQUÍ VA LA FOTO: Las variables globales en el panel de GDevelop]
+
+PROBLEMA ENCONTRADO:
+  La franja del HUD se movía con la cámara en lugar de quedarse fija en la
+  pantalla. Esto hacía que la información desapareciera cuando el jugador
+  se alejaba del punto inicial.
+
+SOLUCIÓN:
+  Se movió la franja del HUD a una capa especial llamada "HUD" y se desmarcó
+  la opción "Dibuja las formas relativas a la posición del objeto". Con eso,
+  el HUD quedó fijo en pantalla sin importar a dónde se moviera la cámara.
+
+HORAS DEL DÍA: 11 horas y 50 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+DOMINGO 25 DE OCTUBRE
+Horas trabajadas: 10 horas y 40 minutos
+(2:00 PM – 10:40 PM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se implementó el sistema completo de daño al jugador y el sistema de burbujas.
+  Fue un día muy intenso porque estas dos mecánicas son el corazón del juego.
+  Todo esto se desarrolló con la ayuda de Claude AI para pensar la lógica
+  de los eventos en GDevelop.
+
+ACTIVIDADES REALIZADAS:
+
+  SISTEMA DE DAÑO:
+  - Lógica para restar un corazón cuando el jugador recibe daño
+  - Sistema de invulnerabilidad temporal de 3.33 segundos con parpadeo
+  - Sacudida de pantalla al recibir golpe (0.4 segundos)
+  - Animación de muerte cuando se pierden todos los corazones
+  - Sistema de respawn (reaparecer) con nuevos 3 corazones
+  - Lógica de Game Over cuando se pierden todas las vidas
+
+  SISTEMA DE BURBUJAS:
+  - Objeto burbuja con animaciones de crecimiento y flotación
+  - Movimiento horizontal al disparar, luego flotación hacia arriba
+  - Límite de 5 burbujas al mismo tiempo en pantalla
+  - Tiempo de vida de la burbuja: 4.17 segundos
+  - Animación de explosión al destruirse
+  - Animación de soplar en el jugador al disparar
+
+[AQUÍ VA LA FOTO: El jugador disparando una burbuja en el nivel 1]
+
+[AQUÍ VA LA FOTO: La burbuja flotando hacia arriba después de rebotar en la pared]
+
+[AQUÍ VA LA FOTO: El jugador parpadeando durante la invulnerabilidad]
+
+PROBLEMA ENCONTRADO:
+  La burbuja no se detenía cuando llegaba a la pared y seguía moviéndose
+  hacia afuera de los límites del nivel.
+
+SOLUCIÓN:
+  Se configuró correctamente la detección de colisión con los bloques del
+  tilemap. Cuando la burbuja choca con cualquier superficie, se activa la
+  segunda fase de movimiento (flotación hacia arriba) y se detiene el
+  movimiento horizontal.
+
+HORAS DEL DÍA: 10 horas y 40 minutos
+
+TOTAL SEMANA 1: 59 horas y 30 minutos
+
+
+================================================================================
+SEMANA 2: DEL 27 DE OCTUBRE AL 2 DE NOVIEMBRE DE 2026
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+MARTES 27 DE OCTUBRE
+Horas trabajadas: 9 horas
+(12:00 PM – 5:00 PM y 8:00 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se empezó a trabajar en el sistema de enemigos. Los robots debían aparecer
+  solos en el nivel, caminar de un lado al otro, girar cuando chocaban con
+  una pared y disparar bolts (rayos) hacia el jugador. Este fue uno de los
+  sistemas más complejos del juego.
+
+ACTIVIDADES REALIZADAS:
+  - Creación del objeto robot0 (robot normal, azul) con sus animaciones
+  - Implementación del movimiento horizontal del robot
+  - Sistema de giro al chocar con paredes o bordes
+  - Configuración del spawn (aparición) automático de robots al inicio del nivel
+  - Primeras pruebas del robot moviéndose en el nivel 1
+
+[AQUÍ VA LA FOTO: El robot normal (robot0) caminando en el nivel 1]
+
+[AQUÍ VA LA FOTO: El evento de spawn del robot en el panel de GDevelop]
+
+PROBLEMA ENCONTRADO:
+  Los robots no giraban correctamente al llegar al borde del nivel y caían
+  al vacío en lugar de darse vuelta.
+
+SOLUCIÓN:
+  Se ajustó la lógica de detección de bordes usando las coordenadas exactas
+  del nivel y se forzó el cambio de dirección antes de que el robot llegara
+  al límite de la pantalla.
+
+HORAS DEL DÍA: 9 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+MIÉRCOLES 28 DE OCTUBRE
+Horas trabajadas: 6 horas
+(3:00 PM – 5:00 PM y 8:00 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Día más corto porque se tuvo que ayudar con asuntos del hogar. Aun así,
+  se logró avanzar con el sistema de disparo de los enemigos y se empezó
+  con el robot agresivo.
+
+ACTIVIDADES REALIZADAS:
+  - Implementación del sistema de disparos de los robots (bolts)
+  - Los bolts viajan en horizontal y desaparecen al chocar con paredes
+  - Colisión del bolt con el jugador para aplicar daño
+  - Creación del robot1 (robot agresivo, amarillo) con sus animaciones
+  - Primeras pruebas del robot1 en el nivel 1
+
+[AQUÍ VA LA FOTO: El bolt del robot viajando hacia el jugador]
+
+[AQUÍ VA LA FOTO: El jugador recibiendo daño por el bolt del robot]
+
+HORAS DEL DÍA: 6 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+JUEVES 29 DE OCTUBRE
+Horas trabajadas: 5 horas y 30 minutos
+(2:30 PM – 4:00 PM y 8:00 PM – 12:00 AM)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se terminó el sistema de enemigos para el nivel 1. El logro más importante
+  fue implementar el atrapamiento del robot dentro de la burbuja: cuando
+  la burbuja del jugador choca con un robot, el robot desaparece y la burbuja
+  cambia de animación mostrando al robot atrapado dentro.
+
+ACTIVIDADES REALIZADAS:
+  - Implementación del atrapamiento del robot en la burbuja
+  - La burbuja cambia a animación de "trampa" cuando atrapa a un robot
+  - El bolt del robot destruye las burbujas al tocarlas
+  - Sistema completo de spawn por nivel (cuántos robots aparecen y cuándo)
+  - Copiado de toda la lógica de enemigos a los niveles 2, 3 y 4
+
+[AQUÍ VA LA FOTO: La burbuja con el robot atrapado adentro flotando hacia arriba]
+
+[AQUÍ VA LA FOTO: El bolt del robot chocando y destruyendo una burbuja]
+
+HORAS DEL DÍA: 5 horas y 30 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+VIERNES 30 DE OCTUBRE
+Horas trabajadas: 10 horas
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Día completo trabajando en las frutas y los ítems coleccionables. Al explotar
+  una burbuja con un robot dentro, debe aparecer una fruta que el jugador puede
+  recoger para obtener puntos. También se implementaron los corazones extra
+  y las vidas extra como ítems especiales.
+
+ACTIVIDADES REALIZADAS:
+  - Objeto fruta con 3 tipos: manzana (+100), frambuesa (+200), limón (+300)
+  - Las frutas tienen gravedad (caen y aterrizan en las plataformas)
+  - Las frutas desaparecen solas a los 500 frames (~8 segundos)
+  - Animación pop al recoger una fruta o al expirar su tiempo
+  - Ítem de corazón extra (da +1 corazón al jugador)
+  - Ítem de vida extra (da +1 vida grande al jugador)
+  - Aparición periódica de frutas aleatorias cada 100 frames
+  - Las frutas también aparecen al explotar una burbuja con robot
+
+[AQUÍ VA LA FOTO: Las frutas apareciendo después de explotar una burbuja]
+
+[AQUÍ VA LA FOTO: El jugador recogiendo una fruta y el puntaje aumentando en el HUD]
+
+PROBLEMA ENCONTRADO:
+  Al recoger una fruta, todos los corazones del HUD cambiaban a vacío en lugar
+  de solo el corazón correspondiente. Esto ocurría porque los eventos usaban
+  variables de instancia que se pisaban entre ellas.
+
+SOLUCIÓN:
+  Se cambió el sistema para identificar cada icono de corazón por su posición
+  en pantalla (X=150 para el primero, X=195 para el segundo, X=240 para el
+  tercero) en lugar de usar variables que se confundían.
+
+HORAS DEL DÍA: 10 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+SÁBADO 31 DE OCTUBRE
+Horas trabajadas: 12 horas
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Día de pruebas intensivas y corrección de bugs. Se probó el juego completo
+  desde el nivel 1 hasta el nivel 4 y se detectaron varios problemas que
+  se fueron resolviendo uno a uno.
+
+ACTIVIDADES REALIZADAS:
+  - Pruebas completas del juego en los 4 niveles
+  - Corrección de varios bugs de colisión y lógica
+  - Ajuste del balance de dificultad (velocidad de robots y frecuencia de disparo)
+  - Generación de recursos gráficos adicionales con IA
+  - Mejoras visuales en los fondos de cada nivel
+
+[AQUÍ VA LA FOTO: El juego corriendo con los 4 niveles funcionando en secuencia]
+
+HORAS DEL DÍA: 12 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+DOMINGO 1 DE NOVIEMBRE
+Horas trabajadas: 13 horas y 35 minutos
+(12:00 PM – 1:35 AM del lunes)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Se implementó la lógica de paso de nivel y el inicio de trabajo en el menú
+  principal. El paso de nivel es la condición que detecta cuándo se han
+  eliminado todos los enemigos y no quedan frutas en pantalla, y automáticamente
+  lleva al jugador al siguiente nivel.
+
+ACTIVIDADES REALIZADAS:
+  - Implementación de la condición de paso de nivel (todos los robots eliminados,
+    no hay frutas ni burbujas activas)
+  - Secuencia de niveles: nivel1 → nivel2 → nivel3 → nivel4
+  - La variable nivel_actual se incrementa correctamente al pasar de nivel
+  - Inicio del diseño de las pantallas de entrada (JT Games y Uniremington)
+  - Generación de los fondos animados del menú y del Game Over
+
+[AQUÍ VA LA FOTO: La pantalla de transición entre niveles]
+
+[AQUÍ VA LA FOTO: Las pantallas animadas de entrada a GDevelop]
+
+HORAS DEL DÍA: 13 horas y 35 minutos
+
+TOTAL SEMANA 2: 56 horas y 5 minutos
+
+
+================================================================================
+SEMANA 3: DEL 2 AL 11 DE NOVIEMBRE DE 2026
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+LUNES 2 DE NOVIEMBRE
+Horas trabajadas: 12 horas
+(2:00 PM – 2:00 AM del martes)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Día maratónico. Se terminó el menú principal y la pantalla de Game Over.
+  Este fue un logro enorme porque significó que el flujo completo del juego
+  estaba funcionando: desde las pantallas de entrada, pasando por el menú,
+  los 4 niveles, hasta el Game Over y el regreso al menú.
+
+ACTIVIDADES REALIZADAS:
+  - Creación de la escena del menú principal
+  - Animación del título "Robotic Cavern" en el menú (24 frames)
+  - Botón "Press Space" animado (16 frames)
+  - Fondo animado del menú (22 frames)
+  - Creación de la pantalla de Game Over con imagen animada y fondo
+  - Flujo completo: entrada → menú → nivel1 → nivel4 → game over → menú
+  - Botones táctiles para la versión móvil en los 4 niveles
+
+[AQUÍ VA LA FOTO: El menú principal del juego con el título animado]
+
+[AQUÍ VA LA FOTO: La pantalla de Game Over con el puntaje final]
+
+[AQUÍ VA LA FOTO: Los botones táctiles en pantalla durante el juego]
+
+HORAS DEL DÍA: 12 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+MARTES 3 DE NOVIEMBRE
+Horas trabajadas: 9 horas
+(12:00 PM – 4:00 PM y 8:00 PM – 1:00 AM del miércoles)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Con el flujo del juego completo, se empezó a trabajar en la fase final de
+  pulido y sonido. Se importaron todos los efectos de sonido y se empezó
+  a programar cuándo debe sonar cada uno. También se diseñó la fuente
+  personalizada del juego.
+
+ACTIVIDADES REALIZADAS:
+  - Importación de todos los efectos de sonido al proyecto
+  - Implementación de sonidos de acciones básicas (saltar, disparar, daño)
+  - Diseño y creación de la fuente tipográfica CavernPixel.ttf
+  - Ajuste de la animación de los botones del menú
+  - Corrección de bugs menores encontrados durante las pruebas
+
+[AQUÍ VA LA FOTO: La fuente CavernPixel.ttf siendo usada en el HUD del juego]
+
+[AQUÍ VA LA FOTO: El panel de sonidos en GDevelop con los efectos importados]
+
+PROBLEMA ENCONTRADO:
+  La fuente personalizada no se mostraba correctamente en algunos textos
+  del HUD. Los números aparecían con un estilo diferente al esperado.
+
+SOLUCIÓN:
+  Se reconfiguró el objeto de texto en GDevelop para apuntar exactamente
+  al archivo CavernPixel.ttf y se ajustó el tamaño del texto para que
+  se viera bien tanto en pantalla grande como en móvil.
+
+HORAS DEL DÍA: 9 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+MIÉRCOLES 4 DE NOVIEMBRE
+Horas trabajadas: 13 horas y 20 minutos
+(1:40 PM – 3:00 AM del jueves)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Uno de los días más largos del proyecto. Se trabajó en los soundtracks del
+  juego (la música de fondo), se crearon y organizaron las pantallas de la
+  historia del juego, y se hicieron ajustes importantes en los botones táctiles
+  para que funcionaran bien en dispositivos móviles.
+
+ACTIVIDADES REALIZADAS:
+  - Implementación de los soundtracks por nivel
+  - Creación de las pantallas de la historia del juego (modo historia)
+  - Las imágenes de la historia se generaron con IA y se importaron al juego
+  - Ajuste de posición y tamaño de los botones táctiles para móvil
+  - Sistema de reinicio del nivel (botón de reset)
+  - Pruebas en dispositivo Android para verificar los controles táctiles
+
+[AQUÍ VA LA FOTO: La pantalla de historia del juego mostrando el prólogo de PIXEL]
+
+[AQUÍ VA LA FOTO: Los botones táctiles ajustados en un dispositivo Android]
+
+PROBLEMA ENCONTRADO:
+  En el dispositivo Android, los botones táctiles eran muy pequeños y estaban
+  mal posicionados. En algunos ángulos de la pantalla era imposible presionar
+  el botón de salto y el de disparo al mismo tiempo.
+
+SOLUCIÓN:
+  Se aumentó el tamaño de todos los botones táctiles y se redistribuyeron
+  por la pantalla. El pad de movimiento quedó en la parte inferior izquierda
+  y los botones de acción en la inferior derecha, dejando suficiente espacio
+  entre ellos.
+
+HORAS DEL DÍA: 13 horas y 20 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+JUEVES 5 DE NOVIEMBRE
+Horas trabajadas: 15 horas y 10 minutos
+(10:00 AM – 1:10 AM del viernes)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  El día más largo de todo el proyecto. Se trabajó en el personaje del Ingeniero
+  JhonRMA (que aparece en las pantallas del juego), se crearon las imágenes
+  finales de las escenas de historia, se generó la animación del personaje
+  con IA y se integraron al juego. También se hicieron los últimos ajustes
+  de sonido y se preparó la primera versión del APK.
+
+ACTIVIDADES REALIZADAS:
+  - Creación y animación del personaje del Ingeniero JhonRMA con IA
+    (20 frames de animación del personaje steampunk)
+  - Integración del personaje en las pantallas de historia
+  - Finalización de todas las imágenes de la historia del juego
+  - Implementación de los soundtracks finales en todos los niveles
+  - Botón de guardar partida (animado, 16 frames)
+  - Primera exportación del juego para Android
+  - Instalación del primer APK de prueba en dispositivo Android
+
+[AQUÍ VA LA FOTO: El personaje del Ingeniero JhonRMA animado en el juego]
+
+[AQUÍ VA LA FOTO: El primer APK instalándose en el dispositivo Android]
+
+[AQUÍ VA LA FOTO: El juego corriendo en el celular por primera vez]
+
+PROBLEMA ENCONTRADO:
+  Al compilar el APK, el proceso fallaba por culpa de los nombres de archivo
+  con tildes y caracteres especiales (como "Caverna Cibernética de Neón.png").
+  Los sistemas Android no aceptan bien esos caracteres en los nombres de archivos.
+
+SOLUCIÓN:
+  Se creó un script (.bat) que automáticamente renombra los archivos con
+  caracteres especiales y actualiza las referencias dentro del proyecto
+  antes de compilar. Después de correr el script, la compilación del APK
+  funcionó correctamente.
+
+HORAS DEL DÍA: 15 horas y 10 minutos
+
+
+────────────────────────────────────────────────────────────────────────────────
+VIERNES 6 DE NOVIEMBRE
+Horas trabajadas: ~8 horas
+(2:00 PM – 5:00 PM y 7:00 PM – 12:00 AM aprox.)
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL DÍA:
+  Último día de desarrollo del juego. Se hicieron las pruebas finales en
+  dispositivo Android, se corrigieron los últimos bugs encontrados, se
+  generó el APK final y se dejó todo listo para la entrega de la documentación.
+
+ACTIVIDADES REALIZADAS:
+  - Pruebas finales completas en Android y en PC
+  - Corrección de últimos bugs visuales y de sonido
+  - Generación del APK final del juego
+  - Organización de todos los archivos del proyecto
+  - Inicio de la documentación de entrega
+
+[AQUÍ VA LA FOTO: El APK final del juego Robotic Cavern instalado en Android]
+
+[AQUÍ VA LA FOTO: El juego completo corriendo en el celular con todos los niveles]
+
+[AQUÍ VA LA FOTO: La carpeta del proyecto organizada con todos los entregables]
+
+HORAS DEL DÍA: ~8 horas
+
+
+────────────────────────────────────────────────────────────────────────────────
+LUNES 9 AL MIÉRCOLES 11 DE NOVIEMBRE
+Documentación y preparación de entrega
+────────────────────────────────────────────────────────────────────────────────
+
+DESCRIPCIÓN DEL PERÍODO:
+  Los últimos días antes de la entrega se dedicaron exclusivamente a preparar
+  la documentación completa del proyecto: este documento de bitácora, el plan
+  del juego, el manual de creación para otros estudiantes y la guía para
+  generar el APK. También se revisó que todos los archivos estuvieran en orden
+  y que el proyecto estuviera listo para que el profesor lo pueda revisar y
+  calificar.
+
+DOCUMENTOS ENTREGADOS:
+  1. Plan_Juegos_GDevelop.txt   — Plan completo del juego con toda la información
+  2. Bitacora.txt               — Este documento con el registro del desarrollo
+  3. Manual_de_Creacion.txt     — Manual para que otros estudiantes puedan recrear el juego
+  4. Pasos_para_hacer_el_APK.txt — Guía paso a paso para generar el APK
+
+[AQUÍ VA LA FOTO: La carpeta de entregables con los 4 documentos generados]
+
+[AQUÍ VA LA FOTO: Pantalla final del juego con los créditos]
+
+
+================================================================================
+RESUMEN FINAL
+================================================================================
+
+HORAS TOTALES TRABAJADAS:
+  Semana 1 (19–25 oct)  : 59 horas y 30 minutos
+  Semana 2 (27 oct–2 nov): 56 horas y 5 minutos
+  Semana 3 (2–6 nov)    : ~57 horas y 30 minutos
+  Documentación (9–11 nov): ~8 horas
+  ─────────────────────────────────────────────
+  TOTAL APROXIMADO       : ~181 horas
+
+FASES COMPLETADAS:
+  [COMPLETADA] Fase 0 - Base del proyecto (niveles, fondos, jugador)
+  [COMPLETADA] Fase 1 - Variables globales y HUD
+  [COMPLETADA] Fase 2 - Sistema de daño, muerte y respawn
+  [COMPLETADA] Fase 3 - Sistema de burbujas
+  [COMPLETADA] Fase 4 - Sistema de enemigos
+  [COMPLETADA] Fase 5 - Frutas e ítems coleccionables
+  [COMPLETADA] Fase 6 - Lógica de paso de nivel
+  [COMPLETADA] Fase 7 - Menú principal y pantalla Game Over
+  [COMPLETADA] Fase 8 - Sonido, música y pulido final
+
+PROBLEMAS RESUELTOS (resumen):
+  - Teletransporte que mandaba siempre al mismo lado → corregido eliminando
+    acciones duplicadas
+  - HUD que se movía con la cámara → corregido usando capa "HUD" separada
+  - Corazones del HUD que todos cambiaban a la vez → corregido usando
+    posición X como identificador único
+  - APK que fallaba por tildes en nombres de archivos → corregido con script .bat
+  - Botones táctiles muy pequeños en Android → corregido aumentando tamaño
+    y redistribuyendo posición
+
+HERRAMIENTAS UTILIZADAS:
+  GDevelop 5, Tiled Map Editor, Inteligencia Artificial (generación de arte),
+  Claude AI (asistencia en lógica), Android Studio, Apache Cordova, Gradle
+
+RESULTADO FINAL:
+  Juego Robotic Cavern completamente funcional, con 4 niveles jugables,
+  historia, menú, Game Over, sonido, música, controles táctiles y versión
+  APK para Android. Disponible en:
+  bitacora/juego-cavern-Bubble Bobble-1_0_1.apk
+
+
+================================================================================
+FIN DE LA BITÁCORA
+Bitacora.txt — Proyecto Robotic Cavern — JhonRMA / JT Games — Nov 2026
+================================================================================

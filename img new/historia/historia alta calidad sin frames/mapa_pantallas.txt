@@ -1,0 +1,48 @@
+MAPA: PANTALLA DE TEXTO -> IMAGEN (todas 1220x671)
+PROLOGO
+hist_01 -> Pantalla 1
+hist_02 -> Pantalla 2
+hist_03 -> Pantalla 3
+hist_04 -> Pantalla 4
+hist_05 -> Pantalla 5
+hist_06 -> Pantalla 6
+hist_07 -> Pantalla 6B
+hist_08 -> Pantalla 6C
+hist_09 -> Pantallas 7 y 8
+CREACION DE PIXEL
+hist_10 -> Pantalla 9
+hist_11 -> Pantalla 9B
+hist_12 -> Pantalla 9C
+hist_13 -> Pantalla 10
+hist_14 -> Pantalla 11 (y primera mitad de la 12)
+hist_15 -> Pantalla 12 (segunda mitad: boton de cuenta regresiva)
+hist_16 -> Pantalla 13
+INICIO DEL JUEGO
+hist_17 -> Pantalla 14
+hist_18 -> Pantalla 15
+hist_19 -> Pantalla 16
+hist_20 -> Pantalla 16B
+hist_21 -> Pantalla 17 y mensaje ENTRE NIVELES (Linea temporal salvada. Saltando...)
+REVELACION
+hist_22 -> Pantallas 18 y 19
+hist_23 -> Pantallas 20, 21 y 22
+hist_24 -> Pantalla 23
+hist_25 -> Pantalla 24
+hist_26 -> Pantallas 25, 26, 27, 28 y 29
+hist_27 -> Pantalla 28B
+hist_28 -> Pantalla 30
+DESPUES DEL NIVEL 4
+hist_29 -> POST-4 A
+hist_30 -> POST-4 B
+hist_31 -> POST-4 C
+FINAL SECRETO
+hist_32 -> SECRETO 1
+hist_33 -> SECRETO 2
+hist_34 -> SECRETO 3
+hist_35 -> SECRETO 4
+hist_36 -> SECRETO 5 (FIN VERDADERO)
+FINAL DEL JUEGO
+hist_37 -> Pantallas 31 y 32
+hist_38 -> Pantallas 33 y 34
+hist_39 -> Pantallas 35 y 36
+hist_40 -> Pantallas 37 y 38 (creditos)

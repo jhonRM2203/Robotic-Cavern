@@ -1,0 +1,421 @@
+================================================================================
+         CÓMO HACER EL APK DE TU JUEGO EN GDEVELOP
+         Guía paso a paso para convertir tu juego en una app de Android
+         Proyecto: Robotic Cavern — JhonRMA / JT Games
+================================================================================
+
+¿QUÉ ES UN APK?
+  Un APK es el archivo de instalación de una aplicación para celulares Android.
+  Es como el ".exe" de Windows, pero para Android.
+  
+  Cuando haces un juego en GDevelop, el juego vive dentro del programa.
+  Para que funcione en un celular Android, necesitas convertirlo en un APK
+  y instalarlo en el dispositivo.
+
+¿QUÉ PROCESO SE USÓ EN ROBOTIC CAVERN?
+  GDevelop exporta el juego como un proyecto web (HTML5).
+  Luego, una herramienta llamada Apache Cordova convierte ese proyecto web
+  en una aplicación de Android.
+  Finalmente, Android Studio y Gradle construyen el archivo APK final.
+
+  Resumiendo el flujo:
+  GDevelop → Exportar como HTML5 → Apache Cordova → Android Studio/Gradle → APK
+
+⚠️ ADVERTENCIA IMPORTANTE:
+  Este proceso requiere instalar varios programas y configurarlos correctamente.
+  Es un proceso que puede llevar varias horas la primera vez.
+  Si algo falla, no te rindas. Lee el error con calma y búscalo en Google.
+
+
+================================================================================
+PARTE 1: INSTALAR LO QUE NECESITAS
+================================================================================
+
+
+PASO 1 — INSTALAR NODE.JS
+────────────────────────────────────────────────────────────────────────────────
+  Node.js es un programa que permite ejecutar JavaScript en tu computador.
+  Cordova (la herramienta que convierte el juego) lo necesita para funcionar.
+
+  1. Ve a https://nodejs.org
+  2. Descarga la versión que dice "LTS" (es la más estable).
+  3. Instálala con los pasos normales (siguiente, siguiente, instalar).
+  4. Para verificar que quedó bien instalado:
+     - Abre la consola de comandos (busca "cmd" en el menú inicio)
+     - Escribe: node --version
+     - Debe aparecer un número de versión como "v20.x.x"
+     - También escribe: npm --version
+     - Debe aparecer otro número de versión
+
+[AQUÍ VA LA FOTO: La consola mostrando la versión de Node.js instalada correctamente]
+
+
+PASO 2 — INSTALAR APACHE CORDOVA
+────────────────────────────────────────────────────────────────────────────────
+  Apache Cordova es la herramienta que convierte un proyecto web en una
+  aplicación de Android.
+
+  1. Abre la consola de comandos (cmd).
+  2. Escribe exactamente esto y presiona Enter:
+     npm install -g cordova
+  3. Espera a que termine de descargar e instalar.
+  4. Para verificar: escribe cordova --version
+     Debe aparecer un número de versión.
+
+[AQUÍ VA LA FOTO: La consola mientras instala Cordova con npm]
+
+
+PASO 3 — INSTALAR JAVA JDK
+────────────────────────────────────────────────────────────────────────────────
+  Java JDK es necesario para compilar aplicaciones Android.
+  
+  1. Ve a https://adoptium.net (es la versión gratuita más recomendada).
+  2. Descarga la versión "Temurin 17" (LTS) para Windows.
+  3. Instálala normalmente.
+  4. Durante la instalación, marca la opción "Set JAVA_HOME variable".
+     Esto configura Java automáticamente para que otros programas lo encuentren.
+  5. Para verificar: abre cmd y escribe: java --version
+     Debe aparecer algo como "openjdk 17.x.x"
+
+[AQUÍ VA LA FOTO: La página de descarga de Adoptium con Temurin 17 seleccionado]
+
+
+PASO 4 — INSTALAR ANDROID STUDIO
+────────────────────────────────────────────────────────────────────────────────
+  Android Studio es el programa oficial de Google para hacer aplicaciones Android.
+  Necesitas instalarlo para tener las herramientas de construcción (Gradle y SDK).
+
+  1. Ve a https://developer.android.com/studio
+  2. Descarga Android Studio.
+  3. Instálalo normalmente. Durante la instalación descarga los componentes
+     del SDK de Android (esto puede tardar bastante, necesitas buena conexión).
+  4. Al abrir Android Studio por primera vez, sigue el asistente de configuración
+     y acepta instalar los componentes que pida.
+
+[AQUÍ VA LA FOTO: Android Studio instalado y abierto]
+
+  IMPORTANTE — Configurar variables de entorno:
+  Después de instalar Android Studio, debes decirle a tu computador dónde
+  están las herramientas de Android.
+  
+  a. Busca en tu computador la carpeta del SDK de Android. Normalmente está en:
+     C:\Users\TU_NOMBRE\AppData\Local\Android\Sdk
+     (Reemplaza "TU_NOMBRE" por tu nombre de usuario en Windows)
+  
+  b. Ve a las propiedades del sistema:
+     - Botón derecho en "Este equipo" → Propiedades
+     - Busca "Configuración avanzada del sistema"
+     - Haz clic en "Variables de entorno"
+  
+  c. En "Variables del sistema" crea o edita estas variables:
+     - ANDROID_HOME = C:\Users\TU_NOMBRE\AppData\Local\Android\Sdk
+     - Agrega a la variable PATH estos valores:
+       %ANDROID_HOME%\tools
+       %ANDROID_HOME%\platform-tools
+  
+  d. Cierra y vuelve a abrir la consola cmd para que los cambios surtan efecto.
+  5. Para verificar: escribe en cmd: adb --version
+     Debe aparecer un número de versión.
+
+[AQUÍ VA LA FOTO: La ventana de variables de entorno de Windows con ANDROID_HOME configurado]
+
+
+PASO 5 — INSTALAR GRADLE
+────────────────────────────────────────────────────────────────────────────────
+  Gradle es el sistema de construcción que arma el APK final.
+  
+  1. Ve a https://gradle.org/releases/
+  2. Descarga la versión más reciente en formato "binary-only".
+  3. Descomprime el archivo ZIP en una carpeta. Se recomienda:
+     C:\Gradle\gradle-X.X\  (donde X.X es el número de versión)
+  4. Agrega la carpeta bin de Gradle a la variable PATH:
+     - Variable PATH → Agregar: C:\Gradle\gradle-X.X\bin
+  5. Para verificar: en cmd escribe: gradle --version
+
+[AQUÍ VA LA FOTO: La consola mostrando la versión de Gradle instalada]
+
+
+================================================================================
+PARTE 2: EXPORTAR EL JUEGO DESDE GDEVELOP
+================================================================================
+
+
+PASO 6 — EXPORTAR EL JUEGO COMO HTML5
+────────────────────────────────────────────────────────────────────────────────
+  Antes de hacer el APK, necesitas exportar el juego como un proyecto web.
+
+  1. Abre tu proyecto en GDevelop.
+  2. Ve al menú "Archivo" → "Exportar proyecto".
+  3. Selecciona "Web (HTML5)".
+  4. Elige la carpeta de destino. Llámala algo como "apk-juego" o la que prefieras.
+     IMPORTANTE: La ruta de la carpeta NO debe tener tildes, espacios ni
+     caracteres especiales. Usa solo letras, números y guiones.
+     Ejemplo correcto: C:\proyectos\mi-juego-apk\
+     Ejemplo incorrecto: C:\Proyectos\mi juego (APK)\
+  5. Haz clic en "Exportar".
+  6. GDevelop creará una carpeta con varios archivos, incluyendo "index.html".
+
+[AQUÍ VA LA FOTO: La ventana de exportación de GDevelop con "Web HTML5" seleccionado]
+
+[AQUÍ VA LA FOTO: La carpeta exportada con los archivos del juego incluyendo index.html]
+
+  ⚠️ OJO CON LOS NOMBRES DE ARCHIVOS:
+  Revisa que ninguna imagen o archivo dentro de la carpeta exportada tenga
+  tildes, la letra ñ, espacios u otros caracteres especiales en el nombre.
+  Si los tiene, renómbralos antes de continuar.
+  
+  Archivos problemáticos que tuve en Robotic Cavern:
+  - "Robot en la caverna neón.png"  → renombrar a: "robot_caverna_neon.png"
+  - "Caverna Cibernética de Neón.png" → renombrar a: "caverna_neon.png"
+  
+  Si renombras un archivo, también debes actualizar la referencia a ese archivo
+  dentro del juego (en el archivo data.js o el archivo JSON del proyecto).
+
+
+================================================================================
+PARTE 3: CREAR EL PROYECTO CORDOVA
+================================================================================
+
+
+PASO 7 — CREAR EL PROYECTO CORDOVA
+────────────────────────────────────────────────────────────────────────────────
+  Ahora vamos a envolver el juego exportado dentro de un proyecto Cordova.
+
+  1. Abre la consola cmd.
+  2. Navega a la carpeta donde quieres crear el proyecto. Por ejemplo:
+     cd C:\proyectos
+  3. Crea el proyecto Cordova con este comando:
+     cordova create nombre-del-proyecto com.tunombre.tujuego "Nombre del Juego"
+     
+     Ejemplo real:
+     cordova create robotic-cavern com.jtgames.roboticcavern "Robotic Cavern"
+     
+     Esto crea una carpeta llamada "robotic-cavern" con la estructura del proyecto.
+  4. Entra a la carpeta del proyecto:
+     cd robotic-cavern
+
+[AQUÍ VA LA FOTO: La consola ejecutando el comando de creación del proyecto Cordova]
+
+
+PASO 8 — AGREGAR LA PLATAFORMA ANDROID
+────────────────────────────────────────────────────────────────────────────────
+  1. Dentro de la carpeta del proyecto Cordova, escribe:
+     cordova platform add android
+  2. Esto descarga y configura todo lo necesario para construir la app en Android.
+     Puede tardar unos minutos dependiendo de tu conexión.
+
+[AQUÍ VA LA FOTO: La consola mostrando que la plataforma Android se agregó correctamente]
+
+
+PASO 9 — COPIAR LOS ARCHIVOS DEL JUEGO
+────────────────────────────────────────────────────────────────────────────────
+  El proyecto Cordova tiene una carpeta llamada "www". Esta carpeta es donde
+  van los archivos del juego exportado desde GDevelop.
+
+  1. Abre la carpeta del proyecto Cordova en el Explorador de archivos.
+  2. Dentro, encontrarás la carpeta "www".
+  3. Elimina el contenido que viene por defecto dentro de "www"
+     (hay un archivo index.html de ejemplo que no necesitamos).
+  4. Copia TODOS los archivos que exportaste desde GDevelop (paso 6) dentro
+     de la carpeta "www" del proyecto Cordova.
+     
+     Asegúrate de que el archivo "index.html" del juego quede directamente
+     dentro de "www", no dentro de una subcarpeta.
+
+[AQUÍ VA LA FOTO: La carpeta www del proyecto Cordova con los archivos del juego copiados]
+
+
+PASO 10 — CONFIGURAR EL ARCHIVO CONFIG.XML
+────────────────────────────────────────────────────────────────────────────────
+  El archivo config.xml le dice a Cordova información sobre tu aplicación:
+  el nombre, el icono, los permisos, la orientación de pantalla, etc.
+
+  Abre el archivo config.xml que está en la raíz del proyecto Cordova
+  (no el de dentro de "www") con el Bloc de notas o cualquier editor de texto.
+
+  Configuraciones recomendadas:
+
+  Nombre de la app (ya está en el archivo, solo verifica que esté bien):
+  <name>Robotic Cavern</name>
+
+  Para forzar la orientación horizontal (landscape):
+  Dentro de la etiqueta <platform name="android"> agrega:
+  <preference name="Orientation" value="landscape" />
+
+  Para que la pantalla no se apague durante el juego:
+  <preference name="KeepRunning" value="true" />
+
+  Para que la barra de estado de Android se oculte:
+  <preference name="Fullscreen" value="true" />
+
+[AQUÍ VA LA FOTO: El archivo config.xml abierto en un editor de texto]
+
+
+PASO 11 — AGREGAR PLUGINS NECESARIOS
+────────────────────────────────────────────────────────────────────────────────
+  Los plugins son complementos que agregan funciones extra a la app.
+  Para un juego de GDevelop necesitas estos:
+
+  1. En la consola, dentro de la carpeta del proyecto Cordova, escribe:
+     cordova plugin add cordova-plugin-whitelist
+  2. Espera a que instale.
+
+  Este plugin permite que el juego cargue sus propios archivos sin problemas.
+
+[AQUÍ VA LA FOTO: La consola instalando el plugin de whitelist]
+
+
+================================================================================
+PARTE 4: COMPILAR EL APK
+================================================================================
+
+
+PASO 12 — COMPILAR EL APK
+────────────────────────────────────────────────────────────────────────────────
+  ¡Este es el momento de la verdad!
+
+  1. En la consola, dentro de la carpeta del proyecto Cordova, escribe:
+     cordova build android
+  
+  2. La primera vez que compiles puede tardar BASTANTE (entre 5 y 15 minutos)
+     porque Gradle descarga todas las dependencias necesarias.
+     Las siguientes compilaciones son más rápidas.
+  
+  3. Si todo sale bien, verás al final un mensaje como:
+     BUILD SUCCESSFUL
+  
+  4. El APK se genera en esta ruta dentro de tu proyecto:
+     platforms\android\app\build\outputs\apk\debug\app-debug.apk
+
+[AQUÍ VA LA FOTO: La consola mostrando "BUILD SUCCESSFUL" después de compilar]
+
+[AQUÍ VA LA FOTO: El archivo app-debug.apk en la carpeta de salida]
+
+
+PASO 13 — INSTALAR EL APK EN EL CELULAR
+────────────────────────────────────────────────────────────────────────────────
+  Para instalar el APK en tu celular Android:
+
+  Opción A — Por cable USB:
+  1. Conecta el celular al computador con un cable USB.
+  2. En el celular, activa el "Modo de desarrollador":
+     Ve a Ajustes → Acerca del teléfono → Toca "Número de compilación" 7 veces.
+  3. Activa la "Depuración USB" dentro de las opciones de desarrollador.
+  4. En la consola escribe:
+     adb install platforms\android\app\build\outputs\apk\debug\app-debug.apk
+  5. Acepta el permiso en el celular si te lo pide.
+
+[AQUÍ VA LA FOTO: El celular conectado por USB con la depuración USB activada]
+
+  Opción B — Copiar el archivo manualmente:
+  1. Copia el archivo "app-debug.apk" a tu celular (por cable, WhatsApp, Google Drive,
+     Bluetooth, o como prefieras).
+  2. En el celular, abre el archivo APK con el administrador de archivos.
+  3. Si el celular pregunta si quieres instalar de "fuentes desconocidas",
+     acepta (esto solo es necesario para APKs que no vienen de la Play Store).
+  4. Sigue los pasos de instalación.
+
+[AQUÍ VA LA FOTO: El juego instalándose en el celular Android]
+
+[AQUÍ VA LA FOTO: El icono del juego apareciendo en el menú del celular]
+
+
+================================================================================
+PARTE 5: SI ALGO SALE MAL — ERRORES COMUNES Y SOLUCIONES
+================================================================================
+
+
+ERROR: "JAVA_HOME is not defined"
+────────────────────────────────────────────────────────────────────────────────
+  Significa que Java no está configurado correctamente.
+  Solución: Verifica que instalaste Java JDK (paso 3) y que la variable
+  JAVA_HOME está configurada en las variables de entorno (paso 4).
+  Cierra y vuelve a abrir la consola después de configurar las variables.
+
+
+ERROR: "Android SDK not found"
+────────────────────────────────────────────────────────────────────────────────
+  Significa que Android Studio no está configurado en las variables de entorno.
+  Solución: Verifica que ANDROID_HOME apunta a la carpeta correcta del SDK
+  y que las rutas de "tools" y "platform-tools" están en el PATH (paso 4).
+
+
+ERROR: "Execution failed for task ':app:processDebugResources'"
+────────────────────────────────────────────────────────────────────────────────
+  Suele ser causado por archivos con caracteres especiales (tildes, ñ, espacios)
+  en los nombres.
+  Solución: Renombra todos los archivos problemáticos dentro de la carpeta "www"
+  y actualiza las referencias a esos archivos en el código del juego.
+  
+  En Robotic Cavern se creó un script .bat que hacía esto automáticamente.
+  Si tienes muchos archivos con este problema, pregúntale a una IA
+  cómo crear un script similar para tu proyecto.
+
+
+ERROR: "cordova: command not found" o "cordova no se reconoce"
+────────────────────────────────────────────────────────────────────────────────
+  Cordova no se instaló correctamente o la consola no lo encuentra.
+  Solución: Vuelve a ejecutar: npm install -g cordova
+  Si sigue fallando, reinicia el computador y prueba de nuevo.
+
+
+ERROR: BUILD FAILED (fallo general de compilación)
+────────────────────────────────────────────────────────────────────────────────
+  Lee el mensaje de error completo que aparece en la consola.
+  El error real suele estar algunas líneas más arriba del mensaje "BUILD FAILED".
+  Copia el mensaje de error y búscalo en Google o en StackOverflow.
+  También puedes pegarlo en ChatGPT o Claude y preguntar cómo resolverlo.
+
+
+ERROR: El APK se instala pero el juego no carga (pantalla negra)
+────────────────────────────────────────────────────────────────────────────────
+  Posibles causas:
+  a. El archivo index.html no está directamente en la carpeta "www" sino
+     dentro de una subcarpeta. Muévelo a la raíz de "www".
+  b. Alguna imagen o sonido tiene un nombre con caracteres especiales.
+     Renombra los archivos problemáticos.
+  c. El juego usa funciones que no son compatibles con la versión de Android.
+     Prueba en un celular con Android más reciente.
+
+
+================================================================================
+RESUMEN RÁPIDO — LOS PASOS EN ORDEN
+================================================================================
+
+  [1] Instala Node.js desde nodejs.org
+  [2] Instala Cordova: npm install -g cordova
+  [3] Instala Java JDK 17 desde adoptium.net
+  [4] Instala Android Studio desde developer.android.com/studio
+  [5] Configura ANDROID_HOME y PATH en variables de entorno
+  [6] Instala Gradle desde gradle.org y agrégalo al PATH
+  [7] Exporta el juego desde GDevelop como HTML5 a una carpeta sin tildes
+  [8] Crea el proyecto Cordova: cordova create [nombre] [id] "[Nombre del Juego]"
+  [9] Entra a la carpeta: cd [nombre-del-proyecto]
+  [10] Agrega Android: cordova platform add android
+  [11] Copia los archivos del juego a la carpeta "www"
+  [12] Configura el config.xml (orientación, pantalla completa, etc.)
+  [13] Instala plugins: cordova plugin add cordova-plugin-whitelist
+  [14] Compila: cordova build android
+  [15] Busca el APK en: platforms\android\app\build\outputs\apk\debug\
+  [16] Instala el APK en tu celular y juega
+
+
+================================================================================
+NOTA FINAL
+================================================================================
+
+  El proceso de hacer un APK puede parecer complicado al principio,
+  pero una vez que tienes todo instalado y configurado correctamente,
+  las próximas veces es mucho más rápido.
+  
+  Cada vez que hagas cambios en tu juego, solo necesitas:
+  1. Exportar de nuevo desde GDevelop (paso 7)
+  2. Copiar los archivos a la carpeta "www" del proyecto Cordova
+  3. Compilar de nuevo: cordova build android
+  
+  ¡Y listo, tienes un nuevo APK con los cambios!
+
+================================================================================
+FIN DEL DOCUMENTO
+Pasos_para_hacer_el_APK.txt — Proyecto Robotic Cavern — JhonRMA / JT Games
+================================================================================

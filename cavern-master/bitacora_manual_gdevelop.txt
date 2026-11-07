@@ -1,0 +1,755 @@
+================================================================================
+         PLANTILLA DE BITÁCORA Y MANUAL DE DESARROLLO
+              VIDEOJUEGO 2D EN GDEVELOP 5
+================================================================================
+  Instrucciones para usar esta plantilla:
+  - Completa cada sección con la información de TU proyecto.
+  - Los corchetes [  ] indican los espacios que debes rellenar.
+  - Las líneas que comienzan con ">>" son guías de ayuda; léelas y bórralas
+    al entregar el documento.
+  - Esta plantilla sirve tanto como bitácora de avance (registras lo que
+    haces cada sesión) como manual técnico (explicas cómo funciona tu juego).
+================================================================================
+
+
+--------------------------------------------------------------------------------
+PORTADA
+--------------------------------------------------------------------------------
+Nombre del juego       : [_________________________________]
+Género                 : [_________________________________]
+Motor usado            : GDevelop 5
+Plataforma objetivo    : [  PC   /   Web   /   Android   ]
+Modo de juego          : [  1 jugador  /  2 jugadores  /  Otro: ________  ]
+Clasificación de edad  : [_________________________________]
+Nombre del estudiante  : [_________________________________]
+Equipo / Compañeros    : [_________________________________]
+Curso / Asignatura     : [_________________________________]
+Docente                : [_________________________________]
+Fecha de inicio        : [  DD / MM / AAAA  ]
+Fecha de entrega       : [  DD / MM / AAAA  ]
+Versión del documento  : [  v1.0  ]
+
+
+================================================================================
+PARTE 1 — CONCEPTO DEL JUEGO
+================================================================================
+
+--------------------------------------------------------------------------------
+1.1  DESCRIPCIÓN GENERAL
+--------------------------------------------------------------------------------
+>> Escribe en 3 a 5 oraciones de qué trata tu juego. ¿Qué hace el jugador?
+>> ¿Cuál es el objetivo? ¿Qué lo hace divertido o interesante?
+
+[Escribe aquí la descripción de tu juego.]
+
+
+--------------------------------------------------------------------------------
+1.2  PILARES DE DISEÑO (¿qué lo hace especial?)
+--------------------------------------------------------------------------------
+>> Anota 3 palabras o frases cortas que definan la experiencia que quieres
+>> darle al jugador. Ejemplo: "Velocidad", "Exploración", "Riesgo/Recompensa".
+
+  Pilar 1: [_________________________________]
+  Pilar 2: [_________________________________]
+  Pilar 3: [_________________________________]
+
+
+--------------------------------------------------------------------------------
+1.3  REFERENTES (juegos que te inspiraron)
+--------------------------------------------------------------------------------
+>> Lista al menos 2 juegos que sirvieron de referencia. Explica brevemente
+>> qué tomaste de cada uno.
+
+  Referente 1: [Nombre del juego] — [¿Qué tomaste de él?]
+  Referente 2: [Nombre del juego] — [¿Qué tomaste de él?]
+  Referente 3: [Nombre del juego] — [¿Qué tomaste de él?]  (opcional)
+
+
+================================================================================
+PARTE 2 — MECÁNICAS DE JUEGO
+================================================================================
+
+--------------------------------------------------------------------------------
+2.1  CONTROLES DEL JUGADOR
+--------------------------------------------------------------------------------
+>> Completa la tabla con todas las teclas o botones que usa el jugador.
+
+  +------------------+-------------------------------------------------------+
+  | Tecla / Botón    | Acción en el juego                                    |
+  +------------------+-------------------------------------------------------+
+  | [            ]   | [                                                   ] |
+  | [            ]   | [                                                   ] |
+  | [            ]   | [                                                   ] |
+  | [            ]   | [                                                   ] |
+  | [            ]   | [                                                   ] |
+  +------------------+-------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+2.2  MOVIMIENTO DEL JUGADOR
+--------------------------------------------------------------------------------
+>> Describe cómo se mueve el personaje principal. En GDevelop usa el
+>> comportamiento "Platform character" o "Top-down movement".
+
+  Comportamiento de GDevelop usado  : [Platform character / Top-down / Otro]
+  Velocidad de movimiento           : [____] px / segundo
+  Velocidad de salto (si aplica)    : [____] px / segundo
+  ¿Hay gravedad?                    : [  Sí  /  No  ]
+  ¿Puede el personaje caer al vacío?: [  Sí, reaparece arriba  /  No  /  Muere  ]
+  Otras reglas de movimiento        : [_________________________________]
+
+
+--------------------------------------------------------------------------------
+2.3  MECÁNICA PRINCIPAL (acción central del juego)
+--------------------------------------------------------------------------------
+>> Describe la mecánica más importante del juego (disparar, saltar, recoger,
+>> construir, etc.). Explica paso a paso cómo funciona.
+
+  Mecánica principal: [_________________________________]
+
+  Paso 1: [_______________________________________________]
+  Paso 2: [_______________________________________________]
+  Paso 3: [_______________________________________________]
+  Paso 4: [_______________________________________________]
+  (agrega los pasos que necesites)
+
+  >> ¿Cómo se implementa en GDevelop?
+  >> Menciona qué eventos, condiciones y acciones usaste.
+
+  Evento / Condición usada          : [_________________________________]
+  Acción de GDevelop usada          : [_________________________________]
+  Variables involucradas            : [_________________________________]
+
+
+--------------------------------------------------------------------------------
+2.4  SISTEMA DE ENEMIGOS (si aplica)
+--------------------------------------------------------------------------------
+>> Si tu juego tiene enemigos, descríbelos aquí. Si no tienes, escribe N/A.
+
+  Tipo de enemigo 1: [_________________________________]
+    - Comportamiento / IA   : [_________________________________]
+    - Velocidad             : [____] px / segundo
+    - ¿Cómo daña al jugador?: [_________________________________]
+    - ¿Cómo se elimina?     : [_________________________________]
+    - Comportamiento GDevelop: [Pathfinding / Seguir jugador / Patrulla / Otro]
+
+  Tipo de enemigo 2: [_________________________________]  (si aplica)
+    - Comportamiento / IA   : [_________________________________]
+    - Velocidad             : [____] px / segundo
+    - ¿Cómo daña al jugador?: [_________________________________]
+    - ¿Cómo se elimina?     : [_________________________________]
+    - Comportamiento GDevelop: [_________________________________]
+
+
+--------------------------------------------------------------------------------
+2.5  SISTEMA DE SALUD Y VIDAS
+--------------------------------------------------------------------------------
+  Vidas iniciales                   : [____]
+  Puntos de salud (HP) iniciales    : [____]
+  ¿Cómo pierde salud el jugador?    : [_________________________________]
+  ¿Hay inmunidad temporal al recibir daño?: [  Sí — duración: [____] seg  /  No  ]
+  ¿Qué pasa al llegar a 0 HP?       : [_________________________________]
+  ¿Qué pasa al perder todas las vidas?: [  Game Over  /  Otro: __________  ]
+  ¿Cómo se recupera salud?          : [_________________________________]
+
+  >> En GDevelop: usa una variable de objeto o global para HP y vidas.
+  >> Evento sugerido: "Cuando colisiona con [enemigo] → Restar 1 a variable HP"
+
+
+--------------------------------------------------------------------------------
+2.6  OBJETOS COLECCIONABLES / POWER-UPS (si aplica)
+--------------------------------------------------------------------------------
+>> Si tu juego tiene ítems que el jugador puede recoger, completa esta tabla.
+
+  +------------------+-------------+----------------------------------------+
+  | Nombre del ítem  | Puntos/Efecto| Cómo aparece en pantalla               |
+  +------------------+-------------+----------------------------------------+
+  | [             ]  | [         ] | [                                    ] |
+  | [             ]  | [         ] | [                                    ] |
+  | [             ]  | [         ] | [                                    ] |
+  | [             ]  | [         ] | [                                    ] |
+  +------------------+-------------+----------------------------------------+
+
+
+--------------------------------------------------------------------------------
+2.7  CONDICIONES DE FIN DE NIVEL / VICTORIA
+--------------------------------------------------------------------------------
+>> ¿Cuándo termina un nivel o el juego? ¿Qué debe lograr el jugador?
+
+  El nivel termina cuando: [_________________________________]
+  El juego se gana cuando: [_________________________________]
+  El juego se pierde cuando: [_________________________________]
+
+
+================================================================================
+PARTE 3 — ESTRUCTURA DE NIVELES
+================================================================================
+
+--------------------------------------------------------------------------------
+3.1  RESOLUCIÓN Y GRILLA
+--------------------------------------------------------------------------------
+  Resolución de pantalla            : [____] × [____] px
+  ¿Hay grilla de tiles?             : [  Sí  /  No  ]
+  Tamaño de cada tile (si aplica)   : [____] × [____] px
+  Número de niveles planeados       : [____]
+
+
+--------------------------------------------------------------------------------
+3.2  DESCRIPCIÓN DE CADA NIVEL
+--------------------------------------------------------------------------------
+>> Describe brevemente el diseño y la dificultad de cada nivel.
+>> Copia este bloque tantas veces como niveles tengas.
+
+  NIVEL [N.°]:
+    Nombre / Tema visual  : [_________________________________]
+    Descripción del mapa  : [_________________________________]
+    Enemigos presentes    : [_________________________________]
+    Dificultad            : [  Fácil  /  Media  /  Difícil  ]
+    Novedad respecto al nivel anterior: [_________________________________]
+
+  NIVEL [N.°]:
+    Nombre / Tema visual  : [_________________________________]
+    Descripción del mapa  : [_________________________________]
+    Enemigos presentes    : [_________________________________]
+    Dificultad            : [  Fácil  /  Media  /  Difícil  ]
+    Novedad respecto al nivel anterior: [_________________________________]
+
+
+--------------------------------------------------------------------------------
+3.3  PROGRESIÓN DE DIFICULTAD
+--------------------------------------------------------------------------------
+>> ¿Cómo aumenta la dificultad a medida que avanza el juego?
+
+  Variable que cambia       | Nivel 1       | Nivel 2       | Nivel 3+
+  --------------------------+---------------+---------------+---------------
+  [                       ] | [           ] | [           ] | [           ]
+  [                       ] | [           ] | [           ] | [           ]
+  [                       ] | [           ] | [           ] | [           ]
+
+  >> Consejo GDevelop: usa una variable global "NivelActual" e incrementa
+  >> la velocidad o cantidad de enemigos según su valor.
+
+
+================================================================================
+PARTE 4 — SISTEMA DE PUNTUACIÓN
+================================================================================
+
+--------------------------------------------------------------------------------
+4.1  TABLA DE PUNTOS
+--------------------------------------------------------------------------------
+  +-------------------------------+------------------------------------------+
+  | Acción del jugador            | Puntos obtenidos                         |
+  +-------------------------------+------------------------------------------+
+  | [                           ] | [                                      ] |
+  | [                           ] | [                                      ] |
+  | [                           ] | [                                      ] |
+  | [                           ] | [                                      ] |
+  +-------------------------------+------------------------------------------+
+
+  >> En GDevelop: crea una variable global "Puntaje", y en cada evento
+  >> correspondiente agrega la acción "Modificar variable Puntaje + [valor]".
+
+
+--------------------------------------------------------------------------------
+4.2  VISUALIZACIÓN DEL HUD
+--------------------------------------------------------------------------------
+>> Describe qué información se muestra en pantalla durante el juego.
+
+  Elementos del HUD:
+    [ ] Puntaje       — Posición en pantalla: [_____________]
+    [ ] Nivel actual  — Posición en pantalla: [_____________]
+    [ ] Vidas         — Posición en pantalla: [_____________]
+    [ ] Salud / HP    — Posición en pantalla: [_____________]
+    [ ] Otro: [______________________] — Posición: [_____________]
+
+  >> En GDevelop: usa objetos de texto vinculados a variables con la expresión
+  >> ToString(Variable(Puntaje)) para mostrar el valor en pantalla.
+
+
+================================================================================
+PARTE 5 — ESTADOS DEL JUEGO (ESCENAS EN GDEVELOP)
+================================================================================
+
+--------------------------------------------------------------------------------
+5.1  FLUJO DE ESCENAS
+--------------------------------------------------------------------------------
+>> Dibuja o describe el flujo entre las pantallas de tu juego.
+>> Ejemplo: Menú → Juego → Game Over → Menú
+
+  [ESCENA 1: __________] ──[condición]──► [ESCENA 2: __________]
+                                               │
+                                        [condición]
+                                               │
+                                               ▼
+                                     [ESCENA 3: __________]
+                                               │
+                                        [condición]
+                                               │
+                                               ▼
+                              [volver a ESCENA 1: __________]
+
+
+--------------------------------------------------------------------------------
+5.2  DESCRIPCIÓN DE CADA ESCENA
+--------------------------------------------------------------------------------
+>> Copia este bloque para cada escena de tu juego.
+
+  ESCENA: [Nombre de la escena]
+    ¿Qué se muestra?          : [_________________________________]
+    ¿Qué puede hacer el jugador?: [_________________________________]
+    ¿Cómo se pasa a otra escena?: [_________________________________]
+    Música / sonido de fondo  : [_________________________________]
+
+  ESCENA: [Nombre de la escena]
+    ¿Qué se muestra?          : [_________________________________]
+    ¿Qué puede hacer el jugador?: [_________________________________]
+    ¿Cómo se pasa a otra escena?: [_________________________________]
+    Música / sonido de fondo  : [_________________________________]
+
+  >> En GDevelop: usa la acción "Cambiar escena" dentro de los eventos
+  >> para navegar entre pantallas.
+
+
+================================================================================
+PARTE 6 — ASSETS (RECURSOS VISUALES Y SONOROS)
+================================================================================
+
+--------------------------------------------------------------------------------
+6.1  FICHA TÉCNICA DE IMÁGENES
+--------------------------------------------------------------------------------
+  Formato de imagen         : [  PNG con transparencia  /  otro: ________  ]
+  Tamaño del jugador (sprite): [____] × [____] px
+  Tamaño de tiles / bloques : [____] × [____] px
+  Tamaño de enemigos        : [____] × [____] px
+  Resolución de fondos      : [____] × [____] px
+
+
+--------------------------------------------------------------------------------
+6.2  LISTADO DE ANIMACIONES
+--------------------------------------------------------------------------------
+>> Anota cada animación que necesitas. Indica cuántos frames tiene y cómo se
+>> llaman los archivos.
+
+  +------------------------+--------+---------------------------------------+
+  | Nombre de animación    | Frames | Ejemplo de nombre de archivo          |
+  +------------------------+--------+---------------------------------------+
+  | [                    ] | [    ] | [nombre_accion_00.png]                |
+  | [                    ] | [    ] | [                                   ] |
+  | [                    ] | [    ] | [                                   ] |
+  | [                    ] | [    ] | [                                   ] |
+  | [                    ] | [    ] | [                                   ] |
+  | [                    ] | [    ] | [                                   ] |
+  +------------------------+--------+---------------------------------------+
+
+  Convención de nombres obligatoria:
+    [personaje]_[accion]_[numero con 2 dígitos].png
+    Ejemplos: jugador_correr_00.png / enemigo_caminar_03.png
+    Reglas: todo en minúsculas, sin espacios, sin tildes, número de 2 dígitos.
+
+  >> En GDevelop: importa cada conjunto de frames como una animación dentro
+  >> del objeto sprite. Nombra cada animación igual que la carpeta.
+
+
+--------------------------------------------------------------------------------
+6.3  LISTADO DE SONIDOS Y MÚSICA
+--------------------------------------------------------------------------------
+  Formato de audio          : [  OGG  /  WAV  /  MP3  ]
+
+  +------------------------+--------------------------------------------------+
+  | Nombre del archivo     | ¿Cuándo suena?                                   |
+  +------------------------+--------------------------------------------------+
+  | [                    ] | [                                              ] |
+  | [                    ] | [                                              ] |
+  | [                    ] | [                                              ] |
+  | [                    ] | [                                              ] |
+  | [                    ] | [                                              ] |
+  +------------------------+--------------------------------------------------+
+
+  >> En GDevelop: usa la acción "Reproducir sonido" o "Reproducir música"
+  >> en el evento correspondiente. OGG es el formato recomendado.
+
+
+================================================================================
+PARTE 7 — IMPLEMENTACIÓN EN GDEVELOP (MANUAL TÉCNICO)
+================================================================================
+
+--------------------------------------------------------------------------------
+7.1  CONFIGURACIÓN INICIAL DEL PROYECTO
+--------------------------------------------------------------------------------
+  Paso 1 — Crear proyecto nuevo:
+    - Abre GDevelop 5.
+    - Haz clic en "Crear un nuevo proyecto".
+    - Elige "Proyecto vacío".
+    - Configura: Nombre del juego → [____________________]
+    - Configura: Resolución → [____] × [____] px.
+    - Guarda el proyecto en tu carpeta de trabajo.
+
+  Paso 2 — Crear las escenas:
+    - En el panel izquierdo, haz clic en el ícono "+" junto a "Escenas".
+    - Crea una escena por cada pantalla de tu juego (ver sección 5).
+    - Nombra cada escena de forma clara: "Menu", "Juego", "GameOver", etc.
+
+  Paso 3 — Importar los recursos:
+    - En la pestaña "Recursos del proyecto", arrastra tus imágenes y sonidos.
+    - Organiza los recursos en carpetas con el mismo nombre que tus escenas.
+
+
+--------------------------------------------------------------------------------
+7.2  CREAR EL PERSONAJE JUGADOR
+--------------------------------------------------------------------------------
+  Paso 1 — Agregar objeto sprite:
+    - En la escena de juego, haz clic en "Agregar objeto" → "Sprite".
+    - Nombra el objeto: [__________] (ej. "Jugador").
+
+  Paso 2 — Agregar animaciones:
+    - En el editor del objeto, haz clic en "+" para agregar animación.
+    - Nombre de la animación: [__________] (ej. "Correr").
+    - Importa los frames correspondientes (ver sección 6.2).
+    - Ajusta la velocidad de la animación: [____] FPS.
+    - Repite para cada animación (quieto, correr, saltar, etc.).
+
+  Paso 3 — Agregar comportamiento de plataforma:
+    - En la pestaña "Comportamientos" del objeto, haz clic en "+".
+    - Selecciona "Platform character" (Personaje de plataformas).
+    - Configura:
+        Velocidad máxima          : [____] px/s
+        Velocidad de salto        : [____] px/s
+        Gravedad                  : [____] px/s²
+
+  Paso 4 — Agregar variables de objeto:
+    - En la pestaña "Variables" del objeto, agrega:
+        HP      → tipo: número → valor inicial: [____]
+        Vidas   → tipo: número → valor inicial: [____]
+        Mirando → tipo: cadena → valor inicial: "derecha"
+
+
+--------------------------------------------------------------------------------
+7.3  CREAR LAS PLATAFORMAS Y EL NIVEL
+--------------------------------------------------------------------------------
+  Opción A — Tiles / Tilemap (recomendado para niveles con grilla):
+    - Agrega un objeto "Tilemap" a la escena.
+    - Importa tu hoja de tiles (tileset) en los recursos.
+    - Dibuja el nivel con el editor de tiles de GDevelop.
+    - Agrega comportamiento "Platform" a cada tile sólido.
+
+  Opción B — Sprites individuales:
+    - Agrega un objeto sprite para el bloque/plataforma.
+    - Agrega comportamiento "Platform" al objeto.
+    - Duplica y posiciona los bloques para armar el nivel.
+
+  >> Para que el jugador colisione con la plataforma, el objeto plataforma
+  >> DEBE tener el comportamiento "Platform" y el jugador "Platform character".
+
+
+--------------------------------------------------------------------------------
+7.4  PROGRAMAR LOS CONTROLES (EVENTOS)
+--------------------------------------------------------------------------------
+>> En GDevelop, la lógica se programa con EVENTOS (no con código).
+>> Cada evento tiene: CONDICIÓN (cuándo) + ACCIÓN (qué hacer).
+
+  ESTRUCTURA BÁSICA DE EVENTOS DE MOVIMIENTO:
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Tecla [←] presionada
+  ACCIÓN:    Simular tecla izquierda presionada para [Jugador]
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Tecla [→] presionada
+  ACCIÓN:    Simular tecla derecha presionada para [Jugador]
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Tecla [↑] presionada  Y  [Jugador] está en el suelo
+  ACCIÓN:    Simular tecla saltar presionada para [Jugador]
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Tecla [Espacio] presionada
+  ACCIÓN:    [Acción principal de tu juego — disparo, recoger, etc.]
+  ─────────────────────────────────────────────────────────────────
+
+  >> Registra aquí los controles adicionales que programaste:
+  Control extra 1: [Condición: ___________] → [Acción: ___________]
+  Control extra 2: [Condición: ___________] → [Acción: ___________]
+
+
+--------------------------------------------------------------------------------
+7.5  PROGRAMAR LAS ANIMACIONES (CAMBIO AUTOMÁTICO)
+--------------------------------------------------------------------------------
+  >> Las animaciones deben cambiar según el estado del jugador.
+
+  ESTRUCTURA DE EVENTOS DE ANIMACIÓN:
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: [Jugador] está en el suelo  Y  velocidad horizontal ≠ 0
+  ACCIÓN:    Cambiar animación de [Jugador] a "Correr"
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: [Jugador] está en el suelo  Y  velocidad horizontal = 0
+  ACCIÓN:    Cambiar animación de [Jugador] a "Quieto"
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: [Jugador] NO está en el suelo
+  ACCIÓN:    Cambiar animación de [Jugador] a "Saltar"
+  ─────────────────────────────────────────────────────────────────
+
+  >> Animaciones adicionales que programaste:
+  Animación extra 1: [Condición: ___________] → [Animación: ___________]
+  Animación extra 2: [Condición: ___________] → [Animación: ___________]
+
+
+--------------------------------------------------------------------------------
+7.6  PROGRAMAR EL SISTEMA DE DAÑO Y VIDAS
+--------------------------------------------------------------------------------
+  ESTRUCTURA DE EVENTOS DE DAÑO:
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: [Jugador] colisiona con [Enemigo]
+  CONDICIÓN: Variable "Inmune" de [Jugador] = 0
+  ACCIÓN:    Restar 1 a variable HP de [Jugador]
+  ACCIÓN:    Asignar valor 1 a variable "Inmune" de [Jugador]
+  ACCIÓN:    Iniciar temporizador "InmunidadTimer"
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Temporizador "InmunidadTimer" > [____] segundos
+  ACCIÓN:    Asignar valor 0 a variable "Inmune" de [Jugador]
+  ACCIÓN:    Detener temporizador "InmunidadTimer"
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Variable HP de [Jugador] ≤ 0
+  ACCIÓN:    Restar 1 a variable global "Vidas"
+  ACCIÓN:    Asignar valor [____] a HP de [Jugador]  (restaurar HP)
+  ACCIÓN:    Reposicionar [Jugador] en X=[____], Y=[____]
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Variable global "Vidas" < 0
+  ACCIÓN:    Cambiar escena a "GameOver"
+  ─────────────────────────────────────────────────────────────────
+
+
+--------------------------------------------------------------------------------
+7.7  PROGRAMAR EL HUD (INTERFAZ EN PANTALLA)
+--------------------------------------------------------------------------------
+  Paso 1 — Crear capa HUD:
+    - En GDevelop, abre el editor de capas (Layers).
+    - Agrega una capa nueva llamada "HUD".
+    - Marca la capa HUD como "no seguir la cámara" para que sea fija.
+
+  Paso 2 — Agregar textos al HUD:
+    - Agrega un objeto "Texto" a la capa HUD.
+    - Nombra el objeto: "TextoPuntaje".
+    - En los eventos, agrega esta acción cada fotograma:
+        Modificar texto de "TextoPuntaje" →
+        "PUNTAJE: " + ToString(Variable(Puntaje))
+
+  Paso 3 — Agregar íconos de vida (si usas sprites):
+    - Agrega un sprite de vida a la capa HUD.
+    - Usa un evento para mostrarlo u ocultarlo según la variable Vidas.
+
+  >> Elementos del HUD que implementaste:
+  HUD elemento 1: [Nombre del objeto] — [¿Qué muestra?] — [Expresión usada]
+  HUD elemento 2: [Nombre del objeto] — [¿Qué muestra?] — [Expresión usada]
+  HUD elemento 3: [Nombre del objeto] — [¿Qué muestra?] — [Expresión usada]
+
+
+--------------------------------------------------------------------------------
+7.8  PROGRAMAR EL CAMBIO DE ESCENA
+--------------------------------------------------------------------------------
+  >> Eventos para navegar entre escenas:
+
+  CONDICIÓN: Tecla [Espacio / Enter] presionada  (en escena Menú)
+  ACCIÓN:    Cambiar escena a "[Nombre escena de juego]"
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: Variable global "Vidas" < 0
+  ACCIÓN:    Cambiar escena a "[Nombre escena Game Over]"
+  ─────────────────────────────────────────────────────────────────
+  CONDICIÓN: [Condición de victoria — p.ej. todos los enemigos eliminados]
+  ACCIÓN:    Cambiar escena a "[Nombre del siguiente nivel o victoria]"
+  ─────────────────────────────────────────────────────────────────
+
+
+================================================================================
+PARTE 8 — BITÁCORA DE AVANCE
+================================================================================
+
+>> Registra cada sesión de trabajo aquí. Una fila por sesión o por día.
+>> Esto te ayuda a demostrar tu proceso y a recordar qué hiciste.
+
+--------------------------------------------------------------------------------
+FORMATO DE ENTRADA DE BITÁCORA:
+--------------------------------------------------------------------------------
+
+  SESIÓN N.°: [____]
+  Fecha     : [  DD / MM / AAAA  ]
+  Duración  : [____] horas
+  Integrante(s) que trabajaron: [_________________________________]
+
+  ¿Qué planifiqué hacer hoy?
+    [_________________________________]
+
+  ¿Qué logré implementar?
+    [_________________________________]
+
+  ¿Qué problemas o errores encontré?
+    [_________________________________]
+
+  ¿Cómo los resolví?
+    [_________________________________]
+
+  ¿Qué falta por hacer?
+    [_________________________________]
+
+  Capturas de pantalla / evidencias adjuntas: [  Sí — archivo: ________  /  No  ]
+
+  ──────────────────────────────────────────────────────────────────────────────
+
+  SESIÓN N.°: [____]
+  Fecha     : [  DD / MM / AAAA  ]
+  Duración  : [____] horas
+  Integrante(s) que trabajaron: [_________________________________]
+
+  ¿Qué planifiqué hacer hoy?
+    [_________________________________]
+
+  ¿Qué logré implementar?
+    [_________________________________]
+
+  ¿Qué problemas o errores encontré?
+    [_________________________________]
+
+  ¿Cómo los resolví?
+    [_________________________________]
+
+  ¿Qué falta por hacer?
+    [_________________________________]
+
+  Capturas de pantalla / evidencias adjuntas: [  Sí — archivo: ________  /  No  ]
+
+  ──────────────────────────────────────────────────────────────────────────────
+
+  >> (Copia y pega el bloque anterior para cada sesión adicional)
+
+
+================================================================================
+PARTE 9 — PRUEBAS Y CONTROL DE CALIDAD (QA)
+================================================================================
+
+--------------------------------------------------------------------------------
+9.1  CHECKLIST DE PRUEBAS FUNCIONALES
+--------------------------------------------------------------------------------
+>> Marca con [X] cada ítem una vez que lo hayas probado y confirmado.
+
+  Controles y movimiento:
+    [ ] El jugador se mueve correctamente a la izquierda y derecha.
+    [ ] El jugador salta y aterriza sobre plataformas sin errores.
+    [ ] El jugador no atraviesa las paredes ni el suelo.
+    [ ] Las animaciones cambian según la acción del jugador.
+    [ ] La dirección del sprite cambia al moverse izquierda/derecha.
+
+  Sistema de daño y vidas:
+    [ ] El jugador pierde HP al colisionar con enemigos o peligros.
+    [ ] El contador de HP se actualiza correctamente en el HUD.
+    [ ] Al llegar a 0 HP se descuenta una vida y el jugador reaparece.
+    [ ] Al perder todas las vidas se muestra la pantalla de Game Over.
+    [ ] La inmunidad temporal funciona (el jugador no recibe daño repetido).
+
+  Mecánica principal:
+    [ ] [Describe tu mecánica]: [_______________] funciona correctamente.
+    [ ] [_________________________________]
+    [ ] [_________________________________]
+
+  Enemigos (si aplica):
+    [ ] Los enemigos se mueven con la IA esperada.
+    [ ] Los enemigos causan daño al jugador.
+    [ ] Los enemigos mueren/desaparecen cuando corresponde.
+
+  Puntuación y HUD:
+    [ ] El puntaje se actualiza correctamente al hacer acciones.
+    [ ] El HUD muestra el puntaje, vidas y HP en todo momento.
+    [ ] El nivel actual se muestra correctamente.
+
+  Escenas y flujo:
+    [ ] Se puede pasar del Menú al Juego.
+    [ ] Al perder se muestra Game Over y se puede volver al Menú.
+    [ ] Al completar el nivel se pasa al siguiente.
+
+  Audio:
+    [ ] La música de fondo suena y hace loop correctamente.
+    [ ] Los efectos de sonido se reproducen en el momento correcto.
+    [ ] No hay errores de audio (archivos no encontrados, etc.).
+
+
+--------------------------------------------------------------------------------
+9.2  REGISTRO DE BUGS Y SOLUCIONES
+--------------------------------------------------------------------------------
+>> Anota aquí los errores encontrados durante las pruebas.
+
+  +---+---------------------------+-------------------+--------------------+
+  | # | Descripción del bug       | Estado            | Solución aplicada  |
+  +---+---------------------------+-------------------+--------------------+
+  | 1 | [                       ] | [ Abierto/Cerrado] | [                ] |
+  | 2 | [                       ] | [ Abierto/Cerrado] | [                ] |
+  | 3 | [                       ] | [ Abierto/Cerrado] | [                ] |
+  | 4 | [                       ] | [ Abierto/Cerrado] | [                ] |
+  | 5 | [                       ] | [ Abierto/Cerrado] | [                ] |
+  +---+---------------------------+-------------------+--------------------+
+
+
+================================================================================
+PARTE 10 — CONCLUSIONES Y AUTOEVALUACIÓN
+================================================================================
+
+--------------------------------------------------------------------------------
+10.1  REFLEXIÓN FINAL DEL EQUIPO
+--------------------------------------------------------------------------------
+  ¿Qué fue lo más difícil del proyecto?
+    [_________________________________]
+
+  ¿Qué aprendieron durante el desarrollo?
+    [_________________________________]
+
+  ¿Qué cambiarían o mejorarían si tuvieran más tiempo?
+    [_________________________________]
+
+  ¿Qué funcionalidades quedaron pendientes y por qué?
+    [_________________________________]
+
+
+--------------------------------------------------------------------------------
+10.2  AUTOEVALUACIÓN POR INTEGRANTE
+--------------------------------------------------------------------------------
+>> Cada integrante del equipo completa su propio bloque.
+
+  Nombre: [_________________________________]
+    Rol en el proyecto          : [Programador / Diseñador / QA / Documentador]
+    Contribución principal      : [_________________________________]
+    Nota que me pongo (0–10)    : [____]
+    Justificación               : [_________________________________]
+
+  Nombre: [_________________________________]
+    Rol en el proyecto          : [_________________________________]
+    Contribución principal      : [_________________________________]
+    Nota que me pongo (0–10)    : [____]
+    Justificación               : [_________________________________]
+
+  Nombre: [_________________________________]
+    Rol en el proyecto          : [_________________________________]
+    Contribución principal      : [_________________________________]
+    Nota que me pongo (0–10)    : [____]
+    Justificación               : [_________________________________]
+
+
+================================================================================
+GLOSARIO RÁPIDO DE TÉRMINOS GDEVELOP
+================================================================================
+
+  Escena (Scene)    : Pantalla o estado del juego (Menú, Juego, GameOver...).
+  Objeto (Object)   : Elemento del juego (jugador, bloque, enemigo, texto...).
+  Sprite            : Objeto con imagen o animación.
+  Comportamiento    : Lógica predefinida que se agrega a un objeto
+                      (Platform character, Physics, etc.).
+  Evento (Event)    : Bloque de lógica: CONDICIÓN → ACCIÓN.
+  Condición         : El "cuándo" de un evento (tecla presionada, colisión...).
+  Acción            : El "qué hacer" de un evento (mover, reproducir sonido...).
+  Variable global   : Variable accesible desde cualquier escena (Puntaje, Vidas).
+  Variable de objeto: Variable que pertenece a un objeto específico (HP, Nombre).
+  Capa (Layer)      : Nivel de profundidad visual. Útil para el HUD (capa fija).
+  Tilemap           : Mapa creado con tiles (baldosas) para construir niveles.
+  Platform          : Comportamiento de superficie sobre la que se puede caminar.
+  Expresión         : Fórmula para mostrar o calcular valores en GDevelop,
+                      ej. ToString(Variable(Puntaje)).
+  FPS               : Fotogramas por segundo — velocidad de animación.
+  Hitbox            : Área de colisión de un objeto.
+  HUD               : Interfaz en pantalla (puntaje, vidas, etc.).
+
+================================================================================
+                        FIN DE LA PLANTILLA
+     Guarda este archivo con el nombre: bitacora_[tu_nombre]_[juego].txt
+================================================================================

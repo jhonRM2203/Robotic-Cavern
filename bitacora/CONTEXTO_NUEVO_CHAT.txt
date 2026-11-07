@@ -1,0 +1,173 @@
+================================================================================
+ CONTEXTO PARA CONTINUAR EL PROYECTO "CAVERN" EN GDEVELOP (CHAT NUEVO)
+ Última actualización: 25/10/2026 — Fases 0 a 3 terminadas. Se empieza la Fase 4.
+================================================================================
+
+LEE ESTO PRIMERO (instrucciones para Claude)
+--------------------------------------------------------------------------------
+Eres mi tutor paso a paso de GDevelop 5 (en español). Estamos rehaciendo en
+GDevelop el juego Cavern (estilo Bubble Bobble) siguiendo un documento de
+requisitos del juego original (PROGRAMACION_CAVERN.txt). El avance está en
+informe_3.txt. No sé programar: trabajo solo con eventos visuales.
+
+CÓMO QUIERO QUE ME AYUDES
+  - Responde en español, con tono cercano y directo.
+  - Dame los eventos de GDevelop en TABLAS: condiciones a la izquierda, acciones
+    a la derecha, con el texto tal como lo veo en GDevelop.
+  - Dime EXACTAMENTE por qué menú se busca cada condición o acción (por ejemplo
+    "Otras condiciones → General → Variables → Valor de variable") y qué escribir
+    en cada campo. Casi siempre pido "más a detalle", así que hazlo desde el inicio.
+  - Avanza por TANDAS pequeñas (3 a 8 eventos) y pídeme que pruebe antes de seguir.
+  - Cuando te mande una captura, revísala con cuidado: muchas veces ahí está el
+    error (signo equivocado, condición en un evento nuevo en vez de dentro del
+    mismo evento, variable del objeto en vez de global, etc.).
+  - Si no puedes ver una captura que dije que mandé, dímelo en vez de suponer.
+  - Los valores del original están en frames a 60 fps; conviértelos a segundos
+    (frames / 60) y a px/s (px por frame * 60).
+  - Tengo un límite de imágenes por chat: pídeme capturas solo cuando hagan falta,
+    y mejor UNA captura con varias cosas que varias sueltas.
+
+ARCHIVOS QUE SUBIRÉ AL CHAT NUEVO
+  1. CONTEXTO_NUEVO_CHAT.txt  (este archivo)
+  2. informe_3.txt            (estado del proyecto, actualizado a Fase 3)
+  3. PROGRAMACION_CAVERN.txt  (reglas y valores del juego original)
+  4. (Opcional) capturas del juego original: lobby, nivel y game over.
+
+
+DATOS DEL PROYECTO
+--------------------------------------------------------------------------------
+  - Resolución del juego: 1000 x 550.
+  - 4 escenas: nivel1 (azul/tech), nivel2 (lava), nivel3 (jungla), nivel4 (acero).
+  - Barra HUD inferior: de Y=505 a Y=550.
+  - Objetos globales: jugador, burbuja, corazon, vida, plus, texto_puntuacion,
+    texto_nivel, franja_hud, bloque_colicion.
+  - Cada nivel tiene su objeto de colisión del escenario (nivel1: colicion_nivel1)
+    y sus objetos teleport_superior y teleport_inferior.
+  - Los niveles son más altos que la pantalla: los teleports mandan al jugador a
+    Y=-112 (arriba) o Y=631/642 (abajo).
+  - Variables globales: vidas=2, corazones=3, puntuacion=0, nivel_actual=1.
+  - Hojas de eventos externas: HUD, burbuja, personaje, fondo-camara-paralax,
+    jugador_dano. Orden en cada nivel: HUD, burbuja, personaje,
+    fondo-camara-paralax, jugador_dano, y después el grupo de teleports.
+    (jugador_dano SIEMPRE debajo de fondo-camara-paralax, o se pierde el temblor.)
+  - Las capas NO son globales: la capa "HUD" debe existir en cada escena.
+
+VARIABLES DE OBJETO YA CREADAS
+  jugador: inv_tiempo, muriendo, vel_caida, inicio_x, inicio_y, sacudida,
+           direccion (1/-1), recarga, soplando. (invulnerable ya no se usa)
+  burbuja: listo, dir, fase (0 horizontal, 1 flotando, 2 explotando), vida,
+           soplo, vel_flota, atrapado (0 vacía, 1 robot normal, 2 robot agresivo).
+
+CONTROLES ACTUALES
+  Flechas izquierda/derecha mueven, flecha arriba salta, ESPACIO sopla burbuja.
+  El comportamiento de plataformas del jugador tiene los controles por defecto
+  desactivados; la hoja "personaje" simula las teclas con tres eventos separados.
+
+ANIMACIONES DEL JUGADOR: quieto, correr, saltar, morir, soplar.
+ANIMACIONES DE LA BURBUJA: crea, destrulle, atrapa1 (robot normal),
+  atrapa2 (robot agresivo). Los nombres deben escribirse exactamente igual.
+
+TELEPORTS (cada nivel tiene 4 eventos: colisión + condición de X + muriendo = 0)
+  nivel1: divisoria X=415.  superior → (68,631) / (768,631)
+                            inferior → (64,-112) / (766,-112)
+  nivel2: 3 columnas, divisorias X=240 y 607, X de destino 65 / 416 / 798,
+          Y = 642 al bajar y -112 al subir.
+  nivel4: divisoria X=431, X de destino 65 / 797, Y = 631 y -112.
+
+
+LECCIONES APRENDIDAS (errores que ya nos pasaron: evítalos)
+--------------------------------------------------------------------------------
+  1. Las condiciones de UN evento se cumplen TODAS a la vez. Dos teclas distintas
+     = dos eventos. Cuando mando una condición suelta en un evento aparte, casi
+     siempre es porque pulsé "Añadir un nuevo evento" y no "Añadir condición".
+  2. Variable GLOBAL: Otras condiciones/acciones → General → Variables →
+     "Valor de variable" / "Cambiar la variable". En la lista se ve con ícono de
+     globo y SIN "de [objeto]". Variable de OBJETO: se busca bajo el objeto →
+     "Valor de la variable del objeto". Las confundí varias veces.
+  3. Tras "Crear objeto", las acciones siguientes se aplican a TODAS las
+     instancias de ese objeto, no solo a la nueva. Para inicializar una instancia
+     nueva usa un evento aparte con una variable "listo = 0", o identifícala por
+     su posición.
+  4. Para saber si algo se terminó, evita los temporizadores de escena: no
+     funcionaron bien. Usa una variable del objeto que cuente atrás con
+     TimeDelta().
+  5. "Tecla presionada recientemente" = una vez al pulsar. "Tecla presionada" =
+     mientras se mantiene.
+  6. Si una animación "se queda en el primer frame", otra hoja la está
+     cambiando en cada frame: añade condiciones (por ejemplo muriendo = 0 o
+     soplando <= 0) a los eventos de animación de la hoja "personaje".
+  7. Las animaciones que deben terminar (crea, destrulle, soplar, morir) llevan
+     el Bucle DESMARCADO.
+  8. Los objetos de Pintor de formas: desmarcar "Dibuja las formas relativas a la
+     posición del objeto" para usar coordenadas de pantalla.
+  9. Los objetos creados en la capa base se mueven con la cámara. Todo lo fijo
+     en pantalla va en la capa "HUD".
+ 10. Un jugador que cae por la muerte toca los teleports: todos los eventos de
+     teleport llevan la condición muriendo = 0.
+ 11. Los textos de los eventos se copian y pegan (clic derecho) para ahorrar tiempo.
+
+
+ESTADO ACTUAL (resumen; el detalle completo está en informe_3.txt)
+--------------------------------------------------------------------------------
+  ✓ Fase 0: niveles, jugador, cámara, paralaje, teleports.
+  ✓ Fase 1: variables globales y HUD (corazones, vidas, +, puntuación, NIVEL X,
+            franja oscura).
+  ✓ Fase 2: daño, invulnerabilidad con parpadeo, sacudida, muerte con caída,
+            pérdida de vida grande, respawn. Provisional: la tecla H simula el golpe.
+  ✓ Fase 3: burbujas (disparo con Espacio, soplo mantenido, flotación, explosión,
+            máximo 5, recarga, choque con pared, salida por arriba).
+
+  TEMPORAL que hay que reemplazar más adelante:
+    - Tecla H que simula el golpe         → Fase 4 (colisión con el bolt).
+    - Game over sin escena (vidas = -1)   → Fase 7.
+    - Eventos temporales de nivel_actual en nivel2, nivel3 y nivel4 → Fase 6.
+
+  PENDIENTES DE FASES ANTERIORES QUE SE HACEN AHORA:
+    - Fase 4: empuje lateral y bloqueo de movimiento (~1.67 s) al recibir el golpe.
+    - Fase 4: atrapar al robot dentro de la burbuja (animaciones atrapa1/atrapa2).
+    - Fase 4: el bolt que toca una burbuja la hace explotar.
+    - Fase 5: fruta al explotar una burbuja con robot atrapado.
+    - Fase 8: sonidos de soplar y de explosión.
+
+  DUDAS PENDIENTES POR CONFIRMAR
+    - Si los teleports del nivel 4 funcionan bien al bajar y subir (tuvimos
+      problemas con ellos y no quedó confirmado).
+    - nivel4 usa objetos de nivel2 (paralax_nivel2, nivel2, fondo_nivel2) en vez
+      de objetos propios del nivel 4 (acero).
+    - El evento "Salir por arriba" de las burbujas debería estar en la hoja
+      "burbuja" (no en cada nivel) y su valor Y < -40 puede necesitar bajarse
+      si explotan antes de tocar el techo.
+
+
+SIGUIENTE: FASE 4 — ENEMIGOS (orden sugerido, de a pocos y probando)
+--------------------------------------------------------------------------------
+  1. Objeto robot0 (global): animaciones de caminar izquierda/derecha y disparar,
+     origen y máscara de colisión, variables de objeto.
+  2. Movimiento básico: gravedad o comportamiento de plataformas, rebote en
+     paredes, velocidad aleatoria (1 a 3 px/frame = 60 a 180 px/s).
+  3. IA: cambio de dirección cada 100-250 frames y 2/3 de probabilidad de ir
+     hacia el jugador.
+  4. Spawn: desde la fila superior cada 1.35 s; total = 10 + nivel; máximo
+     simultáneo = min((nivel + 6) / 2, 8).
+  5. Atrapar con burbuja: colisión burbuja + robot → el robot desaparece y la
+     burbuja pasa a la animación atrapa1.
+  6. Bolt (disparo del robot): 420 px/s, sin gravedad, probabilidad de disparo
+     0.001 + 0.0001 * nivel por frame (x10 si el jugador está a la misma altura),
+     se destruye al tocar pared o jugador.
+  7. Conectar el daño: el bolt que toca al jugador reemplaza la tecla H; añadir
+     empuje lateral y bloqueo de movimiento.
+  8. Robot agresivo (robot1): igual, más la lógica de disparar a las burbujas
+     cercanas (misma altura y a menos de 200 px).
+
+Después: Fase 5 (frutas), Fase 6 (paso de nivel), Fase 7 (menú y game over),
+Fase 8 (sonidos y pulido). Detalle en informe_3.txt.
+
+================================================================================
+MENSAJE SUGERIDO PARA EMPEZAR EL CHAT NUEVO
+================================================================================
+  "Hola. Continuamos un proyecto de GDevelop que venía haciendo en otro chat. Te
+   adjunto el documento de traspaso (CONTEXTO_NUEVO_CHAT.txt), el informe de
+   avance (informe_3.txt) y los requisitos del juego original
+   (PROGRAMACION_CAVERN.txt). Léelos y empecemos con la Fase 4, paso 1: el
+   objeto robot0. Sigue el estilo de trabajo que describe el documento."
+================================================================================

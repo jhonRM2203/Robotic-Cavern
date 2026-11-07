@@ -1,0 +1,143 @@
+================================================================================
+                        FICHA TÉCNICA DE ASSETS
+                     Juego: Cavern (Bubble Bobble)
+                     Fecha: 15/10/2026
+================================================================================
+
+--------------------------------------------------------------------------------
+1. INFORMACIÓN GENERAL
+--------------------------------------------------------------------------------
+Juego              : Cavern (inspirado en Bubble Bobble)
+Motor / Lenguaje   : Python (cavern.py) GDevelop
+Resolución base    : Variable por nivel (fondos: 297×175 px aprox.)
+Carpeta de assets (hasta el momento): img/  (imágenes del diseñador)
+                     cavern-master/images/  (imágenes del juego base)
+
+--------------------------------------------------------------------------------
+2. TAMAÑOS BASE DE SPRITES (px)
+--------------------------------------------------------------------------------
+Elemento           Tamaño (ancho × alto)   Observaciones
+---------------------------------------------------------------------------
+Jugador            64 × 64                 Confirmado en todas las carpetas
+                                           de animación (correr, salto, etc.)
+Bloques            25 × 25                 block0–block3 (diseñador)
+Fondos / Pantalla  297 × 175               Imagen2–Imagen5 (fondos diseñador)
+Enemigos (robot)   indefinido               robot0XX / robot1XX (juego base)
+Burbuja (orb/pop)  indefinido               orb0–orb6, pop00–pop16 (juego base)
+Frutas             indefinido               fruit00–fruit42 (juego base)
+
+--------------------------------------------------------------------------------
+3. FORMATO DE IMAGEN
+--------------------------------------------------------------------------------
+Formato            : PNG con canal alfa (transparencia)
+Profundidad color  : 32 bits (RGBA)
+Modo de color      : sRGB
+Requerimiento      : Fondo transparente obligatorio en todos los sprites
+
+--------------------------------------------------------------------------------
+4. FORMATO DE SONIDO
+--------------------------------------------------------------------------------
+Formato principal  : OGG Vorbis  (.ogg)
+Formato alternativo: WAV         (.wav)  — aceptado como respaldo
+Calidad sugerida   : 44100 Hz, estéreo, ~128 kbps (OGG)
+Carpeta            : cavern-master/sounds/
+Música de fondo    : cavern-master/music/  (theme.ogg)
+
+Sonidos presentes en el proyecto:
+  appear0.ogg   — aparición de enemigo
+  blow0–3.ogg   — soplar burbuja
+  bonus0.ogg    — bonus / fruta recogida
+  die0.ogg      — muerte del jugador
+  jump0.ogg     — salto
+  land0–3.ogg   — aterrizaje
+  laser0–3.ogg  — disparo láser (enemigo)
+  level0.ogg    — inicio de nivel
+  life0.ogg     — vida extra
+  ouch0–3.ogg   — golpe recibido
+  over0.ogg     — game over
+  pop0–3.ogg    — burbuja que estalla
+  score0.ogg    — puntaje registrado
+  trap0–3.ogg   — trampa activada
+  vanish0.ogg   — enemigo desaparecido
+  theme.ogg     — música principal (loop)
+
+--------------------------------------------------------------------------------
+5. ANIMACIONES REQUERIDAS Y FRAMES
+--------------------------------------------------------------------------------
+
+  JUGADOR
+  -------
+  Animación          Carpeta / Prefijo           Frames   Rango
+  -----------------------------------------------------------------------
+  Quieto (idle)      img/quieto/jugador_quieto   4        _00 a _03
+  Correr             img/correr/jugador_correr   6        _00 a _05
+  Saltar             img/salto/jugador_salto     6        _00 a _05
+  Soplar burbuja     img/soplar/jugador_soplar   7        _00 a _06
+  Morir              img/muerte/jugador_muerte   6        _00 a _05
+
+  ENEMIGOS (referencia juego base) (estos aun no estan definidos)
+  la informacion presentada es del juego base proporcionado
+  ---------------------------------
+  Animación          Prefijo (images/)           Frames   Notas
+  -----------------------------------------------------------------------
+  Caminar izq.       robot0XX                    8        _00 a _07
+  Caminar der.       robot1XX                    8        _10 a _17
+  (Pendiente crear sprites de enemigo personalizado siguiendo mismo patrón)
+
+  BURBUJA / ORB (estos aun no estan definidos)
+  la informacion presentada es del juego base proporcionado
+  -------------
+  Animación          Prefijo (images/)           Frames   Notas
+  -----------------------------------------------------------------------
+  Aparecer / crecer  orb0–orb6                   7        orb0 a orb6
+  Explotar           pop00–pop06 / pop10–pop16   7        por dirección (0/1)
+
+  FRUTAS (bonus) (estos aun no estan definidos)
+  la informacion presentada es del juego base proporcionado
+  --------------
+  Animación          Prefijo (images/)           Frames   Notas
+  -----------------------------------------------------------------------
+  Girar/brillar      fruit0X (X=0,1,2)           3        por tipo (0–4)
+
+--------------------------------------------------------------------------------
+6. CONVENCIÓN DE NOMBRES DE ARCHIVO
+--------------------------------------------------------------------------------
+Patrón general:
+    [personaje/elemento]_[accion]_[numero].png
+
+Ejemplos:
+    jugador_quieto_00.png       — Jugador, estado quieto, frame 0
+    jugador_correr_01.png       — Jugador, corriendo, frame 1
+    jugador_salto_03.png        — Jugador, saltando, frame 3
+    jugador_soplar_00.png       — Jugador, soplando burbuja, frame 0
+    jugador_muerte_05.png       — Jugador, muriendo, frame 5
+    enemigo_caminar_00.png      — Enemigo, caminando, frame 0
+    burbuja_aparecer_00.png     — Burbuja, apareciendo, frame 0
+    fruta_tipo0_00.png          — Fruta tipo 0, frame 0
+
+Reglas:
+  • Todo en minúsculas, sin espacios (usar guion bajo _ como separador)
+  • Número de frame con 2 dígitos: 00, 01, 02 ... 09, 10, 11 ...
+  • Sin caracteres especiales ni tildes en el nombre del archivo
+  • Extensión siempre en minúsculas: .png  /  .ogg  /  .wav
+
+--------------------------------------------------------------------------------
+7. RESUMEN DE CONTEO DE ASSETS (imágenes del diseñador)
+--------------------------------------------------------------------------------
+Animación          Frames confirmados   Tamaño verificado
+----------------------------------------------------------
+jugador_quieto     4                    64×64 px
+jugador_correr     6                    64×64 px
+jugador_salto      6                    64×64 px
+jugador_soplar     7                    64×64 px
+jugador_muerte     6                    64×64 px
+bloques            4 variantes          25×25 px
+fondos             4 variantes          297×175 px (aprox.)
+----------------------------------------------------------
+TOTAL sprites jugador: 29 frames
+TOTAL bloques:          4 imágenes
+TOTAL fondos:           4 imágenes
+
+================================================================================
+                          FIN DE LA FICHA TÉCNICA 1
+================================================================================

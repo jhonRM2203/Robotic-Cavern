@@ -1,0 +1,25 @@
+{
+  "name": "robotic_32cavern",
+  "displayName": "robotic cavern",
+  "version": "1.0.4",
+  "description": "robotic cavern",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "jhon rafael mercado ayazo",
+  "devDependencies": {
+    "cordova-android": "^15.1.0",
+    "cordova-plugin-whitelist": "1",
+    "gdevelop-cordova-plugin-screen-orientation": "3.0.4-patch.2"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "gdevelop-cordova-plugin-screen-orientation": {}
+    }
+  }
+}

@@ -1,0 +1,956 @@
+================================================================================
+  INFORME DE PRÁCTICA PROFESIONAL
+  (Actividades y funciones asignadas por el empleador)
+  Desarrollo de videojuego Robotic Cavern en GDevelop —
+  Corporaci�n Universitaria Remington / Corporación Universitaria Remington
+================================================================================
+
+  Jhon Rafael Mercado Ayazo
+  Código: < completar con tu código estudiantil >
+
+  Docente asesor: < Nombre del docente asesor >
+  Jefe inmediato / tutor empresarial: Jhon Rafael Mercado Ayazo (Corporaci�n Universitaria Remington)
+
+  Corporación Universitaria Remington
+  Facultad de Ciencias Básicas e Ingeniería
+  Ingeniería de Sistemas
+
+  Medellín, noviembre de 2026
+
+================================================================================
+NOTA PARA EL ESTUDIANTE:
+  Los campos marcados con < > deben ser completados con tus datos reales.
+  Los espacios marcados [AQUÍ VA LA FOTO/FIGURA: ...] indican dónde insertar
+  capturas de pantalla o imágenes en el documento Word.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+Tabla de contenido
+--------------------------------------------------------------------------------
+  (Actualice la tabla de contenido en Word: clic derecho > Actualizar campos)
+
+  Glosario
+  Resumen
+  Introducción
+  1. Identificación de la práctica
+  2. Contextualización de la empresa
+  3. Cargo, funciones y responsabilidades asignadas
+  4. Objetivos de la práctica
+  5. Marco de referencia aplicado
+  6. Cronograma y bitácora de actividades
+  7. Desarrollo de las actividades
+  8. Resultados y aportes a la empresa
+  9. Análisis del desempeño y competencias desarrolladas
+  10. Conclusiones
+  11. Recomendaciones
+  12. Referencias
+
+
+--------------------------------------------------------------------------------
+Lista de tablas y figuras
+--------------------------------------------------------------------------------
+  Tabla 1. Identificación de la práctica ........................... < página >
+  Tabla 2. Funciones asignadas ...................................... < página >
+  Tabla 3. Herramientas y tecnologías utilizadas .................... < página >
+  Tabla 4. Cronograma de actividades ................................ < página >
+  Tabla 5. Resultados y aportes ..................................... < página >
+  Tabla 6. Autoevaluación del desempeño ............................. < página >
+
+  Figura 1. Pantalla de inicio del juego Robotic Cavern ............. < página >
+  Figura 2. Menú principal del juego ................................ < página >
+  Figura 3. Nivel 1 — Ciudad Tecnológica en ejecución ............... < página >
+  Figura 4. Nivel 2 — Lava en ejecución ............................. < página >
+  Figura 5. Nivel 3 — Jungla en ejecución ........................... < página >
+  Figura 6. Nivel 4 — Acero en ejecución ............................ < página >
+  Figura 7. Pantalla de historia del juego .......................... < página >
+  Figura 8. HUD del juego (vidas, corazones y puntuación) ........... < página >
+  Figura 9. Sistema de burbujas funcionando .......................... < página >
+  Figura 10. APK instalado en dispositivo Android ................... < página >
+
+
+--------------------------------------------------------------------------------
+Glosario
+--------------------------------------------------------------------------------
+
+APK: Archivo de instalación de aplicaciones para dispositivos Android.
+     Equivale al instalador .exe de Windows pero para el sistema Android.
+
+Asset: Recurso gráfico o de sonido usado en el videojuego (imagen, sprite,
+     audio, fuente tipográfica, mapa de nivel, etc.).
+
+Bug: Error en el código o en la lógica del juego que causa un comportamiento
+     no esperado o no deseado.
+
+Cordova (Apache Cordova): Herramienta de código abierto que permite empaquetar
+     aplicaciones web (HTML5) como aplicaciones nativas para dispositivos móviles.
+
+Frame: Imagen individual de una animación. Una secuencia de frames mostrados
+     rápidamente crea la ilusión de movimiento.
+
+GDevelop: Motor de desarrollo de videojuegos gratuito y de código abierto
+     basado en un sistema de eventos visuales (sin necesidad de escribir código).
+
+Glitch: En el contexto del juego, fragmento de código corrupto que circula
+     por la red del mundo del juego y corrompe a los robots. En términos
+     técnicos generales, un fallo o error en un sistema digital.
+
+HUD (Heads-Up Display): Interfaz visual superpuesta en pantalla durante el
+     juego que muestra información al jugador: vidas, corazones, puntuación
+     y nivel actual.
+
+HTML5: Estándar de desarrollo web que GDevelop usa como base de exportación
+     para publicar el juego en navegadores y como paso previo al APK.
+
+Paralaje (Parallax): Efecto visual en el que las capas del fondo se mueven
+     a velocidades distintas, creando sensación de profundidad y distancia.
+
+Pixel Art: Estilo gráfico digital donde los dibujos están formados por píxeles
+     individuales visibles, característico de los videojuegos retro.
+
+Sprite: Imagen bidimensional usada para representar un personaje u objeto
+     dentro del videojuego.
+
+Tilemap / Tileset: Mapa de nivel construido con bloques (tiles) que provienen
+     de una imagen llamada tileset. Diseñado con la herramienta Tiled Map Editor.
+
+Tiled Map Editor: Editor de mapas 2D gratuito usado para diseñar los niveles
+     del juego mediante bloques de terreno.
+
+Variable global: Dato almacenado en memoria del juego que persiste aunque
+     se cambie de escena (por ejemplo: vidas, puntuación, nivel actual).
+
+
+--------------------------------------------------------------------------------
+Resumen
+--------------------------------------------------------------------------------
+
+El presente informe describe el desarrollo del videojuego Robotic Cavern,
+realizado por Jhon Rafael Mercado Ayazo en el marco de la práctica profesional
+de Ingeniería de Sistemas en Corporación Universitaria Remington, bajo el
+proyecto de Corporaci�n Universitaria Remington. El trabajo consistió en el diseño, programación y
+publicación de un videojuego de plataformas inspirado en el clásico Bubble
+Bobble, haciendo uso del motor gratuito GDevelop 5 sin necesidad de escribir
+código fuente convencional. Las principales actividades ejecutadas incluyeron
+el diseño de cuatro niveles jugables con Tiled Map Editor, la creación de
+recursos gráficos originales mediante inteligencia artificial, la implementación
+de la lógica de juego completa a través del sistema de eventos de GDevelop,
+la construcción de una narrativa propia con 40 pantallas de historia, y la
+compilación del producto final como aplicación APK para dispositivos Android
+usando Apache Cordova y Android Studio. Como resultado se obtuvo un videojuego
+funcional y completo, con mecánicas de plataformas, sistema de vidas y
+puntuación, efectos de sonido, música, controles táctiles y una historia
+original. El proyecto acumuló aproximadamente 173 horas de trabajo durante
+el período comprendido entre el 19 de octubre y el 11 de noviembre de 2026.
+
+Palabras clave: videojuego, GDevelop, plataformas, Android, APK, pixel art,
+desarrollo de software, Bubble Bobble.
+
+
+--------------------------------------------------------------------------------
+Introducción
+--------------------------------------------------------------------------------
+
+El desarrollo de videojuegos es una de las ramas más complejas e integradoras
+de la ingeniería de software, pues combina programación, diseño gráfico,
+diseño de sonido, narrativa y experiencia de usuario en un solo producto.
+En el marco de la práctica profesional de Ingeniería de Sistemas, se propuso
+la creación de un videojuego completo desde cero, tomando como referencia el
+juego clásico Cavern (inspirado en Bubble Bobble, 1986) y rediseñándolo con
+gráficos, historia y mecánicas propias.
+
+El producto resultante, denominado Robotic Cavern, fue desarrollado con
+GDevelop 5, motor que permite implementar videojuegos sin escribir código
+convencional, usando en cambio un sistema de condiciones y acciones visuales.
+Esto representa una oportunidad para demostrar que los fundamentos de la
+programación lógica, el pensamiento algorítmico y la gestión de proyectos
+de software son aplicables incluso en entornos de desarrollo visual.
+
+Este informe documenta el proceso completo de desarrollo: la planificación,
+las herramientas utilizadas, las funciones ejecutadas, los problemas
+encontrados y sus soluciones, los resultados obtenidos y los aprendizajes
+derivados de la experiencia. El documento se organiza siguiendo el formato
+institucional requerido por la Corporación Universitaria Remington.
+
+
+================================================================================
+1. IDENTIFICACIÓN DE LA PRÁCTICA
+================================================================================
+
+  Campo                              | Información
+  ─────────────────────────────────────────────────────────────────────────────
+  Nombre del estudiante              | Jhon Rafael Mercado Ayazo
+  Código / documento de identidad    | < completar >
+  Programa y semestre                | Ingeniería de Sistemas — semestre < >
+  Nombre de la empresa               | Corporaci�n Universitaria Remington
+  NIT                                | < completar si aplica >
+  Dirección y ciudad                 | Medellín, Colombia
+  Sector económico                   | Tecnología / Entretenimiento digital
+  Área o dependencia de la práctica  | Desarrollo de videojuegos
+  Cargo o rol asignado               | Desarrollador de videojuego / Diseñador
+  Jefe inmediato (nombre y cargo)    | Jhon Rafael Mercado Ayazo — Fundador
+                                     | y desarrollador principal de Corporaci�n Universitaria Remington
+  Correo y teléfono del jefe inm.    | < completar >
+  Fecha de inicio                    | Lunes 19 de octubre de 2026
+  Fecha de terminación               | Miércoles 11 de noviembre de 2026
+  Intensidad horaria semanal / total | Promedio 8 horas diarias / ~173 horas total
+  Modalidad de trabajo               | Presencial (trabajo en equipo propio)
+  Docente asesor                     | < Nombre del docente asesor >
+
+
+================================================================================
+2. CONTEXTUALIZACIÓN DE LA EMPRESA
+================================================================================
+
+2.1 Razón social
+  Corporaci�n Universitaria Remington. Proyecto de desarrollo de videojuegos independiente creado por
+  Jhon Rafael Mercado Ayazo, estudiante de Ingeniería de Sistemas de la
+  Corporación Universitaria Remington.
+
+2.2 Objeto social
+  Diseño, desarrollo y publicación de videojuegos independientes (indie)
+  para plataformas móviles y web, con énfasis en juegos de plataformas con
+  arte en pixel art y narrativas propias.
+
+2.3 Representante legal
+  Jhon Rafael Mercado Ayazo, fundador y desarrollador principal del proyecto.
+
+2.4 Reseña histórica
+  Corporaci�n Universitaria Remington nació como proyecto académico en el segundo semestre de 2026
+  dentro del programa de Ingeniería de Sistemas de la Corporación Universitaria
+  Remington. Su primer producto, Robotic Cavern, fue desarrollado entre octubre
+  y noviembre de 2026 como trabajo de práctica y constituye la carta de
+  presentación del estudio, demostrando la capacidad de crear videojuegos
+  completos y funcionales desde cero con herramientas de desarrollo modernas
+  y accesibles.
+
+2.5 Misión
+  Crear experiencias de entretenimiento digital originales, accesibles y de
+  calidad, que combinen narrativa, diseño visual y mecánicas de juego
+  innovadoras, haciendo uso de herramientas gratuitas y de código abierto.
+
+2.6 Visión
+  Consolidarse como un estudio de videojuegos independiente reconocido
+  en el ecosistema indie latinoamericano, con productos distribuidos en
+  plataformas digitales como Google Play Store e itch.io.
+
+2.7 Valores corporativos
+  - Creatividad: cada proyecto debe aportar algo original y propio.
+  - Persistencia: los obstáculos técnicos se superan con investigación
+    y dedicación.
+  - Calidad: el producto entregado debe funcionar correctamente y ofrecer
+    una buena experiencia al jugador.
+  - Aprendizaje continuo: cada proyecto es una oportunidad de adquirir
+    nuevas habilidades técnicas.
+
+2.8 Estructura organizacional y ubicación del practicante
+  Corporaci�n Universitaria Remington es un proyecto unipersonal. El practicante (Jhon Rafael Mercado
+  Ayazo) ocupó simultáneamente los roles de director de proyecto, diseñador
+  gráfico, programador de lógica de juego y encargado de producción de audio.
+  El asesor académico de la Corporación Universitaria Remington cumplió el
+  rol de supervisor externo.
+
+  [AQUÍ VA LA FOTO/FIGURA 1: Diagrama de la estructura del proyecto mostrando
+   los roles: Director/Programador — Diseñador Gráfico — Producción de Audio,
+   todos desempeñados por el mismo estudiante]
+
+2.9 Infraestructura tecnológica del área
+  - Computador portátil ASUS con Windows (sistema principal de desarrollo)
+  - GDevelop 5 v5.6 (motor de videojuegos) — resolución del juego: 1220x670 px,
+    orientación landscape, 60 FPS, versión del proyecto: 1.0.4
+  - Tiled Map Editor (diseño de niveles)
+  - Android Studio y Apache Cordova (compilación del APK para Android)
+  - Gradle 8.x (sistema de construcción del proyecto Android)
+  - Node.js y npm (entorno de ejecución para Cordova)
+  - Claude AI (asistencia en la implementación de lógica de eventos)
+  - Herramientas de IA generativa (creación de recursos gráficos y de audio)
+  - Dispositivo Android físico (pruebas del APK)
+
+
+================================================================================
+3. CARGO, FUNCIONES Y RESPONSABILIDADES ASIGNADAS
+================================================================================
+
+3.1 Denominación del cargo o rol
+  Desarrollador de Videojuego — Ingeniero de Sistemas en formación.
+  Reporta a: docente asesor de práctica, Corporación Universitaria Remington.
+
+3.2 Funciones asignadas por el empleador
+
+  N.º | Función o tarea asignada              | Área         | Frecuencia  | Resultado de aprendizaje asociado
+  ────┼───────────────────────────────────────┼──────────────┼─────────────┼───────────────────────────────────
+  F1  | Diseño de niveles con Tiled Map Editor | Diseño       | Por demanda | Diseño de interfaces y sistemas
+      | (mapas, colisiones, exportación JSON)  |              |             | interactivos
+  ────┼───────────────────────────────────────┼──────────────┼─────────────┼───────────────────────────────────
+  F2  | Implementación de lógica de juego en  | Programación | Diaria      | Programación orientada a
+      | GDevelop (eventos, variables, escenas) |              |             | objetos y lógica de sistemas
+  ────┼───────────────────────────────────────┼──────────────┼─────────────┼───────────────────────────────────
+  F3  | Creación y gestión de recursos        | Diseño       | Por demanda | Gestión de activos digitales
+      | gráficos y de audio (sprites, fondos,  |              |             | y producción multimedia
+      | efectos de sonido, música)             |              |             |
+  ────┼───────────────────────────────────────┼──────────────┼─────────────┼───────────────────────────────────
+  F4  | Construcción de la narrativa y        | Producción   | Semanal     | Comunicación escrita y
+      | pantallas de historia del juego        |              |             | diseño narrativo
+  ────┼───────────────────────────────────────┼──────────────┼─────────────┼───────────────────────────────────
+  F5  | Compilación y publicación del APK     | Despliegue   | Por demanda | Despliegue de aplicaciones
+      | para Android (Cordova, Android Studio) |              |             | y configuración de entornos
+
+3.3 Herramientas, tecnologías y estándares utilizados
+
+  Herramienta / Tecnología   | Uso en el proyecto
+  ───────────────────────────┼──────────────────────────────────────────────
+  GDevelop 5                 | Motor principal: lógica, escenas, animaciones
+  Tiled Map Editor           | Diseño de mapas de niveles
+  Apache Cordova             | Empaquetado del juego web como APK Android
+  Android Studio             | SDK Android, compilación y pruebas
+  Gradle 8.x                 | Sistema de construcción del proyecto Android
+  Node.js / npm              | Entorno de ejecución para Cordova
+  IA generativa (imágenes)   | Creación de fondos, personajes y efectos
+  Claude AI                  | Asistencia en lógica de eventos de GDevelop
+  CavernPixel.ttf            | Tipografía principal de pixel art del juego
+  PressStart2P-Regular.ttf   | Fuente adicional de pixel art
+  ArchitectsDaughter.ttf     | Fuente adicional
+  Kenney Mini Square.ttf     | Fuente adicional
+  Charm-Regular.ttf          | Fuente adicional
+  CarterOne-Regular.ttf      | Fuente adicional
+  Formato PNG (sprites)      | Imágenes con canal alfa para personajes
+  Formato OGG (audio)        | Efectos de sonido y música del juego
+  Formato JSON (mapas)       | Exportación de niveles desde Tiled a GDevelop
+
+
+================================================================================
+4. OBJETIVOS DE LA PRÁCTICA
+================================================================================
+
+4.1 Objetivo general
+  Desarrollar un videojuego de plataformas completo y funcional denominado
+  Robotic Cavern, mediante el uso del motor GDevelop 5 y herramientas
+  complementarias de diseño y despliegue, con el fin de aplicar los
+  conocimientos de programación lógica, diseño de software, gestión de
+  proyectos y producción multimedia adquiridos en el programa de Ingeniería
+  de Sistemas de la Corporación Universitaria Remington.
+
+4.2 Objetivos específicos
+  • Objetivo 1: Diseñar los cuatro niveles jugables del videojuego mediante
+    Tiled Map Editor, incluyendo el mapa de colisiones, para garantizar
+    una experiencia de juego fluida y funcional en el motor GDevelop.
+
+  • Objetivo 2: Implementar la lógica completa del videojuego (movimiento
+    del jugador, sistema de burbujas, comportamiento de enemigos, sistema
+    de vidas y puntuación, y flujo entre escenas) usando el sistema de
+    eventos visuales de GDevelop.
+
+  • Objetivo 3: Producir los recursos gráficos y de audio del juego
+    (sprites animados, fondos, efectos de sonido y música) e integrarlos
+    correctamente al proyecto en GDevelop.
+
+  • Objetivo 4: Compilar y publicar el videojuego como aplicación APK
+    para dispositivos Android usando Apache Cordova y Android Studio,
+    garantizando su correcto funcionamiento en dispositivos físicos.
+
+
+================================================================================
+5. MARCO DE REFERENCIA APLICADO
+================================================================================
+
+5.1 Fundamentos teóricos y técnicos
+
+  Desarrollo de videojuegos con motores basados en eventos:
+  GDevelop implementa un paradigma de programación visual orientado a eventos,
+  donde la lógica del juego se expresa como condiciones y acciones. Este modelo
+  es conceptualmente equivalente a la programación orientada a eventos de los
+  sistemas de interfaz gráfica (GUI), donde un sistema espera inputs del usuario
+  o del entorno y responde con acciones predefinidas (GDevelop Wiki, 2024).
+
+  Ciclo de vida del desarrollo de software:
+  El proyecto siguió un ciclo de vida iterativo e incremental organizado en
+  ocho fases (Fase 0 a Fase 8), donde cada fase representaba un módulo
+  funcional del juego que se implementaba, probaba y cerraba antes de pasar
+  al siguiente. Este enfoque es consistente con las metodologías ágiles de
+  desarrollo de software (Pressman & Maxim, 2020).
+
+  Diseño de niveles y mapas de terreno:
+  Los niveles del juego fueron construidos con el patrón de diseño de tilemaps,
+  en el que un nivel se representa como una cuadrícula de bloques reutilizables
+  provenientes de un tileset. Este patrón optimiza el uso de memoria y facilita
+  la edición de niveles sin tocar el código del motor (Tiled Documentation, 2024).
+
+  Animación por frames (sprite animation):
+  El movimiento de los personajes se implementó mediante animación por fotogramas,
+  técnica en la que una secuencia de imágenes estáticas (frames) se muestra a
+  velocidad suficiente para crear la ilusión de movimiento continuo. Esta es la
+  técnica base de la animación digital desde los primeros videojuegos (Pedersen, 2003).
+
+  Efectos de profundidad con paralaje:
+  Los fondos de los niveles usan el efecto paralaje (parallax scrolling), técnica
+  en la que distintas capas del fondo se desplazan a velocidades diferentes
+  para simular profundidad tridimensional en un entorno 2D (Rogers, 2010).
+
+5.2 Normas, estándares y buenas prácticas
+  - ISO/IEC 25010: Modelo de calidad del producto software. El juego fue
+    evaluado informalmente contra los atributos de funcionalidad, fiabilidad,
+    usabilidad y portabilidad de este estándar durante las fases de prueba.
+  - Convenciones de nomenclatura de archivos: todos los recursos del proyecto
+    siguen la convención de nombres en minúsculas con guion bajo como separador
+    (jugador_correr_00.png), sin tildes ni caracteres especiales, para garantizar
+    compatibilidad con Android y otros sistemas.
+  - Gestión por fases: el proyecto se organizó en 8 fases explícitas con
+    criterios de entrada y salida, práctica derivada del marco de gestión de
+    proyectos de software por hitos.
+
+5.3 Antecedentes en la empresa
+  Al ser Corporaci�n Universitaria Remington un proyecto nuevo, no existían procesos previos documentados.
+  El punto de partida fue el análisis del juego Cavern original (Python, código
+  abierto), cuya lógica fue estudiada y rediseñada completamente para GDevelop.
+  Toda la documentación, convenciones y procesos de trabajo fueron creados
+  desde cero durante el desarrollo del proyecto.
+
+
+================================================================================
+6. CRONOGRAMA Y BITÁCORA DE ACTIVIDADES
+================================================================================
+
+6.1 Cronograma
+
+  Función | S1    | S2    | S3    | S4    | S5    | S6    | S7    | S8
+          |(19-25)|(26-01)|(2-8  )|(9-11 )
+  ────────┼───────┼───────┼───────┼───────
+  F1      |  X    |  X    |       |
+  Diseño  |       |       |       |
+  niveles |       |       |       |
+  ────────┼───────┼───────┼───────┼───────
+  F2      |  X    |  X    |  X    |  X
+  Lógica  |       |       |       |
+  GDevelop|       |       |       |
+  ────────┼───────┼───────┼───────┼───────
+  F3      |  X    |  X    |  X    |
+  Recursos|       |       |       |
+  gráficos|       |       |       |
+  ────────┼───────┼───────┼───────┼───────
+  F4      |       |       |  X    |  X
+  Historia|       |       |       |
+  y narrat|       |       |       |
+  ────────┼───────┼───────┼───────┼───────
+  F5      |       |       |  X    |  X
+  APK     |       |       |       |
+  Android |       |       |       |
+
+  S1: 19-25 oct | S2: 26 oct-1 nov | S3: 2-8 nov | S4: 9-11 nov
+
+6.2 Bitácora de actividades
+  La bitácora completa se presenta en el Anexo B (documento Bitacora.txt).
+  Durante el período de práctica se registraron 24 jornadas de trabajo
+  distribuidas entre el 19 de octubre y el 11 de noviembre de 2026.
+
+  Total de horas certificadas: aproximadamente 173 horas.
+  Número de registros diarios: 24 entradas.
+
+  Evolución general del trabajo:
+  La primera semana (19-25 oct, 59.5 horas) se dedicó íntegramente a construir
+  la base del juego: niveles, fondos, personaje y sistema de cámara.
+  La segunda semana (27 oct-2 nov, 56 horas) completó el núcleo del juego:
+  enemigos, burbujas, sistema de daño, frutas y lógica de niveles.
+  La tercera semana (2-11 nov, ~57.5 horas) cerró el proyecto con el menú,
+  la historia, los sonidos, la compilación del APK y la documentación.
+
+
+================================================================================
+7. DESARROLLO DE LAS ACTIVIDADES
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+7.1 Función F1: Diseño de niveles con Tiled Map Editor
+────────────────────────────────────────────────────────────────────────────────
+
+  Componente              | Contenido
+  ────────────────────────┼──────────────────────────────────────────────────
+  Situación encontrada    | El proyecto partía de un juego en Python sin
+                          | niveles para GDevelop. Era necesario diseñar los
+                          | cuatro escenarios del juego desde cero, con
+                          | colisiones funcionales para el motor.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Objetivo asociado       | Objetivo específico 1.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Procedimiento ejecutado | 1. Instalación y estudio de Tiled Map Editor
+                          |    siguiendo un tutorial en video.
+                          | 2. Creación del proyecto y configuración del
+                          |    tileset de bloques (25x25 px por bloque).
+                          | 3. Diseño de los cuatro mapas de niveles en
+                          |    capas separadas (suelo, plataformas, límites).
+                          | 4. Configuración de colisiones en todos los
+                          |    bloques con "Detect Bounding Box" y asignación
+                          |    de la clase "plataforma".
+                          | 5. Exportación de cada mapa a formato JSON.
+                          | 6. Importación del Tilemap en cada escena de
+                          |    GDevelop con el comportamiento "Obstáculo
+                          |    de plataforma".
+  ────────────────────────┼──────────────────────────────────────────────────
+  Herramientas            | Tiled Map Editor, GDevelop 5, PNG (tileset de
+                          | bloques), JSON (formato de exportación).
+  ────────────────────────┼──────────────────────────────────────────────────
+  Norma / estándar        | Convención de nomenclatura de archivos sin
+                          | tildes ni espacios (ver sección 5.2).
+  ────────────────────────┼──────────────────────────────────────────────────
+  Resultado obtenido      | 4 niveles completos importados en GDevelop con
+                          | colisiones funcionales: nivel1 (azul/tech),
+                          | nivel2 (lava), nivel3 (jungla), nivel4 (acero).
+  ────────────────────────┼──────────────────────────────────────────────────
+  Evidencia               | Figura 3, 4, 5 y 6 (capturas de los niveles).
+                          | Archivos: mapa_nivel1.tmj a mapa_nivel4.tmj
+                          | en carpeta exportaciones/.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Dificultades            | Los teletransportes llevaban al jugador siempre
+                          | al mismo lado (derecho) sin importar por dónde
+                          | saliera.
+                          | Solución: se identificaron acciones duplicadas
+                          | que sobreescribían la posición X del jugador.
+                          | Al eliminar las acciones duplicadas, los cuatro
+                          | teletransportes funcionaron correctamente.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Aprendizaje derivado    | Uso completo de Tiled Map Editor: proyectos,
+                          | tilesets, capas, colisiones y exportación JSON.
+                          | Integración de tilemaps en GDevelop con
+                          | colisiones configuradas desde el editor externo.
+
+  [AQUÍ VA LA FOTO/FIGURA 3: Tiled Map Editor con uno de los niveles diseñado]
+  [AQUÍ VA LA FOTO: Los 4 niveles corriendo en GDevelop con sus fondos]
+
+
+────────────────────────────────────────────────────────────────────────────────
+7.2 Función F2: Implementación de lógica de juego en GDevelop
+────────────────────────────────────────────────────────────────────────────────
+
+  Componente              | Contenido
+  ────────────────────────┼──────────────────────────────────────────────────
+  Situación encontrada    | Los niveles existían visualmente pero sin ninguna
+                          | mecánica de juego. El personaje no podía ser
+                          | dañado, no había enemigos funcionales, no había
+                          | sistema de vidas ni burbujas.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Objetivo asociado       | Objetivo específico 2.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Procedimiento ejecutado | Se implementó en 8 fases secuenciales:
+                          | Fase 1: 19 variables globales (vidas, corazones,
+                          |   puntuacion, nivel_actual, enemigos_pendientes,
+                          |   t_spawn, agresivos_pendientes, t_fruta,
+                          |   tipo_nuevo, escena_actual, llego_4, pasando,
+                          |   siguiente, atrapadas, HighScores, Guardado,
+                          |   json_temp, hist_actual, avanzar) y HUD.
+                          | Fase 2: Sistema de daño al jugador con
+                          |   invulnerabilidad (3.33 s), parpadeo, sacudida
+                          |   de cámara, muerte y respawn.
+                          | Fase 3: Sistema de burbujas (disparo horizontal,
+                          |   flotación al rebotar, límite de 5, explosión).
+                          | Fase 4: Enemigos (robot0 y robot1), movimiento,
+                          |   disparo de bolts, atrapamiento en burbuja.
+                          | Fase 5: Frutas e ítems (gravedad, puntos, tiempo
+                          |   de vida, animación pop al recoger).
+                          | Fase 6: Condición de paso de nivel (todos los
+                          |   enemigos eliminados, sin frutas ni burbujas).
+                          | Fase 7: Menú, pantallas de entrada y Game Over.
+                          | Fase 8: Sonidos, música y botones táctiles móvil.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Herramientas            | GDevelop 5 (editor de eventos y comportamientos),
+                          | Claude AI (asistencia en la lógica de eventos).
+  ────────────────────────┼──────────────────────────────────────────────────
+  Norma / estándar        | ISO/IEC 25010 (funcionalidad y fiabilidad).
+                          | Pruebas manuales después de cada fase.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Resultado obtenido      | Juego completamente funcional con 49 escenas,
+                          | mecánicas completas de plataformas, sistema de
+                          | vidas, puntuación, enemigos, burbujas, frutas,
+                          | historia de 40 pantallas y pantalla de créditos.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Evidencia               | Figuras 2, 8 y 9. Archivo del proyecto:
+                          | juego-cavern-Bubble Bobble.json.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Dificultades            | 1. El HUD se movía con la cámara: resuelto
+                          |    moviendo los objetos a la capa "HUD" y
+                          |    desmarcando la opción de posición relativa.
+                          | 2. Corazones del HUD que todos cambiaban a la
+                          |    vez: resuelto usando la posición X de cada
+                          |    icono como identificador único.
+                          | 3. Burbuja que no se detenía en la pared: resuelto
+                          |    configurando la detección de colisión con el
+                          |    tilemap correctamente.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Aprendizaje derivado    | Programación de lógica de videojuego completa
+                          | sin código: variables globales e instancia,
+                          | sistema de colisiones, máquinas de estado para
+                          | animaciones, gestión de escenas y flujo de juego.
+
+  [AQUÍ VA LA FOTO/FIGURA 8: El HUD con corazones, vidas y puntuación visible]
+  [AQUÍ VA LA FOTO/FIGURA 9: Una burbuja atrapando a un enemigo robot]
+  [AQUÍ VA LA FOTO: El editor de eventos de GDevelop con la lógica del jugador]
+
+
+────────────────────────────────────────────────────────────────────────────────
+7.3 Función F3: Creación y gestión de recursos gráficos y de audio
+────────────────────────────────────────────────────────────────────────────────
+
+  Componente              | Contenido
+  ────────────────────────┼──────────────────────────────────────────────────
+  Situación encontrada    | El proyecto necesitaba todos los recursos visuales
+                          | y de sonido propios: el juego original (Python)
+                          | tenía gráficos de baja resolución no aptos para
+                          | el rediseño planteado.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Objetivo asociado       | Objetivo específico 3.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Procedimiento ejecutado | 1. Los sprites del jugador y enemigos se tomaron
+                          |    del juego original y se escalaron a 64x64 px.
+                          | 2. Los fondos animados (24 frames cada uno) se
+                          |    generaron con herramientas de IA generativa y
+                          |    se organizaron como secuencias de PNG.
+                          | 3. Las pantallas de historia (40 imágenes) se
+                          |    crearon con IA y se integraron a las escenas.
+                          | 4. El personaje del Ingeniero JhonRMA (20 frames
+                          |    de animación) se generó con IA.
+                          | 5. Se diseñaron 6 fuentes tipográficas para el
+                          |    juego: CavernPixel.ttf (principal), más
+                          |    PressStart2P, ArchitectsDaughter, Kenney Mini
+                          |    Square, Charm y CarterOne.
+                          | 6. Los efectos de sonido se produjeron en formato
+                          |    MP3 propio: sfx_salto, sfx_burbuja_sale,
+                          |    sfx_dano, sfx_game_over, sfx_ultima_vida,
+                          |    sfx_nuevo_top1.
+                          | 7. Se produjeron 20 soundtracks originales propios
+                          |    en formato MP3 (musica_1.mp3 a musica_20.mp3)
+                          |    para el menú y los niveles.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Herramientas            | IA generativa (imágenes), GDevelop 5 (importación
+                          | y configuración de animaciones), formato PNG,
+                          | formato MP3, tipografías del proyecto.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Resultado obtenido      | Más de 300 archivos de imagen organizados en
+                          | carpetas temáticas. Todos los recursos integrados
+                          | al proyecto con animaciones configuradas.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Evidencia               | Carpetas img new/ y assets/ del proyecto.
+                          | Figura 1 (pantalla de historia con personajes).
+  ────────────────────────┼──────────────────────────────────────────────────
+  Dificultades            | La fuente CavernPixel.ttf no se mostraba
+                          | correctamente en algunos objetos de texto.
+                          | Solución: se reconfiguró el objeto de texto
+                          | apuntando directamente al archivo .ttf y se
+                          | ajustó el tamaño para pantalla y móvil.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Aprendizaje derivado    | Gestión de assets digitales, creación de
+                          | animaciones por frames, integración de audio
+                          | en videojuegos, uso de IA generativa como
+                          | herramienta de producción de contenido.
+
+  [AQUÍ VA LA FOTO/FIGURA 7: Una pantalla de historia del juego con el
+   personaje del Ingeniero JhonRMA y el texto narrativo]
+  [AQUÍ VA LA FOTO: El panel de animaciones en GDevelop con los frames cargados]
+
+
+────────────────────────────────────────────────────────────────────────────────
+7.4 Función F4: Construcción de la narrativa y pantallas de historia
+────────────────────────────────────────────────────────────────────────────────
+
+  Componente              | Contenido
+  ────────────────────────┼──────────────────────────────────────────────────
+  Situación encontrada    | El juego original (Cavern/Python) no tenía
+                          | historia. El rediseño requería una narrativa
+                          | propia que justificara el mundo, los personajes
+                          | y las mecánicas del juego.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Objetivo asociado       | Objetivo específico 3.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Procedimiento ejecutado | 1. Se escribió la historia completa de PIXEL
+                          |    (documento historia del juego.txt): prólogo,
+                          |    inicio del juego, revelación, final y
+                          |    final secreto.
+                          | 2. Se dividió la historia en 40 bloques narrativos
+                          |    (pantallas hist_01 a hist_40).
+                          | 3. Se creó una escena individual en GDevelop para
+                          |    cada pantalla de historia.
+                          | 4. Se generó una imagen ilustrativa para cada
+                          |    pantalla usando herramientas de IA.
+                          | 5. Se programó la navegación entre pantallas
+                          |    (botón "siguiente" o tecla Espacio).
+                          | 6. Se integró la historia en el flujo del juego:
+                          |    intercalada entre los niveles jugables.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Herramientas            | GDevelop 5, IA generativa, documento de historia.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Resultado obtenido      | 40 pantallas de historia completamente funcionales
+                          | integradas al flujo del juego, con imágenes
+                          | originales y texto narrativo propio.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Evidencia               | Archivo bitacora/historia del juego.txt.
+                          | Escenas hist_01 a hist_40 en el proyecto GDevelop.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Dificultades            | Mantener coherencia narrativa a lo largo de 40
+                          | pantallas mientras se avanzaba en paralelo con
+                          | el desarrollo técnico del juego.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Aprendizaje derivado    | Diseño narrativo para videojuegos, creación de
+                          | guión y estructura de historia en arcos,
+                          | integración de cinemáticas en motores 2D.
+
+  [AQUÍ VA LA FOTO: Varias pantallas de historia del juego mostrando
+   la secuencia narrativa de PIXEL]
+
+
+────────────────────────────────────────────────────────────────────────────────
+7.5 Función F5: Compilación y publicación del APK para Android
+────────────────────────────────────────────────────────────────────────────────
+
+  Componente              | Contenido
+  ────────────────────────┼──────────────────────────────────────────────────
+  Situación encontrada    | El juego corría en GDevelop y en navegador web,
+                          | pero el objetivo era tener una aplicación
+                          | instalable en celulares Android.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Objetivo asociado       | Objetivo específico 4.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Procedimiento ejecutado | 1. Instalación del entorno: Node.js, Apache
+                          |    Cordova, Java JDK 17, Android Studio, Gradle.
+                          | 2. Configuración de variables de entorno del
+                          |    sistema: JAVA_HOME, ANDROID_HOME, PATH.
+                          | 3. Exportación del juego desde GDevelop como
+                          |    proyecto HTML5.
+                          | 4. Creación del proyecto Cordova y copia de los
+                          |    archivos exportados a la carpeta www/.
+                          | 5. Configuración del config.xml (orientación
+                          |    landscape, pantalla completa, nombre de la app).
+                          | 6. Ejecución del comando: cordova build android.
+                          | 7. Instalación del APK en dispositivo físico
+                          |    para pruebas.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Herramientas            | GDevelop 5, Apache Cordova, Android Studio,
+                          | Gradle 8.x, Node.js, Java JDK 17, ADB.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Resultado obtenido      | APK funcional instalado en dispositivo Android:
+                          | juego-cavern-Bubble Bobble-1_0_1.apk
+                          | El juego corre correctamente en pantalla completa
+                          | con controles táctiles y audio.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Evidencia               | Figura 10 (APK instalado en Android).
+                          | Archivo: bitacora/juego-cavern-BB-1_0_1.apk
+  ────────────────────────┼──────────────────────────────────────────────────
+  Dificultades            | El proceso de compilación fallaba por archivos
+                          | con nombres que contenían tildes y caracteres
+                          | especiales (ej. "Caverna Cibernética de Neón.png").
+                          | Android no acepta esos caracteres en rutas de
+                          | archivos.
+                          | Solución: se creó un script .bat que renombra
+                          | automáticamente los archivos problemáticos y
+                          | actualiza sus referencias en el código antes
+                          | de compilar. Véase compilar_apk.bat en el
+                          | directorio del proyecto.
+  ────────────────────────┼──────────────────────────────────────────────────
+  Aprendizaje derivado    | Configuración de entornos de desarrollo Android,
+                          | uso de Apache Cordova para híbrido web-nativo,
+                          | gestión de variables de entorno en Windows,
+                          | scripting en Batch para automatización de tareas.
+
+  [AQUÍ VA LA FOTO/FIGURA 10: El APK del juego instalado y ejecutándose en
+   un dispositivo Android físico]
+  [AQUÍ VA LA FOTO: El script compilar_apk.bat ejecutándose y mostrando
+   BUILD SUCCESSFUL en la consola]
+
+
+================================================================================
+8. RESULTADOS Y APORTES A LA EMPRESA
+================================================================================
+
+  Función | Entregable o producto          | Indicador de verificación   | Beneficiario | Evidencia
+  ────────┼────────────────────────────────┼─────────────────────────────┼──────────────┼──────────
+  F1      | 4 mapas de niveles diseñados   | 4 archivos .tmj exportados  | Corporaci�n Universitaria Remington     | Fig. 3-6
+          | e importados en GDevelop       | + 4 tilemaps en el proyecto |              |
+  ────────┼────────────────────────────────┼─────────────────────────────┼──────────────┼──────────
+  F2      | Lógica de juego completa       | 49 escenas funcionales,     | Corporaci�n Universitaria Remington     | Fig. 8-9
+          | (8 fases implementadas)        | 8 fases cerradas, flujo     |              |
+          |                               | completo de menú a créditos  |              |
+  ────────┼────────────────────────────────┼─────────────────────────────┼──────────────┼──────────
+  F3      | +300 recursos gráficos y       | Carpetas img new/, assets/  | Corporaci�n Universitaria Remington     | Fig. 7
+          | de audio integrados            | con archivos organizados;   |              |
+          |                               | todas las animaciones activas|              |
+  ────────┼────────────────────────────────┼─────────────────────────────┼──────────────┼──────────
+  F4      | 40 pantallas de historia y     | Escenas hist_01 a hist_40   | Corporaci�n Universitaria Remington /   | Fig. 7
+          | pantalla de créditos           | + escena creditos en el     | Jugadores    |
+          |                               | proyecto GDevelop            |              |
+  ────────┼────────────────────────────────┼─────────────────────────────┼──────────────┼──────────
+  F5      | APK funcional para Android     | Archivo .apk instalado y    | Corporaci�n Universitaria Remington /   | Fig. 10
+          | (v1.0.1)                       | ejecutado en dispositivo    | Usuarios     |
+          |                               | físico Android               |              |
+
+8.1 Análisis de los resultados
+  El proyecto Robotic Cavern se completó en su totalidad dentro del período
+  de práctica establecido. Las cinco funciones principales produjeron entregables
+  verificables y el producto final —el APK instalable en Android— representa
+  un videojuego completo y jugable de principio a fin.
+
+  Las principales limitaciones encontradas fueron de carácter técnico
+  (compatibilidad de nombres de archivos con Android, configuración del entorno
+  de compilación) y no afectaron el resultado final. En todos los casos se
+  encontró una solución documentada.
+
+  El proceso confirma que GDevelop 5 es una herramienta viable para el
+  desarrollo de videojuegos completos sin escribir código, y que la combinación
+  GDevelop + Cordova permite llevar ese producto a Android de forma efectiva.
+
+
+================================================================================
+9. ANÁLISIS DEL DESEMPEÑO Y COMPETENCIAS DESARROLLADAS
+================================================================================
+
+9.1 Competencias técnicas
+  - Diseño de niveles 2D con Tiled Map Editor (mapas, colisiones, capas,
+    exportación JSON).
+  - Programación de lógica de videojuego mediante eventos visuales en GDevelop
+    (condiciones, acciones, variables, comportamientos).
+  - Gestión de assets digitales: sprites animados, fondos, efectos de sonido,
+    fuentes tipográficas y música.
+  - Despliegue de aplicaciones en Android: configuración de entorno con
+    Cordova, Android Studio y Gradle.
+  - Scripting básico en Batch (Windows) para automatización de tareas.
+  - Uso de herramientas de IA generativa para producción de contenido visual.
+  - Gestión de proyectos de software en fases iterativas e incrementales.
+
+9.2 Competencias transversales
+  - Comunicación escrita: elaboración de documentación técnica completa del
+    proyecto (informes semanales, bitácora, manual de creación, guía de APK).
+  - Gestión del tiempo: ~173 horas en menos de 4 semanas, manteniendo un
+    ritmo promedio de 8 horas diarias con jornadas extendidas cuando fue
+    necesario.
+  - Autonomía e iniciativa: el proyecto no tuvo supervisor técnico presencial.
+    Todas las decisiones de diseño e implementación fueron tomadas
+    independientemente.
+  - Resolución de problemas: identificación y solución de al menos 8 bugs
+    técnicos significativos documentados en la bitácora.
+  - Ética: todos los recursos de terceros utilizados (sprites del juego
+    original Cavern) son de código abierto o dominio público.
+
+9.3 Autoevaluación
+
+  Aspecto                               | Valoración (1-5) | Justificación
+  ──────────────────────────────────────┼──────────────────┼────────────────────────────────────
+  Cumplimiento de las funciones         |        5         | Todas las 8 fases del proyecto
+  asignadas                             |                  | fueron completadas en el plazo.
+  ──────────────────────────────────────┼──────────────────┼────────────────────────────────────
+  Calidad técnica del trabajo           |        4         | El juego funciona correctamente en
+  entregado                             |                  | PC y Android. Algunos aspectos de
+                                        |                  | pulido visual pueden mejorarse.
+  ──────────────────────────────────────┼──────────────────┼────────────────────────────────────
+  Autonomía e iniciativa                |        5         | Todo el proceso fue ejecutado de
+                                        |                  | forma independiente, investigando
+                                        |                  | y resolviendo sin asistencia externa.
+  ──────────────────────────────────────┼──────────────────┼────────────────────────────────────
+  Comunicación con el equipo            |        4         | El trabajo fue individual pero se
+  y los usuarios                        |                  | documentó y comunicó correctamente
+                                        |                  | al docente asesor.
+  ──────────────────────────────────────┼──────────────────┼────────────────────────────────────
+  Cumplimiento de horarios              |        5         | Todas las entregas se realizaron
+  y compromisos                         |                  | antes del 11 de noviembre, fecha
+                                        |                  | de entrega planificada.
+  ──────────────────────────────────────┼──────────────────┼────────────────────────────────────
+  Aplicación de la ética y la           |        5         | Todos los recursos de terceros
+  confidencialidad                      |                  | utilizados son libres o de código
+                                        |                  | abierto y fueron debidamente
+                                        |                  | reconocidos.
+
+
+================================================================================
+10. CONCLUSIONES
+================================================================================
+
+  1. (Objetivo 1 — Diseño de niveles): Se diseñaron exitosamente los cuatro
+     niveles del juego Robotic Cavern usando Tiled Map Editor, con mapas de
+     colisiones funcionales que permiten al personaje interactuar correctamente
+     con el entorno en GDevelop. El uso de capas y la exportación en formato
+     JSON resultaron ser prácticas clave para la correcta integración entre
+     ambas herramientas.
+
+  2. (Objetivo 2 — Lógica del juego): La implementación de la lógica completa
+     del videojuego en GDevelop mediante eventos visuales demostró que es
+     posible construir un sistema de juego sofisticado (con enemigos, colisiones,
+     sistema de vidas, progresión de niveles y flujo de escenas) sin escribir
+     código convencional, aplicando los mismos principios de programación lógica
+     estudiados en el programa de Ingeniería de Sistemas.
+
+  3. (Objetivo 3 — Recursos gráficos y narrativa): La integración de herramientas
+     de IA generativa para la producción de recursos visuales y de audio, combinada
+     con un diseño narrativo propio, permitió dotar al proyecto de una identidad
+     visual y una historia originales que lo distinguen claramente del juego base
+     del que partió.
+
+  4. (Objetivo 4 — APK Android): La compilación del juego como APK para Android
+     usando Apache Cordova y Android Studio fue exitosa. El proceso, aunque
+     complejo en su configuración inicial, resultó reproducible y se documentó
+     completamente para su uso futuro.
+
+  5. (Conclusión general): El desarrollo de Robotic Cavern como práctica
+     profesional permitió poner en práctica de forma integrada competencias
+     técnicas de programación, diseño de software, gestión de proyectos,
+     producción multimedia y despliegue de aplicaciones. La experiencia confirma
+     que el desarrollo de videojuegos es un campo que exige y desarrolla
+     simultáneamente múltiples habilidades de la ingeniería de sistemas.
+
+
+================================================================================
+11. RECOMENDACIONES
+================================================================================
+
+11.1 A la empresa (Corporaci�n Universitaria Remington)
+  - Explorar la publicación de Robotic Cavern en plataformas de distribución
+    gratuitas como itch.io para obtener retroalimentación de jugadores reales.
+  - Implementar el sistema de ranking (top 10 de puntuaciones) pendiente de
+    la Fase 8, que quedó fuera del alcance del período de práctica.
+  - Para próximos proyectos, iniciar el diseño de niveles y la producción de
+    assets en paralelo desde el primer día, en lugar de hacerlo secuencialmente,
+    para aprovechar mejor el tiempo.
+
+11.2 Al programa de Ingeniería de Sistemas — Uniremington
+  - Incluir una asignatura o módulo dedicado al desarrollo de videojuegos,
+    ya que este campo integra de forma muy efectiva programación, diseño de
+    software, interfaces de usuario y gestión de proyectos.
+  - Introducir en la formación el uso de herramientas de desarrollo sin código
+    (no-code / low-code) como GDevelop, que permiten materializar proyectos
+    completos sin necesidad de dominar un lenguaje de programación desde cero.
+  - Fomentar el uso guiado de herramientas de IA como Claude o ChatGPT en
+    proyectos académicos, enseñando al estudiante a usar estas herramientas
+    como asistentes técnicos y no como reemplazo del pensamiento propio.
+
+
+================================================================================
+12. REFERENCIAS
+================================================================================
+
+GDevelop Wiki. (2024). GDevelop documentation. GDevelop.
+  https://wiki.gdevelop.io/gdevelop5/
+
+Pedersen, R. E. (2003). Game design foundations. Wordware Publishing.
+
+Pressman, R. S., & Maxim, B. R. (2020). Ingeniería del software: Un enfoque
+  práctico (8.ª ed.). McGraw-Hill.
+
+Rogers, S. (2010). Level up! The guide to great video game design. Wiley.
+
+Tiled Documentation. (2024). Tiled map editor documentation.
+  https://doc.mapeditor.org/
+
+Uniremington. (2026). Misión y visión institucional. Corporación Universitaria
+  Remington. https://www.uniremington.edu.co
+
+
+================================================================================
+ANEXOS (referenciar en el documento Word)
+================================================================================
+
+  Anexo A — Plan del juego          : Plan_Juegos_GDevelop.txt
+  Anexo B — Bitácora completa       : Bitacora.txt
+  Anexo C — Manual de creación      : Manual_de_Creacion.txt
+  Anexo D — Guía de compilación APK : Pasos_para_hacer_el_APK.txt
+  Anexo E — Historia del juego      : bitacora/historia del juego.txt
+  Anexo F — Archivo del proyecto    : juego-cavern-Bubble Bobble.json
+  Anexo G — APK del juego           : bitacora/juego-cavern-BB-1_0_1.apk
+
+================================================================================
+FIN DEL DOCUMENTO
+Informe_Practica_Profesional.txt — JhonRMA / Corporaci�n Universitaria Remington — Noviembre 2026
+================================================================================
+

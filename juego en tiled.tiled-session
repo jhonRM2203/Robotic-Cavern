@@ -1,0 +1,156 @@
+{
+    "activeFile": "img new/fondos/tilesets/nivel4_metal.tsx",
+    "expandedProjectPaths": [
+        "img new/fondos",
+        "img new",
+        "img new/mapas",
+        ".",
+        "exportaciones",
+        "img new/fondos/tilesets"
+    ],
+    "fileStates": {
+        "archivos tiled del proyecto abierto.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 554,
+                "y": 278.66666666666663
+            }
+        },
+        "exportaciones/bloques_nivel1.tsj": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "img new/fondos/tilesets/bloques_nivel1.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 2,
+            "scaleInEditor": 2
+        },
+        "img new/fondos/tilesets/nivel1_tech.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "img new/fondos/tilesets/nivel1_tech_plantilla.tmx": {
+            "scale": 0.8208,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 500.12183235867445,
+                "y": 275.34113060428854
+            }
+        },
+        "img new/fondos/tilesets/nivel2_lava.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "img new/fondos/tilesets/nivel2_lava_plantilla.tmx": {
+            "scale": 0.8208,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 500.12183235867445,
+                "y": 275.34113060428854
+            }
+        },
+        "img new/fondos/tilesets/nivel3_jungla.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "img new/fondos/tilesets/nivel3_jungla_plantilla.tmx": {
+            "scale": 0.8208,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 500.12183235867445,
+                "y": 275.34113060428854
+            }
+        },
+        "img new/fondos/tilesets/nivel4_metal.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "img new/fondos/tilesets/nivel4_metal_plantilla.tmx": {
+            "scale": 0.8208,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 500.12183235867445,
+                "y": 275.34113060428854
+            }
+        },
+        "img new/mapas/mapa_nivel1.tmj": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 486.6666666666667,
+                "y": 335.99999999999994
+            }
+        },
+        "img new/mapas/mapa_nivel1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 554,
+                "y": 313.33333333333326
+            }
+        },
+        "img new/mapas/mapa_nivel2.tmj": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 485.3333333333333,
+                "y": 677.3333333333333
+            }
+        },
+        "img new/mapas/mapa_nivel3.tmj": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 513,
+                "y": 297
+            }
+        },
+        "img new/mapas/mapa_nivel4.tmj": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 481.3333333333333,
+                "y": 303.99999999999994
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/ASUS/Desktop/juego-cavern-Bubble Bobble/exportaciones",
+    "last.externalTilesetPath": "C:/Users/ASUS/Desktop/juego-cavern-Bubble Bobble/img new/fondos/tilesets",
+    "last.imagePath": "C:/Users/ASUS/Desktop/juego-cavern-Bubble Bobble/img new/fondos/tilesets",
+    "map.height": 22,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 25,
+    "map.tileWidth": 25,
+    "map.width": 40,
+    "openFiles": [
+        "img new/mapas/mapa_nivel4.tmj",
+        "img new/fondos/tilesets/nivel4_metal.tsx"
+    ],
+    "project": "juego en tiled.tiled-project",
+    "recentFiles": [
+        "img new/mapas/mapa_nivel4.tmj",
+        "img new/fondos/tilesets/nivel4_metal.tsx",
+        "img new/mapas/mapa_nivel1.tmj",
+        "img new/fondos/tilesets/nivel3_jungla.tsx",
+        "img new/mapas/mapa_nivel3.tmj",
+        "img new/mapas/mapa_nivel2.tmj",
+        "img new/fondos/tilesets/nivel1_tech.tsx",
+        "exportaciones/bloques_nivel1.tsj",
+        "img new/fondos/tilesets/bloques_nivel1.tsx",
+        "img new/fondos/tilesets/nivel1_tech_plantilla.tmx",
+        "img new/fondos/tilesets/nivel2_lava_plantilla.tmx",
+        "img new/fondos/tilesets/nivel4_metal_plantilla.tmx"
+    ],
+    "tileset.lastUsedExportFilter": "JSON tileset files (*.tsj *.json)",
+    "tileset.lastUsedFilter": "Archivos de conjuntos de patrones Tiled (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "json",
+    "tileset.margin": 1,
+    "tileset.spacing": 1,
+    "tileset.tileSize": {
+        "height": 25,
+        "width": 25
+    }
+}

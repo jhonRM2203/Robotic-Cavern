@@ -1,0 +1,677 @@
+================================================================================
+         ANÁLISIS DEL PROYECTO GDevelop - CAVERN REDISEÑO
+         Estado actual y lista de lo que falta implementar
+         Última actualización: 25/10/2026 (Fase 3 cerrada)
+================================================================================
+
+NOTA: Este análisis se basa en la revisión del archivo del proyecto
+      "juego-cavern-Bubble Bobble.json" y todos los recursos encontrados
+      en la carpeta del proyecto.
+
+HISTORIAL DE FASES:
+  [COMPLETADA] Fase 0 - Base del proyecto (niveles, jugador, cámara, fondos)
+  [COMPLETADA] Fase 1 - Variables globales y HUD (24/10/2026)
+  [COMPLETADA]   Fase 2 - Jugador completo (daño, muerte, respawn) (25/10/2026)
+               * Cerrada en todo lo que se puede probar sin dependencias externas.
+                 3 ítems pasan a las fases correspondientes (ver nota abajo).
+  [COMPLETADA]   Fase 3 - Burbujas (25/10/2026)
+               * Cerrada en todo lo que se puede probar sin robots. 4 ítems pasan a
+                 las fases correspondientes (ver nota abajo).
+  [SIGUIENTE]  Fase 4 - Enemigos
+  [PENDIENTE]  Fase 5 - Frutas e ítems
+  [PENDIENTE]  Fase 6 - Lógica de nivel (paso de nivel)
+  [PENDIENTE]  Fase 7 - Menú y Game Over
+  [PENDIENTE]  Fase 8 - Sonido y pulido
+
+
+================================================================================
+1. LO QUE YA ESTÁ HECHO ✓
+================================================================================
+
+── FASE 0 COMPLETADA - Base del proyecto ──────────────────────────────────────
+
+  Esta fue la primera etapa del proyecto, hecha antes de empezar las fases
+  numeradas. Incluye todo el trabajo de construcción inicial: niveles, jugador,
+  cámara, fondos y assets.
+
+ESCENAS CREADAS:
+  ✓ nivel1 (tech/azul)
+  ✓ nivel2 (lava)
+  ✓ nivel3 (jungla)
+  ✓ nivel4 (acero/metal)
+
+EN CADA NIVEL YA EXISTE:
+  ✓ Tilemap del nivel (diseño de plataformas completo, con mapa de colisión)
+  ✓ Fondo animado con paralaje (múltiples capas: background1, background2, background3)
+  ✓ Sistema de paralaje horizontal (3 capas a velocidades 0.40, 0.75 y 0.90)
+  ✓ Bloqueo de cámara (ClampCamera con límites definidos)
+  ✓ Cámara que sigue al jugador (CenterCameraOnObject)
+  ✓ Teletransportes superior e inferior (izquierdo y derecho en cada nivel)
+  ✓ Objeto sombra y sombra0 (efectos visuales de suelo)
+  ✓ Tileset de bloques por nivel (block0 a block3)
+
+JUGADOR (objeto global):
+  ✓ Sprites de animación importados: quieto, correr, saltar, muerte, soplar
+  ✓ Comportamiento Platformer (PlatformerObject)
+  ✓ Comportamiento Flippable (voltear sprite según dirección)
+  ✓ Animaciones activas: correr, quieto, saltar, caer
+  ✓ Flip horizontal automático según dirección (izquierda/derecha)
+  ✓ Hoja de eventos externa "personaje" con toda la lógica de animaciones
+  ✓ Hoja de eventos externa "fondo-camara-paralax" con cámara y paralaje
+
+ASSETS PREPARADOS (todos importados al proyecto):
+  ✓ Sprites del jugador: quieto (x4), correr (x6), saltar (x6), muerte (x6), soplar (x7)
+  ✓ Sprites enemigo robot0 (normal): caminar (x8 por dirección), disparar (x3)
+  ✓ Sprites enemigo robot1 (agresivo): caminar (x8 por dirección), disparar (x3)
+  ✓ Disparos enemigos: bolt_robot0 y bolt_robot1 (2 frames cada uno)
+  ✓ Burbujas/orbes: orb1 a orb6 (crecimiento y flotación)
+  ✓ Burbujas con trampa: trap00-trap07 (robot0) y trap10-trap17 (robot1)
+  ✓ Explosión de burbuja grande: pop10-pop14
+  ✓ Animación pop pequeño (recoger ítem): pop00-pop05
+  ✓ Frutas: manzana (fruit0x), frambuesa (fruit1x), limón (fruit2x)
+  ✓ Iconos de UI: health, health_empty, life_00-life_05, plus_00-plus_05
+  ✓ Fuentes personalizadas: font048 a font090 (dígitos y letras A-Z)
+  ✓ Pantalla de título animada: titulo_00 a titulo_07
+  ✓ Pantalla de Game Over animada: gameover_00 a gameover_07
+  ✓ Botón "Press Space" animado: space0 a space9
+  ✓ Fondos animados por nivel (24 frames cada uno): azul, lava, jungla, acero
+  ✓ Sonidos completos en cavern-master/sounds/
+  ✓ Música: cavern-master/music/theme.ogg
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 1 COMPLETADA - Variables globales y HUD ───────────────────────────────
+
+VARIABLES GLOBALES (creadas y con valores iniciales correctos):
+  ✓ vidas         = 2
+  ✓ corazones     = 3
+  ✓ puntuacion    = 0
+  ✓ nivel_actual  = 1
+
+HUD (en los 4 niveles, en la capa "HUD"):
+  ✓ Franja negra inferior (franja_hud) en capa "HUD", coordenadas 0;505 a 1000;550
+      - Bug corregido: estaba en capa base y se movía con la cámara. Se cambió a
+        capa "HUD" y se desmarcó "Dibuja las formas relativas a la posición del objeto".
+  ✓ Iconos de corazones en pantalla (3 corazones llenos usando health.png)
+  ✓ Iconos de vidas grandes en pantalla (usando life_00.png, máx. 2 visibles)
+  ✓ Símbolo "+" cuando hay más de 2 vidas (plus_00.png)
+  ✓ Texto de puntuación pegado a la derecha
+      - Posición X dinámica: 960 - texto_puntuacion.Width()
+  ✓ Texto "NIVEL X" centrado en la parte inferior
+      - Posición X corregida a 411 para centrado correcto
+  ✓ Eventos de actualización del HUD cada frame en los 4 niveles
+      - Los iconos se identifican por su posición X (corazones en X=150/195/240,
+        vidas en X=15/60), no por una variable de objeto: las variables de instancias
+        creadas en el mismo evento se pisaban y todos los iconos cambiaban a la vez.
+      - Si se mueven los iconos, hay que actualizar también las fórmulas del HUD.
+
+RECURSOS GRÁFICOS DISPONIBLES (listos para usar):
+  ✓ Enemigo robot0 (normal): sprites completos (caminar x4, disparar x3 = frames 0,5,6,7)
+  ✓ Enemigo robot1 (agresivo): sprites completos (mismos frames)
+  ✓ Disparos de enemigos: bolt_robot0 y bolt_robot1 (2 frames de animación cada uno)
+  ✓ Burbujas/orbes: orb1 a orb6 (crecimiento y flotación)
+  ✓ Burbujas con trampa: trap00-trap07 (robot normal) y trap10-trap17 (robot agresivo)
+  ✓ Explosión de burbuja: pop10-pop14 (burbuja grande)
+  ✓ Animación de recoger ítem: pop00-pop05 (pop pequeño)
+  ✓ Frutas: fruit00-fruit02 (manzana), fruit10-fruit12 (frambuesa), fruit20-fruit22 (limón)
+  ✓ Iconos de UI: health (corazón), health_empty, life_00-life_05, plus_00-plus_05
+  ✓ Fuentes: font048 a font090 (números 0-9 y letras A-Z)
+  ✓ Pantalla de título: titulo_00 a titulo_07 (animación de 8 frames)
+  ✓ Pantalla de Game Over: gameover_00 a gameover_07 (animación de 8 frames)
+  ✓ Botón "Press Space": space0 a space9 (animación de 10 frames)
+  ✓ Sonidos completos en cavern-master/sounds/
+  ✓ Música en cavern-master/music/theme.ogg
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 2 CERRADA* - Jugador completo (daño, muerte, respawn) ─────────────────
+   * Todo lo implementable sin dependencias de fases futuras está hecho.
+     Los 3 ítems restantes se completarán en las fases que crean los objetos
+     que los necesitan (ver tabla de elementos temporales más abajo).
+
+IMPLEMENTADO EN HOJA DE EVENTOS "jugador_dano" (9 eventos):
+
+  Variables del objeto jugador creadas en esta fase:
+    inv_tiempo (invulnerabilidad, segundos), muriendo (0/1), vel_caida,
+    inicio_x, inicio_y (punto de reaparición) y sacudida (segundos de temblor).
+
+  0. guardar inicio:
+  ✓ Al comenzar la escena guarda la posición del jugador en inicio_x e inicio_y
+
+  1. perder vida [TEMPORAL - tecla H, se reemplaza en Fase 4]:
+  ✓ Condiciones: tecla H presionada recientemente, inv_tiempo <= 0, muriendo = 0,
+    corazones > 0
+  ✓ Acciones: corazones -= 1, inv_tiempo = 3.33 s, sacudida = 0.4 s
+
+  2. empieza la muerte:
+  ✓ Condiciones: corazones <= 0, muriendo = 0, vidas >= 0
+  ✓ Acciones: muriendo = 1, vel_caida = 0, inv_tiempo = 0,
+    desactivar el comportamiento PlatformerObject, animación "morir"
+
+  3. la caída:
+  ✓ Mientras muriendo = 1: la velocidad de caída aumenta hasta un máximo de 600 px/s
+    y la posición Y se desplaza con ella (el jugador atraviesa las plataformas)
+
+  4. reaparecer (si quedan vidas):
+  ✓ Condiciones: muriendo = 1, posición Y > 800, vidas >= 1
+  ✓ Acciones: vidas -= 1, corazones = 3, muriendo = 0, reactivar PlatformerObject,
+    volver a (inicio_x, inicio_y), animación "quieto", inv_tiempo = 1.67 s
+
+  5. game over [TEMPORAL - sin escena, se reemplaza en Fase 7]:
+  ✓ Condiciones: muriendo = 1, posición Y > 800, vidas <= 0
+  ✓ Acciones: vidas -= 1 (queda en -1), muriendo = 0
+  ✓ Igual que el original: vidas va de 2 a -1; con vidas = 0 todavía se juega la
+    última tanda de 3 corazones, y el game over llega al pasar a -1
+
+  6. parpadeo:
+  ✓ Mientras inv_tiempo > 0: cuenta atrás con TimeDelta() y opacidad alterna entre
+    80 y 255 unas 5 veces por segundo
+
+  7. fin del parpadeo:
+  ✓ Cuando inv_tiempo <= 0: opacidad = 255
+
+  8. sacudida:
+  ✓ Mientras sacudida > 0: la cámara de la capa base se desplaza +-12 px al azar
+    (el HUD no tiembla porque está en otra capa)
+
+  ORDEN DE INCLUSIÓN: "jugador_dano" debe ir DEBAJO de "fondo-camara-paralax" en
+  cada nivel; si va antes, la cámara se recentra y se pierde el temblor.
+
+  OTROS CAMBIOS HECHOS EN ESTA FASE:
+  ✓ La condición muriendo = 0 se añadió a los eventos de animación de la hoja
+    "personaje" y a los 4 eventos de teleport de cada nivel (si no, el jugador que
+    cae pisaba la animación de muerte o reaparecía arriba por el teleport).
+  ✓ HUD: corazones y vidas se actualizan dinámicamente (ver nota de la Fase 1)
+
+ELEMENTOS QUE QUEDAN PENDIENTES DE FASE 2 (pasan a otras fases):
+
+  Pendiente                                | Por qué no ahora        | Se hace en
+  -----------------------------------------|-------------------------|------------
+  Animación de soplar al disparar burbuja  | (HECHO)                 | Fase 3 ✓
+  Empuje lateral al recibir el golpe       | Depende dirección bolt  | Fase 4
+  Bloqueo de movimiento ~1.67 s post-golpe | Va ligado al empuje     | Fase 4
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 3 CERRADA* - Burbujas (25/10/2026) ───────────────────────────────────
+   * Todo lo implementable sin robots está hecho. 4 ítems pasan a otras fases
+     (ver tabla al final de este bloque).
+
+CONTROLES (cambiados en esta fase):
+  ✓ Flecha izquierda/derecha: mover. Flecha arriba: saltar. ESPACIO: soplar burbuja.
+  ✓ Se desactivaron los controles por defecto del comportamiento PlatformerObject
+    (el salto original era Espacio). Ahora la hoja "personaje" simula las teclas
+    con tres eventos separados (Left, Right, Up) usando "Tecla presionada".
+  ✓ Los eventos de voltear también guardan la variable direccion del jugador
+    (-1 izquierda, 1 derecha), que usa la burbuja.
+
+OBJETO burbuja (global):
+  ✓ Animaciones: crea (6 frames), destrulle (5 frames), atrapa1 (8 frames, robot
+    normal) y atrapa2 (8 frames, robot agresivo). crea y destrulle sin bucle.
+    El nombre de la animación de explosión en los eventos debe coincidir
+    exactamente con el del objeto.
+  ✓ Punto de origen en el centro (32, 32) y máscara de colisión personalizada
+    (cuadrado de 40x40, vértices 12 a 52).
+  ✓ Variables del objeto:
+      listo (0/1)   - ya se inicializó
+      dir           - dirección del disparo (1 derecha, -1 izquierda)
+      fase          - 0 recorrido horizontal, 1 flotando, 2 explotando
+      vida          - cuenta atrás de 4.17 s
+      soplo         - duración máxima del recorrido horizontal (0.1 a 2 s)
+      vel_flota     - velocidad de flotación, 60 a 120 px/s
+      atrapado      - 0 vacía, 1 robot normal, 2 robot agresivo (se usa en Fase 4)
+
+VARIABLES NUEVAS DEL JUGADOR (Fase 3):
+  ✓ direccion (1 / -1), recarga (segundos hasta el próximo disparo) y
+    soplando (segundos que dura la animación de soplar).
+
+HOJA DE EVENTOS "burbuja" (11 eventos, incluida en los 4 niveles):
+  1. disparar: tecla Espacio presionada recientemente, recarga <= 0, muriendo = 0 y
+     menos de 5 burbujas en escena. Crea la burbuja 38 px delante del jugador,
+     recarga = 0.33 s, soplando = 0.35 s y animación "soplar" del jugador.
+  2. inicializar la burbuja nueva (listo = 0): dir = direccion del jugador,
+     vida = 4.17, soplo = 0.1, vel_flota = 60 * (1 + Random(1)).
+  3. contar la recarga del jugador.
+  4. contar el soplido (soplando).
+  5. cuenta atrás de la vida de cada burbuja.
+  6. mantener espacio: mientras Espacio sigue presionado, fase = 0 y soplo < 2,
+     soplo sube 4 * TimeDelta() (el soplo mantenido llega más lejos, tope 2 s).
+  7. avanzar (fase 0): se mueve dir * 240 px/s en horizontal.
+  8. pasar a flotar: fase = 0 y vida <= 4.17 - soplo, entonces fase = 1.
+  9. flotar (fase 1): sube a vel_flota px/s.
+  10. explotar: vida <= 0 y fase < 2, entonces fase = 2 y animación de explosión.
+  11. borrar: fase = 2 y la animación terminó, entonces se elimina la burbuja.
+
+EVENTOS COMPLEMENTARIOS:
+  ✓ "Salir por arriba": burbuja con fase < 2 y posición Y < -40 pone vida = 0 y
+    explota. Va en la hoja "burbuja" (vale para los 4 niveles). Si explota antes de
+    tocar el techo, bajar el valor (por ejemplo a -150).
+  ✓ "Chocar con una pared": burbuja con fase = 0 en colisión con el objeto de
+    colisión del escenario pasa a fase = 1 (flota al instante). Este evento va en
+    CADA NIVEL y usa el objeto de colisión de ese nivel (nivel1: colicion_nivel1).
+
+HOJAS EXTERNAS DEL PROYECTO Y ORDEN EN CADA NIVEL:
+  HUD, burbuja, personaje, fondo-camara-paralax, jugador_dano
+  (jugador_dano siempre debajo de fondo-camara-paralax).
+
+VALORES DE AJUSTE (si la burbuja no se siente igual que en el original):
+  - Recorrido con un toque:      evento 2, soplo inicial (0.1)
+  - Recorrido máximo mantenido:  evento 6, el tope de soplo (2)
+  - Velocidad horizontal:        evento 7, el 240
+
+ELEMENTOS QUE QUEDAN PENDIENTES DE FASE 3 (pasan a otras fases):
+
+  Pendiente                                  | Por qué no ahora         | Se hace en
+  -------------------------------------------|--------------------------|------------
+  Atrapar un robot dentro de la burbuja      | Aún no existen robots    | Fase 4
+  Un disparo del robot revienta la burbuja   | Depende del bolt         | Fase 4
+  Fruta al explotar burbuja con robot atrapado | Depende de las frutas  | Fase 5
+  Sonidos de soplar y de explosión           | Se hacen todos al final  | Fase 8
+
+──────────────────────────────────────────────────────────────────────────────
+================================================================================
+ELEMENTOS TEMPORALES — RECORDATORIO DE LIMPIEZA
+================================================================================
+
+  Qué                                     | Dónde                          | Cuándo se reemplaza
+  ----------------------------------------|--------------------------------|-----------------------------
+  Tecla H que simula el golpe             | Hoja jugador_dano, evento 1    | Fase 4: sustituye la colisión con el bolt
+  Eventos de nivel_actual en nivel2,      | Eventos de cada nivel          | Fase 6: pasar de nivel suma 1 a la variable
+    nivel3 y nivel4                       |                                |
+  Game over sin escena (solo consola)     | Evento 5 de jugador_dano       | Fase 7: cambiar a la escena real de game over
+
+
+================================================================================
+2. LO QUE FALTA POR IMPLEMENTAR ✗
+================================================================================
+
+--------------------------------------------------------------------------------
+A. ESCENAS FALTANTES
+--------------------------------------------------------------------------------
+
+  ✗ Escena MENÚ / LOBBY
+    - No existe ninguna escena de menú principal en el proyecto.
+    - Necesita: imagen de título animada, animación "Press Space", música de fondo.
+    - Al presionar Space → inicializar variables globales + cambiar a escena nivel1.
+
+  ✗ Escena GAME OVER
+    - No existe ninguna escena de Game Over.
+    - Necesita: mostrar imagen gameover animada, mostrar puntuación final.
+    - Al presionar Space → volver a escena de menú.
+
+  ✗ Escena de TRANSICIÓN ENTRE NIVELES (opcional pero recomendada)
+    - Puede ser solo un cambio de escena directo o una pantalla con
+      el texto "NIVEL X" antes de cargar el siguiente nivel.
+
+
+--------------------------------------------------------------------------------
+B. VARIABLES GLOBALES PENDIENTES
+--------------------------------------------------------------------------------
+
+  Falta crear una variable global, para fases posteriores:
+
+  ✗ Variable: enemigos_pendientes   (número, para controlar el spawn y paso de nivel)
+
+  Ya NO hacen falta estas dos variables globales que figuraban antes:
+  ✓ timer_invulnerabilidad  → se resolvió con la variable del jugador inv_tiempo
+  ✓ fire_timer              → se resolvió con la variable del jugador recarga
+
+  NOTA: Las variables vidas, corazones, puntuacion y nivel_actual ya fueron
+        creadas y configuradas en la Fase 1. ✓
+
+
+--------------------------------------------------------------------------------
+C. HUD - PENDIENTES MENORES
+--------------------------------------------------------------------------------
+
+  ✓ Actualización dinámica de corazones  [Fase 2 — HECHO]
+    - Los 3 iconos se actualizan: health.png (lleno) / health_empty.png (vacío)
+
+  ✓ Actualización dinámica de vidas  [Fase 2 — HECHO]
+    - Los iconos de vida se eliminan visualmente al perder una vida
+
+  NOTA: La nota de los eventos temporales de nivel_actual en niveles 2, 3 y 4
+        deben borrarse en la Fase 6, cuando se implemente el cambio dinámico
+        de nivel. Por ahora están correctamente marcados para borrar.
+
+
+--------------------------------------------------------------------------------
+D. SISTEMA DE DAÑO AL JUGADOR  [Fase 2 — CERRADA*]
+--------------------------------------------------------------------------------
+
+  ✓ Lógica de recibir daño (implementada con tecla H temporal)
+  ✓ Restar 1 corazón (variable corazones -= 1)
+  ✓ Invulnerabilidad de 200 frames con parpadeo del sprite
+  ✓ Sacudida de pantalla al recibir daño (screen shake)
+  ✓ Actualización dinámica de iconos de corazones (health / health_empty)
+  ✓ Muerte: animación jugador_muerte, desactivar Platformer, caída libre
+  ✓ Pérdida de vida grande (vidas -= 1) con actualización visual de iconos
+  ✓ Respawn con 3 corazones y período de gracia (100 frames / 1.67 s de invulnerabilidad)
+  ✓ Game Over si vidas llega a -1 (temporal: sin escena, escena real en Fase 7)
+
+  ✓ Animación de soplar al disparar burbuja  [Fase 3 — HECHO]
+
+  Pasa a Fase 4:
+  ✗ Empuje lateral al recibir el golpe (depende de la dirección del bolt)
+  ✗ Bloqueo de movimiento ~1.67 s tras el golpe (va ligado al empuje)
+
+
+--------------------------------------------------------------------------------
+E. SISTEMA DE BURBUJAS / ORBES  [Fase 3]
+--------------------------------------------------------------------------------
+
+  ✓ Objeto burbuja (Orb)  [Fase 3 — HECHO]
+    - Animaciones de crecimiento y explosión, máscara de colisión y variables propias
+    - Al disparar: aparece delante del jugador (38 px) a la altura del pecho
+    - Fase horizontal a 240 px/s; el soplo mantenido llega más lejos (tope 2 s)
+    - Al chocar con una pared pasa a flotar de inmediato
+    - Flotación hacia arriba a 60-120 px/s (velocidad aleatoria)
+    - Vida de 4.17 s; explota con su animación y se elimina
+    - Si sube por encima del techo (Y < -40) explota
+    - Máximo 5 burbujas en pantalla y recarga de 0.33 s entre disparos
+
+  ✗ Burbuja con enemigo atrapado (Trap)  [pasa a Fase 4]
+    - Las animaciones atrapa1 (robot normal) y atrapa2 (robot agresivo) y la
+      variable atrapado ya están listas en el objeto
+    - Falta: colisión con un robot → el robot desaparece, la burbuja cambia a la
+      animación trap y sigue flotando
+    - Al explotar con robot dentro → generar fruta (Fase 5)
+
+  ✓ Explosión de burbuja  [Fase 3 — HECHO]
+    - Animación de explosión y eliminación del objeto al terminar
+
+
+--------------------------------------------------------------------------------
+F. SISTEMA DE ENEMIGOS (Robots)  [Fase 4]
+--------------------------------------------------------------------------------
+
+  ✗ Objeto Robot Normal (robot0)
+    - Sprite con animaciones: caminar izquierda/derecha (robot000-robot017),
+      disparar izquierda/derecha (robot005-robot007 / robot015-robot017)
+    - Comportamiento de plataformas (o gravedad manual)
+    - Movimiento horizontal en la dirección actual a velocidad aleatoria (1-3 px)
+    - Al chocar con pared → invertir dirección
+    - Cada 100-250 frames → cambiar dirección aleatoriamente
+    - Con 2/3 de probabilidad, moverse hacia el jugador
+    - Spawn desde la fila superior del nivel (caen desde arriba)
+    - Los assets ya existen en img new/enemigos/robot0/
+
+  ✗ Objeto Robot Agresivo (robot1)
+    - Igual que robot0 pero con sprites de robot1
+    - Lógica adicional: detectar burbujas en su misma altura y a menos de 200px
+      → girar hacia la burbuja y disparar para destruirla
+    - Los assets ya existen en img new/enemigos/robot1/
+
+  ✗ Sistema de disparo de enemigos (Bolt)
+    - Crear objeto bolt (bolt_robot0 / bolt_robot1)
+    - Velocidad horizontal fija: 7 px/frame, sin gravedad
+    - Probabilidad de disparo por frame: 0.001 base + 0.0001 * nivel_actual
+    - Si el jugador está a la misma altura → probabilidad x10
+    - El bolt se dispara 8 frames después de que el robot "decide" disparar
+      (para sincronizar con la animación)
+    - Al colisionar con pared, borde o jugador → destruir
+    - Al colisionar con burbuja → forzar explosión de la burbuja
+    - Los assets ya existen en img new/enemigos/robot0/ y robot1/
+
+  ✗ Sistema de spawn de enemigos por nivel
+    - Total enemigos = 10 + número_de_nivel
+    - Enemigos agresivos = 1 + int(nivel / 1.5)
+    - Crear un enemigo cada 81 frames (1.35 segundos)
+    - Máximo simultáneo en pantalla = min((nivel + 6) / 2, 8)
+    - Spawn en columna aleatoria de la fila superior del nivel
+
+  ✗ Sistema de muerte de enemigo
+    - Al ser atrapado por burbuja → desaparecer (la burbuja muestra al enemigo dentro)
+    - No existe animación de muerte fuera de la burbuja (solo atrapamiento)
+
+
+--------------------------------------------------------------------------------
+G. SISTEMA DE FRUTAS / ÍTEMS  [Fase 5]
+--------------------------------------------------------------------------------
+
+  ✗ Objeto Fruta (Fruit)
+    - Tipos: manzana (fruit0x), frambuesa (fruit1x), limón (fruit2x)
+    - Tipos especiales: corazón extra (health), vida extra (life)
+    - Aparece al explotar burbuja con enemigo atrapado
+    - También aparece cada 100 frames en posición aleatoria
+    - Tiene gravedad (cae y aterriza en plataformas)
+    - Tiempo de vida: 500 frames (~8 segundos), luego desaparece con animación pop
+    - 4 frames de animación [0, 1, 2, 1] ciclando
+    - Al colisionar con jugador → aplicar efecto y destruir:
+        · Manzana:    +100 puntos
+        · Frambuesa:  +200 puntos
+        · Limón:      +300 puntos
+        · Corazón:    +1 corazón (máximo 3)
+        · Vida:       +1 vida grande
+    - Los assets ya existen en img new/frutas/ e img new/iconos/
+
+  ✗ Animación Pop pequeño (al recoger ítem o al desaparecer fruta)
+    - Assets: pop00-pop05 en img new/recoger/
+
+
+--------------------------------------------------------------------------------
+H. CONDICIÓN PARA PASAR DE NIVEL  [Fase 6]
+--------------------------------------------------------------------------------
+
+  ✗ Lógica de fin de nivel
+    Condición: cuando se cumplan TODOS estos criterios al mismo tiempo:
+      1. Variable enemigos_pendientes = 0 (todos los enemigos del nivel han aparecido)
+      2. Número de robots en escena = 0 (todos eliminados)
+      3. No hay burbujas con enemigo atrapado en pantalla
+      4. No hay frutas activas en pantalla
+      5. No hay animaciones de pop activas
+
+    Acción al cumplir: cambiar a la siguiente escena de nivel
+      nivel1 → nivel2 → nivel3 → nivel4 → (volver a nivel1 con dificultad aumentada)
+
+    IMPORTANTE:
+      - Incrementar variable nivel_actual al pasar de nivel.
+      - Al llegar a esta fase, borrar los eventos temporales de nivel_actual
+        que se pusieron en nivel2, nivel3 y nivel4 durante la Fase 1.
+
+
+--------------------------------------------------------------------------------
+I. MENÚ DE INICIO  [Fase 7]
+--------------------------------------------------------------------------------
+
+  ✗ Escena "menu" o "lobby"
+    Objetos necesarios:
+      - Imagen de título animada (titulo_00 a titulo_07, 8 frames)
+      - Animación "Press Space" (space0 a space9, 10 frames)
+        · Fórmula del original: aparece en 40 frames, se queda en frame 9
+          por 120 frames, luego repite el ciclo
+      - Música de fondo: theme.ogg
+      - (Opcional) fondo del nivel corriendo sin jugador activo
+
+    Lógica:
+      - Al presionar Space → inicializar variables globales + cambiar a nivel1
+
+    Assets disponibles:
+      - img new/titulo/ → titulo_00.png a titulo_07.png
+      - img new/boton inicio/ → space0.png a space9.png
+
+
+--------------------------------------------------------------------------------
+J. PANTALLA DE GAME OVER  [Fase 7]
+--------------------------------------------------------------------------------
+
+  ✗ Escena "game_over"
+    Objetos necesarios:
+      - Imagen de Game Over animada (gameover_00 a gameover_07, 8 frames)
+      - Mostrar puntuación final del jugador
+      - Mostrar nivel al que llegó
+      - Sonido "over" al entrar a esta escena
+
+    Lógica:
+      - Al presionar Space → cambiar a escena de menú (reiniciar variables globales)
+
+    Assets disponibles:
+      - img new/gameover/ → gameover_00.png a gameover_07.png
+
+
+--------------------------------------------------------------------------------
+K. SONIDOS  [Fase 8]
+--------------------------------------------------------------------------------
+
+  ✗ Ningún sonido está implementado en los eventos del proyecto.
+  Todos los archivos de sonido están en cavern-master/sounds/ y deben importarse:
+
+  Acción                      | Archivo de sonido
+  ----------------------------|----------------------------------
+  Disparar burbuja            | blow0.ogg - blow3.ogg (elegir al azar)
+  Burbuja explota             | pop0.ogg - pop3.ogg  (elegir al azar)
+  Enemigo atrapado            | trap0.ogg - trap3.ogg (elegir al azar)
+  Enemigo dispara             | laser0.ogg - laser3.ogg (elegir al azar)
+  Jugador salta               | jump0.ogg
+  Jugador recibe daño         | ouch0.ogg - ouch3.ogg (elegir al azar)
+  Jugador muere               | die0.ogg
+  Recoger corazón/vida        | bonus0.ogg
+  Recoger fruta (puntos)      | score0.ogg
+  Inicio de nivel             | level0.ogg
+  Game Over                   | over0.ogg
+  Música de fondo             | theme.ogg
+
+
+--------------------------------------------------------------------------------
+L. DETALLES VISUALES FALTANTES  [Fases 2-7]
+--------------------------------------------------------------------------------
+
+  ✓ Parpadeo del jugador al recibir daño  [Fase 2 — HECHO]
+    - La opacidad alterna entre 80 y 255 unas 5 veces por segundo durante 3.33 s
+
+  ✓ Sacudida de pantalla al recibir daño  [Fase 2 — HECHO]
+    - La cámara se desplaza +-12 px al azar durante 0.4 s
+
+  ✓ Iconos de corazones y vidas actualizados dinámicamente  [Fase 2 — HECHO]
+    - health_empty.png cuando se pierde corazón
+    - Icono de vida eliminado al morir
+
+  ✓ Animación de muerte completa  [Fase 2 — HECHO]
+    - jugador_muerte_00 a jugador_muerte_05
+    - Cae atravesando plataformas (Platformer desactivado)
+
+  ✗ Animación de golpe/rebote lateral al recibir daño  [Fase 4]
+    - El jugador se desliza y no puede moverse ~1.67 s (depende del bolt)
+
+  ✓ Animación de soplar del jugador al disparar burbuja  [Fase 3 — HECHO]
+    - jugador_soplar_00 a jugador_soplar_06 (7 frames, sin bucle)
+    - Dura 0.35 s (variable soplando) y no la pisan las otras animaciones
+
+
+================================================================================
+3. ORDEN DE IMPLEMENTACIÓN
+================================================================================
+
+  [✓ COMPLETADA] Fase 0 - Base del proyecto:
+    ✓ Crear las 4 escenas de niveles (nivel1 a nivel4)
+    ✓ Diseñar los tilemaps con plataformas y colisiones
+    ✓ Implementar fondos animados con efecto paralaje en 3 capas
+    ✓ Configurar cámara con seguimiento al jugador y límites
+    ✓ Crear el jugador global con comportamiento Platformer y Flippable
+    ✓ Animar al jugador: quieto, correr, saltar, caer, flip horizontal
+    ✓ Implementar teletransportes superior/inferior en los 4 niveles
+      (4 eventos por nivel: colisión + condición de X izquierda/derecha + muriendo = 0;
+       la acción fija X e Y de destino. Nivel1: divisoria X=415. Nivel2: 3 columnas,
+       divisorias 240 y 607. Nivel4: divisoria X=431. Cada nivel usa sus coordenadas.)
+    ✓ Importar todos los assets gráficos y de sonido al proyecto
+
+  [✓ COMPLETADA] Fase 1 - Variables globales y HUD básico:
+    ✓ Crear variables globales (vidas=2, corazones=3, puntuacion=0, nivel_actual=1)
+    ✓ Franja HUD negra en la parte inferior (capa HUD)
+    ✓ Iconos de corazones y vidas en pantalla
+    ✓ Texto de puntuación (pegado a la derecha con X dinámico)
+    ✓ Texto "NIVEL X" centrado
+    ✓ Teletransportes verticales con condición de X (cada nivel con sus coordenadas)
+
+  [CERRADA*] Fase 2 - Jugador completo (daño, muerte, respawn) — 25/10/2026:
+    ✓ Sistema de daño con tecla H temporal (hoja jugador_dano)
+    ✓ Invulnerabilidad 200 frames + parpadeo del sprite
+    ✓ Sacudida de pantalla al recibir daño
+    ✓ Muerte: animación, desactivar Platformer, caída libre
+    ✓ Pérdida de vida grande + actualización visual de iconos de vidas
+    ✓ Respawn con 3 corazones y período de gracia (100 frames / 1.67 s)
+    ✓ Game Over provisional (consola de depuración, escena real en Fase 7)
+    ✓ HUD: corazones y vidas actualizados dinámicamente
+    ✓ La animación soplar se hizo en la Fase 3
+    → Pasa a Fase 4: empuje lateral + bloqueo de movimiento post-golpe
+
+  [CERRADA*] Fase 3 - Burbujas — 25/10/2026:
+    ✓ Objeto burbuja con animación de crecimiento, flotación y explosión
+    ✓ Movimiento horizontal → colisión con pared → flotación vertical
+    ✓ Soplo mantenido (Espacio) para llegar más lejos
+    ✓ Límite de 5 burbujas simultáneas
+    ✓ Recarga entre disparos (0.33 s)
+    ✓ Animación "soplar" del jugador (viene de Fase 2)
+    ✓ Controles cambiados: salto con flecha arriba, Espacio para soplar
+    → Pasa a Fase 4: colisión burbuja + robot → atrapar; el bolt revienta burbujas
+    → Pasa a Fase 5: fruta al explotar burbuja con robot atrapado
+    → Pasa a Fase 8: sonidos de soplar y de explosión
+
+  [ PENDIENTE ] Fase 4 - Enemigos:
+    → Objeto robot0: movimiento, rebote en paredes, cambio de dirección con IA
+    → Sistema de disparo robot (bolt): velocidad, colisiones, probabilidad
+    → Objeto robot1: igual + IA de disparo a burbujas
+    → Sistema de spawn por nivel (cada 81 frames, máximo progresivo)
+    → Conectar bolt con jugador (reemplazar tecla H temporal de jugador_dano)
+    → Empuje lateral al recibir golpe (viene de Fase 2)
+    → Bloqueo de movimiento ~1.67 s tras el golpe (viene de Fase 2)
+    → Colisión burbuja + robot → atrapar con animación trap (viene de Fase 3)
+    → El bolt que toca una burbuja la hace explotar (viene de Fase 3)
+
+  [ PENDIENTE ] Fase 5 - Frutas e ítems:
+    → Objeto fruta con gravedad, animación y tiempo de vida (500 frames)
+    → Efectos al recoger: puntos, corazón extra, vida extra
+    → Aparición periódica aleatoria (cada 100 frames)
+    → Animación pop pequeño al recoger o al expirar
+    → Fruta al explotar una burbuja con robot atrapado (viene de Fase 3)
+
+  [ PENDIENTE ] Fase 6 - Lógica de nivel:
+    → Contador de enemigos pendientes y activos
+    → Condición de fin de nivel (sin enemigos + sin burbujas trampa + sin frutas)
+    → Cambio de escena al siguiente nivel
+    → Borrar eventos temporales de nivel_actual de nivel2, nivel3 y nivel4
+
+  [ PENDIENTE ] Fase 7 - Menú y Game Over:
+    → Escena de menú: título animado, "Press Space", música
+    → Escena de Game Over: imagen animada, puntuación final, volver al menú
+    → Flujo completo: menú → nivel1 → ... → nivel4 → game over → menú
+
+  [ PENDIENTE ] Fase 8 - Sonido y pulido:
+    → Importar y asignar todos los sonidos a sus eventos correspondientes
+    → Ajustar dificultad progresiva por nivel
+    → Pruebas finales y balance de juego
+    → Sonidos de soplar y de explosión de burbuja (vienen de Fase 3)
+
+
+================================================================================
+4. OBSERVACIONES ADICIONALES
+================================================================================
+
+  - El nivel4 usa los mismos objetos que nivel2 (paralax_nivel2, nivel2, fondo_nivel2)
+    aunque debería usar objetos propios del nivel 4 (acero). Pendiente de corregir.
+
+  - La hoja de eventos "personaje" ahora también mueve al jugador (simula las teclas
+    izquierda, derecha y salto), guarda la variable direccion y sus eventos de
+    animación llevan las condiciones muriendo = 0 y soplando <= 0.
+
+  - Los eventos temporales de nivel_actual en nivel2, nivel3 y nivel4 son un
+    placeholder. Deben borrarse en la Fase 6 y reemplazarse por la lógica real
+    de cambio de nivel.
+
+  - La música theme.ogg existe pero no está implementada en ninguna escena aún.
+
+  - El evento "Chocar con una pared" de las burbujas va en cada nivel con el objeto
+    de colisión de ese nivel. Si se crea un nivel nuevo, hay que copiarlo y cambiar
+    el objeto.
+
+  - Si se cambia la posición de los iconos del HUD, hay que actualizar las fórmulas
+    de posición X en la hoja HUD (corazones en 150/195/240, vidas en 15/60).
+
+  - Todos los assets gráficos y de sonido necesarios ya están en disco.
+    Ninguna fase requiere crear recursos nuevos, solo implementar la lógica.
+
+
+================================================================================
+FIN DEL DOCUMENTO
+Análisis actualizado para el proyecto de rediseño de Cavern en GDevelop.
+================================================================================

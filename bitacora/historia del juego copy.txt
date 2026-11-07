@@ -1,0 +1,17 @@
+HISTORIA COMPLETA: PIXEL Y NODO CERO
+1. El mundo
+Nodo Cero es una civilización de máquinas que se construyó alrededor de una red central llamada la Corriente. La Corriente daba energía y memoria a todo: ciudades, fábricas, robots y hasta la naturaleza que las máquinas cuidaban.
+2. Qué salió mal
+Un virus infectó la Corriente. De ese virus nacieron los Glitches, robotitos defectuosos que no son malvados, solo están rotos y asustados. Los azules son los Glitches de Eco, copias que repiten órdenes viejas sin entenderlas. Los amarillos son los Glitches de Chispa, nerviosos, que sobrecargan todo lo que tocan. Cada Glitch suelto en una época corrompe un poco más el mundo, y esos son los robots que disparan al jugador.
+3. Cómo se rompió el tiempo
+El daño no ocurrió en un solo momento, sino en cuatro épocas, y cada una es un nivel del juego. En la época azul, la ciudad tecnológica, todo empezó con las primeras grietas en la Corriente. En la época verde, la selva robótica, la ciudad fue abandonada y las máquinas se fusionaron con la naturaleza. En la época roja, los volcanes, el virus sobrecalentó el núcleo del planeta y las fábricas se fundieron con la lava. En la época negra, el acero dañado, queda lo que sobrevivió al colapso total, y ahí está el origen del virus.
+4. Quién es Pixel
+Sus creadores sabían que el desastre venía, así que construyeron un último prototipo llamado Burbuja Guardiana. Lo hicieron rosado a propósito, para que nunca se perdiera de vista en la oscuridad. Le dieron dos dones: el aliento de la Corriente, que le permite soplar burbujas que no destruyen sino que abrazan y calman a los Glitches, y la capacidad de saltar entre épocas. También crearon una copia suya apagada en cada línea temporal, esperando ser despertada. Luego lo dejaron dormido en una cápsula.
+5. Inicio del juego
+Pixel despierta sin memoria en un mundo roto. Solo sabe correr, saltar y soplar. Recorre los primeros cuatro niveles atrapando Glitches en burbujas para poder avanzar, recogiendo frutas, que son celdas de memoria que dan puntos, y corazones, que son núcleos de reparación. Si recoge más vida de la que puede tener, aparece el icono verde con el más, una sobrecarga de energía de la Corriente. Todavía no sabe por qué lo hace, solo siente que debe hacerlo.
+6. La revelación
+Al terminar el nivel cuatro, hay una escena corta con texto. Pixel recuerda todo: fue creado para salvar Nodo Cero, su color rosado era una marca de seguridad, y en cada época hay una copia suya apagada. Desde ese momento ya no juega por obligación, sino porque quiere ayudar a quienes lo crearon y a los robots rotos que atrapa.
+7. La misión nueva
+Después del nivel cuatro, Pixel salta entre épocas en orden aleatorio, uno, tres, cuatro, dos, y así. Cada vez que limpia una época atrapando a todos sus Glitches, esa línea temporal queda salvada, su yo alterno apagado se despierta y los Glitches liberados encuentran paz. Entre nivel y nivel solo aparece un mensaje corto, como línea temporal salvada. Esto continúa hasta que el jugador pierde todas sus vidas.
+8. El final secreto
+Si el jugador alcanza cierto puntaje, que funciona como logro, se desbloquea el final verdadero. Pixel cumple su propósito: ayudó a todas las líneas temporales, se apaga, y su energía se reparte entre todas sus copias, que ahora pueden vivir en mundos sanos. Se cuenta con dos o tres imágenes fijas y texto, con el mismo fondo del nivel pero con la luz más baja. Después, el juego vuelve a la pantalla inicial.

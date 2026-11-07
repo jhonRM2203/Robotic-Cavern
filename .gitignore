@@ -1,0 +1,8 @@
+node_modules/
+apk de pruebas/platforms/
+apk de pruebas/node_modules/
+*.7z
+*.zip
+*.mp4
+*.autosave
+videos demo/

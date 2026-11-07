@@ -1,0 +1,110 @@
+PARÁMETROS DE FÍSICA Y MOVIMIENTO - cavern.py
+Referencia de diseño: Hollow Knight, Ori and the Blind Forest, Dead Cells, Hollow Knight Silksong
+Unidades: px/frame  |  px/frame²  |  frames  (asumiendo 60fps)
+Grilla del nivel: 25px por celda
+==============================================
+
+==============================================================
+JUGADOR (Player)
+==============================================================
+Tolerancia del agarre en X                : 6 px
+Desplazamiento del agarre en Y            : 2 px
+Aceleración para caminar                  : 2 px/frame²
+Desaceleración                            : 3 px/frame²  (frenado más rápido que la aceleración, sensación de control)
+Velocidad máxima                          : 5 px/frame
+Ángulo máximo de pendiente                : 45°
+Velocidad de subida de escalera           : 3 px/frame
+Gravedad para el salto                    : 1.2 px/frame²  (más suave al subir, sensación de peso)
+Velocidad de caída máxima                 : 12 px/frame
+Velocidad de salto                        : 16 px/frame  (hacia arriba)
+Tiempo de salto sostenido                 : 12 frames  (mantener botón da más altura, como en Ori)
+
+==============================================================
+ROBOT TYPE_NORMAL (Enemigo estándar)
+==============================================================
+Tolerancia del agarre en X                : 4 px
+Desplazamiento del agarre en Y            : 1 px
+Aceleración para caminar                  : 1 px/frame²
+Desaceleración                            : 2 px/frame²
+Velocidad máxima                          : 2 px/frame
+Ángulo máximo de pendiente                : 30°
+Velocidad de subida de escalera           : No aplica
+Gravedad para el salto                    : 1.2 px/frame²
+Velocidad de caída máxima                 : 10 px/frame
+Velocidad de salto                        : 0 px/frame  (no salta)
+Tiempo de salto sostenido                 : 0 frames
+
+==============================================================
+ROBOT TYPE_AGGRESSIVE (Enemigo agresivo)
+==============================================================
+Tolerancia del agarre en X                : 4 px
+Desplazamiento del agarre en Y            : 1 px
+Aceleración para caminar                  : 2 px/frame²
+Desaceleración                            : 2 px/frame²
+Velocidad máxima                          : 3 px/frame
+Ángulo máximo de pendiente                : 40°
+Velocidad de subida de escalera           : No aplica
+Gravedad para el salto                    : 1.2 px/frame²
+Velocidad de caída máxima                 : 10 px/frame
+Velocidad de salto                        : 0 px/frame  (no salta)
+Tiempo de salto sostenido                 : 0 frames
+
+==============================================================
+ORB (Burbuja disparada por el jugador)
+==============================================================
+Tolerancia del agarre en X                : 8 px
+Desplazamiento del agarre en Y            : 0 px  (flota, sin ancla vertical)
+Aceleración para caminar                  : Instantánea  (sale a velocidad fija)
+Desaceleración                            : Instantánea  (para al chocar con pared)
+Velocidad máxima                          : 4 px/frame  (horizontal) / 2 px/frame (flotación vertical)
+Ángulo máximo de pendiente                : 0°  (viaja en línea recta)
+Velocidad de subida de escalera           : No aplica
+Gravedad para el salto                    : No aplica  (flota hacia arriba)
+Velocidad de caída máxima                 : No aplica  (no cae)
+Velocidad de salto                        : No aplica
+Tiempo de salto sostenido                 : No aplica
+
+==============================================================
+BOLT (Rayo disparado por el Robot)
+==============================================================
+Tolerancia del agarre en X                : 3 px
+Desplazamiento del agarre en Y            : 0 px
+Aceleración para caminar                  : Instantánea
+Desaceleración                            : No aplica  (se destruye al impactar)
+Velocidad máxima                          : 7 px/frame  (constante)
+Ángulo máximo de pendiente                : 0°  (viaja horizontal)
+Velocidad de subida de escalera           : No aplica
+Gravedad para el salto                    : No aplica
+Velocidad de caída máxima                 : No aplica
+Velocidad de salto                        : No aplica
+Tiempo de salto sostenido                 : No aplica
+
+==============================================================
+FRUIT (Fruta / Pickup)
+==============================================================
+Tolerancia del agarre en X                : 10 px  (zona de recogida generosa, como en Dead Cells)
+Desplazamiento del agarre en Y            : 4 px
+Aceleración para caminar                  : No aplica  (no se mueve en X)
+Desaceleración                            : No aplica
+Velocidad máxima                          : 0 px/frame  (estática en X, solo cae)
+Ángulo máximo de pendiente                : 0°
+Velocidad de subida de escalera           : No aplica
+Gravedad para el salto                    : 1.2 px/frame²
+Velocidad de caída máxima                 : 10 px/frame
+Velocidad de salto                        : 0 px/frame
+Tiempo de salto sostenido                 : 0 frames
+
+==============================================================
+POP (Animación de explosión / desaparición)
+==============================================================
+Tolerancia del agarre en X                : 0 px  (puramente visual, sin colisión)
+Desplazamiento del agarre en Y            : 0 px
+Aceleración para caminar                  : No aplica
+Desaceleración                            : No aplica
+Velocidad máxima                          : 0 px/frame  (estático)
+Ángulo máximo de pendiente                : No aplica
+Velocidad de subida de escalera           : No aplica
+Gravedad para el salto                    : No aplica
+Velocidad de caída máxima                 : No aplica
+Velocidad de salto                        : No aplica
+Tiempo de salto sostenido                 : No aplica

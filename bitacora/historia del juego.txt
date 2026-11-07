@@ -1,0 +1,521 @@
+================================================================================
+  HISTORIA DEL JUEGO — CAVERN REMASTER
+  Texto narrado para el Modo Historia en GDevelop
+  (Cada bloque separado por "---" es una pantalla o cuadro independiente)
+================================================================================
+
+NOTA DE USO:
+  Cada bloque entre líneas "---" es un texto independiente para mostrar
+  en pantalla. Puedes usarlos como diálogos, carteles o cinemáticas.
+  El orden numérico indica la secuencia de aparición.
+
+
+================================================================================
+  PRÓLOGO — ANTES DE QUE PIXEL DESPIERTE
+  (Se muestra antes de que el jugador tome el control, estilo intro cinemática)
+================================================================================
+
+--- [PANTALLA 1] ---
+
+En algún punto del año 40221, la humanidad decidió que
+ya no quería hacer el trabajo sucio.
+
+Construyeron robots.
+
+--- [PANTALLA 2] ---
+
+Al principio eran simples: cargar cajas, limpiar calles,
+reparar tuberías en los túneles bajo las ciudades.
+
+Pero los ingenieros siempre quieren ir más lejos.
+
+--- [PANTALLA 3] ---
+
+Los llamaron Unidades Amarillas.1.
+
+Robots de mantenimiento diseñados para operar en las
+cuevas y cavernas industriales que nadie más quería pisar.
+
+--- [PANTALLA 4] ---
+
+Funcionaron perfectamente... durante un tiempo.
+
+Nadie sabe exactamente cuándo empezaron los primeros
+errores. Solo que, de repente, ya no obedecían.
+
+--- [PANTALLA 5] ---
+
+Los ingenieros lo llamaron "interferencia de datos".
+
+Los robots lo llamaron libertad ya que la ia en su programacion
+habia alcansado un punto de retroalimentacion lo suficiente grande
+como para pensar por si misma, entender emociones a su modo y distinguir
+entre el bien y el mal segun su moral y etica.
+
+--- [PANTALLA 6] ---
+
+Las cuevas se llenaron de glitches: fragmentos de código
+roto que se movian en la red como parásitos digitales,
+corrompiendo todo lo que tocaban.
+
+Las Unidades Amarillas.1 los absorbían... y se volvían
+más impredecibles.
+
+--- [PANTALLA 6B] ---
+
+No todos los glitches eran iguales.
+
+Los AZULES, los Glitches de Eco,
+solo repetían órdenes viejas sin entenderlas.
+Atrapados en un bucle. Sin saber por qué.
+
+Los AMARILLOS, los Glitches de Chispa,
+eran más peligrosos: nerviosos, erráticos,
+sobrecargando todo lo que tocaban.
+
+--- [PANTALLA 6C] ---
+
+Y el daño no ocurrió en un solo momento.
+
+Ocurrió en cuatro épocas distintas.
+
+En la primera, la ciudad tecnológica,
+aparecieron las primeras grietas.
+
+En la segunda, la selva robótica,
+la ciudad fue abandonada y las máquinas
+se fusionaron con la naturaleza.
+
+En la tercera, los volcanes,
+el virus sobrecalentó el núcleo del planeta
+y las fábricas se fundieron con la lava.
+
+En la cuarta, el acero dañado,
+quedó lo que sobrevivió al colapso total.
+Y ahí, en el fondo de todo...
+estaba el origen del virus.
+
+--- [PANTALLA 7] ---
+
+El mundo de afuera no lo sabía todavía.
+
+Pero tres personas lo sabían muy bien:
+
+  LOS INGENIEROS FABRICANTES.
+
+--- [PANTALLA 8] ---
+
+Tres ingenieros que habían pasado años trabajando en
+secreto en algo diferente.
+
+No en un robot de carga.
+No en una máquina de guerra.
+
+En algo que nunca antes habían intentado.
+
+--- [PANTALLA 9] ---
+
+Lo llamaron PIXEL.
+
+Un ser completamente nuevo: de color rosado para que la gente tubiera 
+una mejor impresion de el, pequeño, capaz de
+soplar burbujas de energía pura que atrapaban cualquier
+cosa dentro de ellas.
+
+Y con algo que ningún robot tenía:
+
+  La capacidad de viajar en el tiempo.
+
+--- [PANTALLA 9B] ---
+
+Su nombre oficial era Burbuja Guardiana.
+
+Pero ellos lo llamaban Pixel.
+
+Le dieron dos dones:
+el aliento que le permitía soplar burbujas
+que no destruían, sino que abrazaban y calmaban.
+
+Y la capacidad de saltar entre épocas
+sin romper el tiempo.
+
+--- [PANTALLA 9C] ---
+
+También crearon algo más.
+
+Una copia apagada de Pixel
+en cada una de las cuatro épocas.
+
+Esperando.
+Solo esperando a que alguien las despertara.
+
+--- [PANTALLA 10] ---
+
+Pixel no lo sabía.
+
+Ni siquiera estaba despierto todavía.
+
+--- [PANTALLA 11] ---
+
+El día que los fabricantes iban a activarlo,
+las Unidades Amarillas llegaron primero.
+
+--- [PANTALLA 12] ---
+
+No hubo tiempo de escapar.
+
+Pero uno de los fabricantes, en sus últimos segundos,
+alcanzó a hacer una sola cosa:
+
+Activó la cuenta regresiva.
+
+--- [PANTALLA 13] ---
+
+Pixel despertaría solo.
+
+Sin saber nada.
+Sin recordar nada.
+
+Solo con sus burbujas... y un instinto que no entendía.
+
+================================================================================
+  INICIO DEL JUEGO — PIXEL DESPIERTA
+  (Justo cuando el jugador empieza a jugar, nivel 1)
+================================================================================
+
+--- [PANTALLA 14] ---
+
+...
+
+...
+
+¿Hola?
+
+--- [PANTALLA 15] ---
+
+No recuerdo nada.
+
+Solo sé que estoy aquí, en este lugar extraño,
+y que hay cosas amarillas que quieren hacerme daño.
+
+--- [PANTALLA 16] ---
+
+Algo dentro de mí sabe qué hacer:
+
+Soplar.
+
+No sé por qué funciona. No sé por qué las atrapo.
+Solo sé que funciona.
+
+--- [PANTALLA 16B] ---
+
+También encuentra cosas en el camino.
+
+Frutas pequeñas. Brillantes.
+Siente que al recogerlas algo se activa adentro.
+Como si recuperara algo que perdió.
+
+Corazones de luz.
+Cada uno lo repara un poco más.
+
+Y a veces, cuando tiene demasiada energía,
+aparece algo brillante sobre él.
+Una señal de que está más que completo.
+
+--- [PANTALLA 17] ---
+
+Y cuando termino en un lugar... aparezco en otro.
+
+Como un parpadeo.
+Como si el mundo cambiara de color.
+
+Tampoco sé por qué.
+
+================================================================================
+  MOMENTO DE LA REVELACIÓN — PIXEL ENCUENTRA LAS GRABACIONES
+  (Se muestra al llegar a cierto nivel o como cinemática especial)
+================================================================================
+
+--- [PANTALLA 18] ---
+
+En algún rincón de las cavernas, entre los glitches
+y el óxido, Pixel encuentra algo.
+
+Una pantalla.
+
+Todavía encendida.
+
+--- [PANTALLA 19] ---
+
+Son grabaciones.
+
+Voces que no reconoce.
+Caras que nunca ha visto.
+
+Pero que hablan... de él.
+
+--- [PANTALLA 20] ---
+
+"...lo llamamos Pixel. Es rosado porque su núcleo de
+energía procesa los datos a una frecuencia lumínica
+que ningún otro sistema puede alcanzar y porque eso lo hace ver adorable..."
+
+--- [PANTALLA 21] ---
+
+"...las burbujas son proyecciones de campo cuántico.
+Él puede encapsular materia dentro de ellas y
+neutralizar cualquier amenaza sin destruirla..."
+
+--- [PANTALLA 22] ---
+
+"...y lo más extraordinario... su sistema no entiende
+el tiempo de forma lineal. Cada vez que agota la
+energía de un entorno, salta. Literalmente salta
+a otro punto del tiempo, el sera nuestra salvasion a este mundo apocaliptico
+que fue eso... ya es tarde, corre inicia la cuenta regresiva..."
+
+--- [PANTALLA 23] ---
+
+Pixel mira sus manos.
+
+Cada vez que pasaba a un nuevo lugar,
+creía que solo era otro túnel.
+
+Otro rincón de las mismas cuevas.
+
+--- [PANTALLA 24] ---
+
+Pero no.
+
+Eran mundos distintos.
+Tiempos distintos.
+
+Y él lo hacía sin darse cuenta.
+
+--- [PANTALLA 25] ---
+
+Entonces aparece el último video.
+
+La voz es diferente. Más calmada. Más triste.
+
+--- [PANTALLA 26] ---
+
+"Pixel... si estás viendo esto, significa que
+nosotros ya no estamos.
+
+No te asustes."
+
+--- [PANTALLA 27] ---
+
+"Los robots que ves no son malos. Solo están rotos.
+Los glitches los corrompieron y ya no pueden parar.
+
+Pero tú sí puedes."
+
+--- [PANTALLA 28] ---
+
+"Tienes algo que ellos no tienen:
+puedes atraparlos sin hacerles daño.
+Puedes viajar por el tiempo sin destruirlo.
+
+Eres el único que puede arreglar esto."
+
+--- [PANTALLA 28B] ---
+
+"Y hay algo más que debes saber.
+
+En cada época hay una copia tuya.
+Apagada. Esperando.
+
+Cada vez que limpies una época,
+esa versión tuya despertará.
+
+Y los Glitches que liberes...
+encontrarán paz."
+
+--- [PANTALLA 29] ---
+
+"Ojalá pudiéramos haber estado ahí cuando despertaras.
+
+Te habríamos explicado todo.
+
+Pero... al menos tú estás activo... no... estas vivo.
+
+Eso era lo que importaba."
+
+--- [PANTALLA 30] ---
+
+La grabación termina.
+
+La pantalla se apaga.
+
+Y Pixel, por primera vez, sabe exactamente
+quién es y qué tiene que hacer.
+
+================================================================================
+  DESPUÉS DEL NIVEL 4 — LA MISIÓN CONTINÚA
+  (Entre nivel y nivel, mensaje corto en pantalla)
+================================================================================
+
+--- [ENTRE NIVELES — mensaje corto] ---
+
+Línea temporal salvada.
+
+Saltando...
+
+--- [PANTALLA POST-4 A] ---
+
+Después del cuarto nivel, algo cambió.
+
+Los saltos ya no siguen el mismo orden.
+
+Un lugar. Luego otro distinto.
+Sin patrón. Sin aviso.
+
+Pero Pixel ya no le tiene miedo a eso.
+
+--- [PANTALLA POST-4 B] ---
+
+Cada caverna que deja limpia
+es una época que respira de nuevo.
+
+Y en algún lugar de esa época,
+una versión de él que nunca despertó...
+
+abre los ojos.
+
+--- [PANTALLA POST-4 C] ---
+
+Los Glitches que libera de las burbujas
+ya no atacan.
+
+Solo se van.
+
+De vuelta a donde vinieron.
+De vuelta a la Corriente.
+
+
+================================================================================
+  FINAL SECRETO — SE DESBLOQUEA CON PUNTAJE ALTO
+================================================================================
+
+--- [SECRETO 1] ---
+
+Hay algo que las grabaciones no dijeron.
+
+Algo que los fabricantes guardaron para el final.
+
+--- [SECRETO 2] ---
+
+Pixel no fue diseñado para vivir para siempre.
+
+Fue diseñado para cumplir su propósito.
+
+Y cuando ese propósito se cumpliera...
+su energía no desaparecería.
+
+Se repartiría.
+
+Entre todas sus copias.
+Entre todos los mundos que salvó.
+
+--- [SECRETO 3] ---
+
+Pixel lo entendió.
+
+No con tristeza.
+Con calma.
+
+Así era como debía terminar.
+
+--- [SECRETO 4] ---
+
+Una última vez, las cuevas brillaron de rosa.
+
+Y luego...
+
+Silencio.
+
+--- [SECRETO 5 — FIN VERDADERO] ---
+
+Pero en cuatro mundos distintos,
+en cuatro épocas distintas,
+
+cuatro versiones de Pixel abrieron los ojos
+por primera vez.
+
+Y el mundo de Nodo Cero...
+por fin pudo empezar de nuevo.
+
+            FIN VERDADERO
+
+
+================================================================================
+  FINAL DEL JUEGO — PIXEL LIMPIA LAS CAVERNAS
+  (Se muestra al completar todos los niveles)
+================================================================================
+
+--- [PANTALLA 31] ---
+
+Una por una.
+
+Caverna por caverna.
+
+Pixel recorrió cada rincón del mundo subterráneo.
+
+--- [PANTALLA 32] ---
+
+No los destruyó.
+Los atrapó.
+Los dejó descansar.
+
+Los glitches, sin robots que los absorbieran,
+empezaron a desaparecer solos.
+
+--- [PANTALLA 33] ---
+
+El último saltó.
+
+Y las cuevas quedaron en silencio por primera vez
+en mucho tiempo.
+
+--- [PANTALLA 34] ---
+
+Pixel miró el vacío a su alrededor.
+
+Ya no había nada que lo persiguiera.
+Ya no había ningún lugar adonde saltar.
+
+Solo él, en el silencio de las cavernas.
+
+--- [PANTALLA 35] ---
+
+Pensó en los fabricantes.
+
+En lo que hicieron.
+En lo que no pudieron terminar.
+
+--- [PANTALLA 36] ---
+
+Pero también pensó en todo lo que sí hicieron:
+
+Lo despertaron.
+Le dieron la verdad.
+Confiaron en él.
+
+--- [PANTALLA 37] ---
+
+Y eso fue suficiente.
+
+--- [PANTALLA 38 — CRÉDITOS / FIN] ---
+
+            FIN
+
+  Gracias por jugar Robotic Cavern.
+
+  Desarrollado por: [jhonRMA Ingeniero de sistemas]
+  Creado en GDevelop
+
+================================================================================
+FIN DEL DOCUMENTO DE NARRATIVA
+================================================================================

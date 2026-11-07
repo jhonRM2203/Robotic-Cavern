@@ -1,0 +1,109 @@
+﻿================================================================================
+ PROGRAMACION ACTUAL DEL JUEGO NUEVO (GDEVELOP) - CAVERN REDISEÑO
+ Fecha de referencia: 25/10/2026 (Fases 0 a 3; Fase 3 en curso)
+ Juego viejo (referencia): cavern-master (cavern.py + assets antiguos)
+ Todo fuera de cavern-master pertenece al juego nuevo.
+================================================================================
+
+RESUMEN
+  Juego estilo Bubble Bobble rehaciendo el original en GDevelop 5 con eventos
+  visuales. Resolucion 1000x550. 4 escenas de nivel: nivel1 (azul/tech),
+  nivel2 (lava), nivel3 (jungla), nivel4 (acero). Barra HUD inferior Y=505..550.
+  Variables globales: vidas=2, corazones=3, puntuacion=0, nivel_actual=1.
+  Objetos globales: jugador, burbuja, corazon, vida, plus, texto_puntuacion,
+  texto_nivel, franja_hud, bloque_colicion. Cada nivel tiene colicion_nivelN,
+  teleport_superior e inferior. Teleports mandan a Y=-112 (arriba) o 631/642 (abajo).
+
+HOJAS DE EVENTOS EXTERNAS (orden en cada nivel):
+  HUD, burbuja, personaje, fondo-camara-paralax, jugador_dano, luego teleports.
+  (jugador_dano SIEMPRE debajo de fondo-camara-paralax para no perder temblor.)
+
+VARIABLES DE OBJETO
+  jugador: inv_tiempo, muriendo, vel_caida, inicio_x, inicio_y, sacudida,
+           direccion (1/-1), recarga, soplando. (invulnerable ya no se usa)
+  burbuja: listo, dir, fase (0 horizontal, 1 flotando, 2 explotando), vida,
+           soplo, vel_flota, atrapado (0 vacia, 1 robot normal, 2 robot agresivo).
+
+CONTROLES
+  Flechas izq/der mueven, arriba salta, ESPACIO sopla burbuja. Comportamiento de
+  plataformas del jugador con controles por defecto desactivados; la hoja
+  "personaje" simula las teclas con 3 eventos separados.
+
+ANIMACIONES
+  Jugador: quieto, correr, saltar, morir, soplar.
+  Burbuja: crea, destrulle, atrapa1 (robot normal), atrapa2 (robot agresivo).
+  Nombres exactos.
+
+TELEPORTS (4 eventos por nivel: colision + condicion X + muriendo=0)
+  nivel1: divisoria X=415. superior -> (68,631)/(768,631); inferior -> (64,-112)/(766,-112)
+  nivel2: divisorias X=240 y 607, destinos X=65/416/798, Y=642 al bajar y -112 al subir
+  nivel4: divisoria X=431, destinos X=65/797, Y=631 y -112.
+
+ESTADO POR FASES
+  [COMPLETADA] Fase 0 - Base: 4 niveles, jugador, camara, paralaje (3 capas a
+    0.40/0.75/0.90), clamp camara, teleports, assets.
+  [COMPLETADA] Fase 1 - Variables globales y HUD: vidas, corazones, puntuacion,
+    nivel_actual; franja_hud en capa HUD; iconos de corazones/vidas; texto de
+    puntuacion (X=960-width); texto "NIVEL X" (X=411).
+  [CERRADA*] Fase 2 - Jugador: dano, invulnerabilidad 200 frames con parpadeo
+    (cada 4 frames via timer%8), screen shake intensidad 15 / 0.3s, muerte con
+    caida (Platformer desactivado), perdida de vida, respawn con 3 corazones y
+    gracia 120 frames, game over provisional (consola). Tecla H simula golpe
+    (temporal). Pendiente para Fase 4: empuje lateral + bloqueo ~1.67s.
+  [EN CURSO] Fase 3 - Burbujas: disparo con espacio, soplo mantenido,
+    flotacion, explosion, maximo 5, recarga, choque con pared, salida por arriba.
+
+TEMPORAL A REEMPLAZAR
+  - Tecla H simula golpe -> Fase 4 (colision con bolt).
+  - Game over sin escena (vidas=-1) -> Fase 7.
+  - Eventos temporales de nivel_actual en nivel2/3/4 -> Fase 6.
+
+PENDIENTE
+  Fase 4 - Enemigos: robot0 y robot1 (movimiento, IA, spawn desde fila superior
+    cada 1.35s; total=10+nivel; max simultaneo=min((nivel+6)/2,8); bolt a 420 px/s,
+    prob. disparo 0.001+0.0001*nivel por frame x10 si misma altura; disparo 8 frames
+    despues de decidir; robot agresivo dispara a burbujas cercanas (<200px misma
+    altura)); conectar bolt con jugador (empuje + bloqueo).
+  Fase 5 - Frutas: manzana +100, frambuesa +200, limon +300, corazon +1 (max 3),
+    vida +1 vida; gravedad, tiempo de vida 500 frames, pop al recoger/expirar;
+    aparicion cada 100 frames aleatoria; al explotar burbuja con robot atrapado.
+  Fase 6 - Paso de nivel: enemigos_pendientes=0, 0 robots, sin burbujas trampa,
+    sin frutas, sin pop; incrementar nivel_actual; borrar eventos temporales.
+  Fase 7 - Menu y Game Over: escenas menu/game_over, titulo animado, "Press Space",
+    musica theme.ogg, puntuacion final, volver al menu.
+  Fase 8 - Sonidos: blow, pop, trap, laser, jump, ouch, die, bonus, score, level,
+    over, theme.ogg.
+
+PARAMETROS DE FISICA (px/frame a 60fps) - cavern.py
+  Jugador: agarre X 6, Y 2, acel 2, desacel 3, vel max 5, pendiente max 45,
+    escalera 3, gravedad 1.2, caida max 12, salto 16, sostener salto 12 frames.
+  Robot normal: agarre X 4, Y 1, acel 1, desacel 2, vel max 2, pendiente 30,
+    gravedad 1.2, caida max 10, no salta.
+  Robot agresivo: acel 2, desacel 2, vel max 3, pendiente 40.
+  Orb: agarre X 8, vel max 4 horiz / 2 flotacion vertical, flota hacia arriba.
+  Bolt: agarre X 3, vel 7 constante, horizontal.
+  Fruit: agarre X 10, Y 4, gravedad 1.2, caida max 10, estatica en X.
+
+LECCIONES CLAVE
+  - Condiciones de un evento se cumplen TODAS a la vez; dos teclas = dos eventos.
+  - Variable GLOBAL vs de OBJETO: buscar icono de globo / sin "de [objeto]".
+  - Tras "Crear objeto", acciones aplican a TODAS las instancias; usar variable
+    listo=0 para inicializar.
+  - Evitar temporizadores de escena; usar variable contando con TimeDelta().
+  - "Tecla presionada recientemente" = una vez; "Tecla presionada" = mientras.
+  - Si una animacion se queda en primer frame, otra hoja la cambia cada frame:
+    anadir condiciones (muriendo=0, soplando<=0) en hoja "personaje".
+  - Animaciones que deben terminar (crea, destrulle, soplar, morir) con Bucle
+    DESMARCADO.
+  - Pintor de formas: desmarcar "Dibuja formas relativas a posicion".
+  - Objetos fijos en pantalla van en capa "HUD"; capas NO globales.
+  - Teleports llevan condicion muriendo=0.
+  - Copiar/pegar texto de eventos (clic derecho) ahorra tiempo.
+
+OBSERVACIONES
+  - nivel4 usa objetos de nivel2 (paralax_nivel2, nivel2, fondo_nivel2) en vez
+    de objetos propios (acero) - pendiente corregir.
+  - Evento "Salir por arriba" de burbujas deberia estar en hoja "burbuja" (no en
+    cada nivel); Y < -40 puede necesitar bajarse.
+  - Musica theme.ogg existe pero no implementada.
+  - Todos los assets ya estan en disco; ninguna fase requiere crear recursos.

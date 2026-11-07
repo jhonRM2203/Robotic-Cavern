@@ -1,0 +1,332 @@
+================================================================================
+         ANÁLISIS DEL PROYECTO GDevelop - CAVERN REDISEÑO
+         Estado actual y lista de lo que falta implementar
+         Última actualización: 03/11/2026 (Fases 0-7 cerradas)
+================================================================================
+
+NOTA: Este análisis se basa en la revisión del archivo del proyecto
+      "juego-cavern-Bubble Bobble.json" y todos los recursos encontrados
+      en la carpeta del proyecto.
+
+HISTORIAL DE FASES:
+  [COMPLETADA] Fase 0 - Base del proyecto (niveles, jugador, cámara, fondos)
+  [COMPLETADA] Fase 1 - Variables globales y HUD (24/10/2026)
+  [COMPLETADA] Fase 2 - Jugador completo (daño, muerte, respawn) (25/10/2026)
+  [COMPLETADA] Fase 3 - Burbujas (25/10/2026)
+  [COMPLETADA] Fase 4 - Enemigos (29/10/2026)
+               * Cerrada en nivel1: ambos robots aparecen solos, caminan, giran,
+                 disparan, dañan al jugador y se atrapan en la burbuja con su
+                 animación. El empuje lateral se descartó. Solo falta copiar la
+                 lógica a nivel2, nivel3 y nivel4 (se hace al final).
+  [COMPLETADA] Fase 5 - Frutas e ítems (30/10/2026)
+               * Cerrada: frutas (manzana/frambuesa/limón) con puntos, corazón y
+                 vida extra, gravedad, tiempo de vida 500 frames, pop al recoger/expirar,
+                 aparición cada 100 frames y al explotar burbuja con robot atrapado.
+  [COMPLETADA] Fase 6 - Lógica de nivel (03/11/2026)
+               * Cerrada: paso de nivel funciona, se pasa de nivel1 a nivel4 con normalidad.
+  [COMPLETADA] Fase 7 - Menú y Game Over (03/11/2026)
+               * Cerrada: dos pantallas de entrada, menú principal, niveles jugables,
+                 Game Over y retorno al menú principal funcionan.
+  [EN CURSO]   Fase 8 - Sonido y pulido final
+
+
+================================================================================
+1. LO QUE YA ESTÁ HECHO ✓
+================================================================================
+
+── FASE 0 COMPLETADA - Base del proyecto ──────────────────────────────────────
+
+ESCENAS CREADAS:
+  ✓ nivel1 (tech/azul)
+  ✓ nivel2 (lava)
+  ✓ nivel3 (jungla)
+  ✓ nivel4 (acero/metal)
+
+EN CADA NIVEL YA EXISTE:
+  ✓ Tilemap del nivel (diseño de plataformas completo, con mapa de colisión)
+  ✓ Fondo animado con paralaje (múltiples capas: background1, background2, background3)
+  ✓ Sistema de paralaje horizontal (3 capas a velocidades 0.40, 0.75 y 0.90)
+  ✓ Bloqueo de cámara (ClampCamera con límites definidos)
+  ✓ Cámara que sigue al jugador (CenterCameraOnObject)
+  ✓ Teletransportes superior e inferior (izquierdo y derecho en cada nivel)
+  ✓ Objeto sombra y sombra0 (efectos visuales de suelo)
+  ✓ Tileset de bloques por nivel (block0 a block3)
+
+JUGADOR (objeto global):
+  ✓ Sprites de animación importados: quieto, correr, saltar, muerte, soplar
+  ✓ Comportamiento Platformer (PlatformerObject)
+  ✓ Comportamiento Flippable (voltear sprite según dirección)
+  ✓ Animaciones activas: correr, quieto, saltar, caer
+  ✓ Flip horizontal automático según dirección (izquierda/derecha)
+  ✓ Hoja de eventos externa "personaje" con toda la lógica de animaciones
+  ✓ Hoja de eventos externa "fondo-camara-paralax" con cámara y paralaje
+
+ASSETS PREPARADOS (todos importados al proyecto):
+  ✓ Sprites del jugador: quieto (x4), correr (x6), saltar (x6), muerte (x6), soplar (x7)
+  ✓ Sprites enemigo robot0 (normal): caminar (x8 por dirección), disparar (x3)
+  ✓ Sprites enemigo robot1 (agresivo): caminar (x8 por dirección), disparar (x3)
+  ✓ Disparos enemigos: bolt_robot0 y bolt_robot1 (2 frames cada uno)
+  ✓ Burbujas/orbes: orb1 a orb6 (crecimiento y flotación)
+  ✓ Burbujas con trampa: trap00-trap07 (robot0) y trap10-trap17 (robot1)
+  ✓ Explosión de burbuja grande: pop10-pop14
+  ✓ Animación pop pequeño (recoger ítem): pop00-pop05
+  ✓ Frutas: manzana (fruit0x), frambuesa (fruit1x), limón (fruit2x)
+  ✓ Iconos de UI: health, health_empty, life_00-life_05, plus_00-plus_05
+  ✓ Fuentes personalizadas: font048 a font090 (dígitos y letras A-Z)
+  ✓ Pantalla de título animada: titulo_00 a titulo_07
+  ✓ Pantalla de Game Over animada: gameover_00 a gameover_07
+  ✓ Botón "Press Space" animado: space0 a space9
+  ✓ Fondos animados por nivel (24 frames cada uno): azul, lava, jungla, acero
+  ✓ Sonidos completos en cavern-master/sounds/
+  ✓ Música: cavern-master/music/theme.ogg
+  ✓ Botones táctiles: boton_disparo, boton_salto, boton_izquierda, boton_derecha
+    (normal y presionado para cada uno)
+  ✓ Pantallas de entrada animadas: jt_games (frames 00-22) y uniremington (frames 00-22)
+  ✓ Fondos de menú principal: fondo_menu_inicio (frames 01-22)
+  ✓ Fondos de game over: fondo_game_over (frames 01-22)
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 1 COMPLETADA - Variables globales y HUD ───────────────────────────────
+
+VARIABLES GLOBALES (creadas y con valores iniciales correctos):
+  ✓ vidas         = 2
+  ✓ corazones     = 3
+  ✓ puntuacion    = 0
+  ✓ nivel_actual  = 1
+
+HUD (en los 4 niveles, en la capa "HUD"):
+  ✓ Franja negra inferior (franja_hud) en capa "HUD"
+  ✓ Iconos de corazones en pantalla (3 corazones llenos usando health.png)
+  ✓ Iconos de vidas grandes en pantalla (usando life_00.png, máx. 2 visibles)
+  ✓ Símbolo "+" cuando hay más de 2 vidas (plus_00.png)
+  ✓ Texto de puntuación pegado a la derecha
+  ✓ Texto "NIVEL X" centrado en la parte inferior
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 2 COMPLETADA - Jugador completo (daño, muerte, respawn) ───────────────
+
+  ✓ Sistema de daño implementado (tecla H temporal reemplazada en Fase 4)
+  ✓ Invulnerabilidad 3.33 s con parpadeo del sprite
+  ✓ Sacudida de pantalla al recibir daño (0.4 s)
+  ✓ Muerte: animación, desactivar Platformer, caída libre atravesando plataformas
+  ✓ Pérdida de vida grande con actualización visual de iconos
+  ✓ Respawn con 3 corazones y período de gracia (1.67 s de invulnerabilidad)
+  ✓ Game Over cuando vidas llega a -1
+  ✓ Animación de soplar al disparar burbuja (hecha en Fase 3)
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 3 COMPLETADA - Burbujas ───────────────────────────────────────────────
+
+  ✓ Controles cambiados: flecha arriba = saltar, Espacio = soplar burbuja
+  ✓ Objeto burbuja con animaciones de crecimiento, flotación y explosión
+  ✓ Movimiento horizontal → colisión con pared → flotación vertical
+  ✓ Soplo mantenido (Espacio) para llegar más lejos (tope 2 s)
+  ✓ Vida de 4.17 s, explota sola al agotarse
+  ✓ Límite de 5 burbujas simultáneas y recarga de 0.33 s entre disparos
+  ✓ Animación de explosión y pop al destruirse
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 4 COMPLETADA - Enemigos ───────────────────────────────────────────────
+
+  ✓ Objeto robot0 (normal) y robot1 (agresivo) implementados
+  ✓ Aparición automática de los robots
+  ✓ Caminan, giran y disparan
+  ✓ Daño al jugador al tocar el bolt (reemplaza tecla H temporal)
+  ✓ Atrapamiento en la burbuja con animación (atrapa1/atrapa2)
+  ✓ El bolt revienta una burbuja al colisionar con ella
+  ✓ Lógica copiada a nivel2, nivel3 y nivel4
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 5 COMPLETADA - Frutas e ítems ─────────────────────────────────────────
+
+  ✓ Objeto fruta con gravedad, animación y tiempo de vida (500 frames)
+  ✓ Tipos: manzana (+100), frambuesa (+200), limón (+300), corazón, vida extra
+  ✓ Aparición periódica aleatoria (cada 100 frames)
+  ✓ Aparición al explotar burbuja con robot atrapado
+  ✓ Animación pop pequeño al recoger o al expirar
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 6 COMPLETADA - Lógica de nivel ────────────────────────────────────────
+
+  ✓ Paso de nivel funciona (nivel1 → nivel2 → nivel3 → nivel4)
+  ✓ Variable nivel_actual se incrementa correctamente al pasar de nivel
+  ✓ Eventos temporales de nivel_actual eliminados de nivel2, nivel3 y nivel4
+
+──────────────────────────────────────────────────────────────────────────────
+
+── FASE 7 COMPLETADA - Menú y Game Over ───────────────────────────────────────
+
+  ✓ Dos pantallas de entrada animadas (jt_games y uniremington)
+  ✓ Menú principal con título animado, botón "Press Space" y fondo animado
+  ✓ Los 4 niveles son jugables en secuencia
+  ✓ Pantalla de Game Over funcional con imagen animada y fondo
+  ✓ Retorno al menú principal desde el Game Over
+  ✓ Flujo completo: entrada → menú → nivel1 → ... → nivel4 → game over → menú
+
+──────────────────────────────────────────────────────────────────────────────
+
+
+================================================================================
+2. LO QUE FALTA POR IMPLEMENTAR — FASE 8: SONIDO Y PULIDO FINAL ✗
+================================================================================
+
+Esta es la fase final del proyecto. Una vez completada, el juego se da por
+terminado y se procede con la documentación para la entrega.
+
+FECHA OBJETIVO: Juego listo 07/11/2026 | Documentación: 14/11/2026 | Entrega: 16/11/2026
+
+--------------------------------------------------------------------------------
+A. REHACER / AJUSTAR (interfaz)
+--------------------------------------------------------------------------------
+
+  ✗ Rehacer la animación/escena "Press Space"
+    - Revisar que la secuencia de frames y el ciclo queden igual de fluidos
+      que en el original (frame 0-8 entrada → frame 9 estático 120 frames → repetir).
+
+  ✗ Ajustar la organización de los botones táctiles
+    - Revisar posición, tamaño y separación de los 4 botones en pantalla
+      (izquierda, derecha, salto, disparo) para que queden cómodos en móvil.
+    - Assets disponibles: img new/botones tactiles/
+      boton_disparo_normal.png / boton_disparo_presionado.png
+      boton_salto_normal.png   / boton_salto_presionado.png
+      boton_izquierda_normal.png / boton_izquierda_presionado.png
+      boton_derecha_normal.png   / boton_derecha_presionado.png
+
+  ✗ Ajustar el texto del nombre del nivel
+    - Revisar el texto "NIVEL X" del HUD: fuente, tamaño, posición y centrado.
+
+--------------------------------------------------------------------------------
+B. EFECTOS DE SONIDO DE ACCIONES
+--------------------------------------------------------------------------------
+
+  Los archivos de sonido del juego original están en cavern-master/sounds/
+  Los nuevos soundtracks deben conseguirse o crearse por separado.
+
+  Acción                            | Archivo sugerido (original)
+  ----------------------------------|-------------------------------------------
+  Disparo del robot                 | laser0.ogg - laser3.ogg (al azar)
+  Disparo de burbuja                | blow0.ogg  - blow3.ogg  (al azar)
+  Explota burbuja                   | pop0.ogg   - pop3.ogg   (al azar)
+  Captura robot (robot atrapado)    | trap0.ogg  - trap3.ogg  (al azar)
+  Salta                             | jump0.ogg
+  Teleport                          | vanish0.ogg
+  Recibe daño                       | ouch0.ogg  - ouch3.ogg  (al azar)
+  Recoge vida pequeña (corazón)     | bonus0.ogg
+  Recoge vida grande                | life0.ogg
+  Recoge frutas (puntos)            | score0.ogg
+  Tiene mucha vida (sale la cruz +) | bonus0.ogg  (o un sonido nuevo)
+  Pasar de nivel                    | level0.ogg
+  Morir normal                      | die0.ogg
+  Morir para game over              | over0.ogg
+
+--------------------------------------------------------------------------------
+C. MÚSICA (SOUNDTRACKS)
+--------------------------------------------------------------------------------
+
+  ✗ Soundtrack de inicio del juego
+    - Debe empezar a sonar desde que aparece la primera imagen (pantalla jt_games)
+    - Cada vez que el jugador entre al juego (desde que arranca), debe sonar
+      un soundtrack diferente (rotación o aleatorio entre los disponibles).
+
+  ✗ Soundtrack por nivel
+    - Al empezar una partida (desde el menú) debe comenzar un soundtrack nuevo.
+    - Al cambiar de nivel, debe cambiar también el soundtrack.
+    - Cada nivel puede tener un soundtrack propio o rotar entre los disponibles.
+
+  NOTA: El archivo cavern-master/music/theme.ogg es el único soundtrack que
+  existe actualmente. Para cumplir los requerimientos de arriba se necesitarán
+  más soundtracks (de niveles y de inicio). Cuando se tengan, se añaden aquí.
+
+--------------------------------------------------------------------------------
+D. RANKING / HIGH SCORE
+--------------------------------------------------------------------------------
+
+  ✗ Pantalla de puntuaciones en el menú de inicio
+    - Mostrar un top 10 de las partidas con más puntos.
+    - Cada entrada del top muestra: posición, 3 letras del nombre y puntuación.
+    - Los datos se guardan de forma persistente (almacenamiento local del juego).
+
+  ✗ Opción de guardar puntuación al llegar al Game Over
+    - Solo aparece si el puntaje del jugador es mayor que el mínimo del top 10
+      (o si hay menos de 10 entradas guardadas).
+    - El jugador puede ingresar 3 letras para su nombre.
+
+  ✗ Lógica de inserción ordenada del top 10
+    - Si el puntaje supera al puesto 10: se agrega y el 10 anterior se elimina.
+    - Si supera un puesto superior (ej. el 7): el nuevo ocupa ese lugar y los
+      puestos 7 al 9 anteriores se corren a 8, 9 y 10 respectivamente.
+    - Si supera el puesto 1: el nuevo pasa a ser el 1 y todos los demás bajan.
+
+  Ejemplo de corrimiento:
+    Antes: 1-AAA, 2-BBB, 3-CCC, ..., 7-GGG, 8-HHH, 9-III, 10-JJJ
+    Nuevo puntaje supera al puesto 7:
+    Después: 1-AAA, 2-BBB, ..., 7-NUEVO, 8-GGG, 9-HHH, 10-III (JJJ sale)
+
+--------------------------------------------------------------------------------
+E. PANEL DE CONTROL DE SONIDO
+--------------------------------------------------------------------------------
+
+  ✗ Panel accesible desde el menú o durante el juego con dos controles:
+    - Slider o botones para aumentar/disminuir el volumen de la música.
+    - Slider o botones para aumentar/disminuir el volumen de los efectos de sonido.
+
+
+================================================================================
+3. ESTADO DE LAS FASES — RESUMEN
+================================================================================
+
+  [✓] Fase 0 - Base del proyecto
+  [✓] Fase 1 - Variables globales y HUD
+  [✓] Fase 2 - Jugador completo (daño, muerte, respawn)
+  [✓] Fase 3 - Burbujas
+  [✓] Fase 4 - Enemigos
+  [✓] Fase 5 - Frutas e ítems
+  [✓] Fase 6 - Lógica de nivel (paso de nivel)
+  [✓] Fase 7 - Menú y Game Over
+  [ ] Fase 8 - Sonido y pulido final  ← EN CURSO
+
+  Tareas de la Fase 8 pendientes:
+    ✗ A. Rehacer "Press Space" / ajustar botones táctiles / ajustar texto nivel
+    ✗ B. Efectos de sonido para todas las acciones del juego
+    ✗ C. Soundtracks de inicio y de niveles
+    ✗ D. Sistema de ranking / high score (top 10)
+    ✗ E. Panel de control de volumen (música y efectos)
+
+
+================================================================================
+4. OBSERVACIONES ADICIONALES
+================================================================================
+
+  - El juego original (cavern-master) tiene sus propios sonidos en
+    cavern-master/sounds/ y música en cavern-master/music/theme.ogg. Estos
+    archivos son la referencia base, pero para los soundtracks de inicio y de
+    niveles se necesitarán archivos adicionales.
+
+  - Los botones táctiles ya existen como imágenes en img new/botones tactiles/.
+    El ajuste es de posición y tamaño dentro del juego en GDevelop, no de crear
+    nuevos assets.
+
+  - El ranking usa almacenamiento local de GDevelop (Storage). Las variables
+    del top 10 deben definirse antes de implementarlo.
+
+  - El panel de sonido puede ser una escena nueva o un overlay dentro del menú.
+    GDevelop permite ajustar el volumen global de canales de audio separados
+    (música y efectos en canales distintos).
+
+  - Una vez terminada la Fase 8, el entregable final incluye:
+      · Manual de creación (paso a paso)
+      · Bitácora completa
+      · Documentación del juego
+    Fecha entrega final: 16/11/2026.
+
+
+================================================================================
+FIN DEL DOCUMENTO
+Análisis actualizado para el proyecto de rediseño de Cavern en GDevelop.
+================================================================================

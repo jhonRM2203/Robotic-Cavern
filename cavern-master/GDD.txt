@@ -1,0 +1,633 @@
+================================================================================
+          GAME DESIGN DOCUMENT (GDD) — CAVERN
+          Inspirado en Bubble Bobble
+          Versión 1 | Octubre 2026
+================================================================================
+estudiantes: jhon mercado, tatiana arango, jose angel herazo
+programador: jhon mercado
+QA: tatiana arango
+Diseñador: jhon mercado - jose angel herazo
+documentacion: jhon mercado - tatiana arango
+--------------------------------------------------------------------------------
+1. RESUMEN EJECUTIVO
+--------------------------------------------------------------------------------
+
+Nombre del juego : Cavern
+Género           : Plataformas 2D / Arcade
+Motor            : GDevelop 5 (motor visual sin código, basado en eventos)
+Plataforma       : PC (Windows / Mac / Linux)
+Modo de juego    : 1 jugador
+Clasificación    : Para todo público
+
+Descripción breve:
+  Cavern es un juego de plataformas arcade de desplazamiento vertical cíclico
+  inspirado en el clásico Bubble Bobble (Taito, 1986). El jugador controla a
+  un personaje que debe atrapar enemigos dentro de orbes mágicos y reventarlos
+  para avanzar de nivel, recolectando frutas y power-ups mientras esquiva los
+  disparos de los robots enemigos.
+
+--------------------------------------------------------------------------------
+2. CONCEPTO DE JUEGO
+--------------------------------------------------------------------------------
+
+2.1 Visión General
+  El jugador se mueve por una caverna de plataformas y debe eliminar a todos
+  los robots enemigos de cada nivel para avanzar al siguiente. La mecánica
+  principal consiste en disparar orbes que atrapan a los robots; una vez
+  atrapados, el jugador debe recolectar frutas y conseguir
+  puntos y recompensas.
+
+2.2 Propuesta de Valor (Pillares de Diseño)
+  - INMEDIATEZ: Controles simples que cualquiera puede aprender en segundos.
+  - PROGRESIÓN: Cada nivel aumenta en dificultad de forma gradual y legible.
+  - RIESGO/RECOMPENSA: El jugador debe elegir entre atrapar a los enemigos o recolectar los puntos.
+  - REJUGABILIDAD: La generación aleatoria de enemigos y frutas hace que cada
+    partida sea diferente.
+
+2.3 Mecánica Principal (Acción Central del Juego)
+  La acción central de Cavern gira en torno a un ciclo de tres pasos:
+  DISPARAR → ATRAPAR → REVENTAR. Todo el gameplay se construye sobre esta
+  secuencia repetida con creciente dificultad en cada nivel.
+
+  Paso 1 — DISPARAR el orbe:
+    El jugador presiona ESPACIO para lanzar un orbe mágico en la dirección
+    que mira su personaje. El orbe sale disparado horizontalmente y atraviesa
+    el escenario hasta chocar con una pared o un enemigo. Si el jugador
+    mantiene ESPACIO pulsado, "sopla" el orbe y lo empuja más lejos antes
+    de que empiece a flotar, aumentando su rango de alcance.
+
+  Paso 2 — ATRAPAR al enemigo:
+    Si el orbe toca a un robot, lo atrapa en su interior. El orbe cambia de
+    apariencia para mostrar al enemigo encerrado y comienza a flotar
+    lentamente hacia arriba. El robot queda inmovilizado dentro del orbe
+    y deja de representar una amenaza mientras esté atrapado.
+
+  Paso 3 — REVENTAR el orbe:
+    El jugador debe alcanzar el orbe flotante y tocarlo (colisión directa)
+    para hacerlo explotar. Al reventar, el robot queda eliminado y aparece
+    una fruta u objeto coleccionable en su lugar. Recoger esa fruta otorga
+    puntos o mejoras al jugador.
+
+  Consecuencia de no reventar a tiempo:
+    Si el jugador no revienta el orbe antes de que expire (250 fotogramas),
+    el orbe explota solo y libera al robot sin recompensa. Los robots
+    agresivos además pueden disparar rayos láser para destruir los orbes
+    activos, obligando al jugador a actuar con rapidez.
+
+  Objetivo final de cada nivel:
+    El nivel se completa cuando todos los robots han sido eliminados, todas
+    las frutas han sido recogidas y no quedan orbes con enemigos atrapados
+    en pantalla. Solo entonces se abre el paso al siguiente nivel.
+
+  Resumen del ciclo completo:
+    ESPACIO → orbe lanzado → robot atrapado → orbe flotando → jugador
+    toca el orbe → explosión → fruta aparece → jugador recoge fruta →
+    puntos/mejora → repetir hasta limpiar el nivel.
+
+2.4 Referentes
+  - Bubble Bobble (Taito, 1986) — mecánica principal de atrapar enemigos.
+  - Snow Bros. (Toaplan, 1990) — estética y estructura de plataformas arcade.
+  - Parasol Stars (Taito, 1991) — sistema de power-ups y frutas.
+
+--------------------------------------------------------------------------------
+3. MECÁNICAS DE JUEGO
+--------------------------------------------------------------------------------
+
+3.1 Controles
+  +-----------+----------------------------------------------+
+  | Tecla     | Acción                                       |
+  +-----------+----------------------------------------------+
+  | ← (Izq)   | Moverse a la izquierda                       |
+  | → (Der)   | Moverse a la derecha                         |
+  | ↑ (Arr)   | Saltar (solo en el suelo / plataforma)       |
+  | ESPACIO   | Disparar orbe / Soplar el orbe activo        |
+  +-----------+----------------------------------------------+
+
+  Nota de diseño sobre el disparo:
+    - Presionar ESPACIO una vez lanza un orbe en la dirección que mira el
+      personaje.
+    - Mantener ESPACIO pulsado mientras el orbe está activo lo sopla más lejos,
+      hasta un máximo de 120 fotogramas de empuje.
+    - No se puede disparar si ya hay 5 orbes en pantalla simultáneamente.
+    - El tiempo mínimo entre disparos es de 20 fotogramas (fire_timer).
+
+3.2 Movimiento del Jugador
+  - Velocidad horizontal: 4 píxeles/fotograma.
+  - Velocidad de salto: impulso vertical inicial de -16 (hacia arriba).
+  - Gravedad: +1 por fotograma (acumulativa), máximo de caída = 10 px/frame.
+  - Si el jugador cae por el borde inferior de la pantalla, reaparece en la
+    parte superior (eje Y = 1).
+  - El movimiento horizontal se bloquea durante los primeros 10 fotogramas
+    tras disparar un orbe (fire_timer > 10), para dar peso a la animación.
+
+3.3 Sistema de Orbes (Arma Principal)
+  Ciclo de vida de un orbe:
+    1. NACIMIENTO: El orbe aparece 38 px delante del jugador en dirección
+       al frente, a 35 px por encima de la posición Y del jugador.
+    2. DESPLAZAMIENTO HORIZONTAL: Se mueve a 4 px/frame en la dirección del
+       disparo durante los primeros "blown_frames" fotogramas.
+    3. FLOTACIÓN: Al chocar con una pared (o pasados blown_frames fotogramas),
+       el orbe empieza a flotar hacia arriba a velocidad aleatoria (1–2 px/frame).
+    4. EXPIRACIÓN: El orbe desaparece (con animación de "pop") tras 250
+       fotogramas o si sale por la parte superior de la pantalla (y ≤ -40).
+
+  Estados visuales del orbe:
+    - Frames 0–2 del timer: el orbe crece (orb0 → orb2), animación de 3 frames.
+    - Frames 3 en adelante: orbe completo flotando (orb3 → orb6), cíclico.
+    - Si contiene un enemigo atrapado: animación "trap[tipo][frame]", 8 frames.
+
+  Interacción con enemigos:
+    - Si un robot toca el centro de un orbe vacío, queda atrapado dentro.
+    - El orbe adopta la animación del tipo de robot atrapado.
+    - Al explotar el orbe (disparo de rayo enemigo, o por tiempo), suelta una
+      fruta con probabilidad de power-up según el tipo del enemigo.
+
+3.4 Sistema de Enemigos (Robots)
+
+  Tipo 0 — Robot Normal (TYPE_NORMAL):
+    - Color/estilo visual: sprites robot0XX
+    - Velocidad: aleatoria entre 1 y 3 px/frame.
+    - IA: patrulla horizontal. 2/3 de probabilidad de moverse hacia el jugador.
+    - Disparo: dispara rayos láser con probabilidad base (ver §3.5).
+    - Al morir: suelta una fruta aleatoria (manzana, frambuesa o limón).
+
+  Tipo 1 — Robot Agresivo (TYPE_AGGRESSIVE):
+    - Color/estilo visual: sprites robot1XX
+    - Velocidad y comportamiento base: igual que Tipo 0.
+    - Habilidad especial: detecta orbes en su misma línea horizontal (±200 px)
+      y se gira para dispararles, destruyéndolos antes de que el jugador pueda
+      usarlos. Necesita ≥ 24 fotogramas de recarga para esto.
+    - Al morir: suelta fruta con posibilidad de power-up especial (ver §3.7).
+
+  Aparición de enemigos:
+    - Aparecen cada 81 fotogramas en huecos libres de la fila superior del grid.
+    - El número máximo de enemigos simultáneos en pantalla = min((nivel+6)//2, 8).
+    - Total de enemigos por nivel = 10 + número_de_nivel.
+    - Número de robots agresivos = 1 + int(nivel / 1.5); el resto son normales.
+    - La lista de pendientes se baraja para orden aleatorio.
+
+3.5 Sistema de Disparo Enemigo (Rayos Láser)
+  - Probabilidad base de disparo por fotograma: 0.001 + (0.0001 × min(nivel, 100)).
+  - Si el jugador está en la misma franja vertical que el robot, la probabilidad
+    se multiplica por 10.
+  - El rayo viaja a 7 px/frame horizontalmente.
+  - El rayo se destruye al chocar con una pared, con un orbe, o con el jugador.
+  - Si golpea al jugador con hurt_timer < 0, provoca daño (ver §3.6).
+  - Animación del rayo: bolt[dir][frame], alterna cada 4 fotogramas.
+
+3.6 Sistema de Salud y Vidas del Jugador
+  Salud (Health):
+    - El jugador comienza cada nivel con 3 puntos de salud.
+    - Al recibir un disparo: pierde 1 punto de salud, sufre retroceso horizontal
+      en la dirección del rayo, y gana inmunidad temporal (hurt_timer = 200).
+    - Una vez aterrizado tras el golpe, hurt_timer baja al máximo de 100.
+    - Durante el retroceso (hurt_timer > 100), el jugador se desplaza 4 px/frame
+      en la dirección del golpe.
+    - Si la salud llega a 0: el personaje cae fuera de la pantalla. Cuando el
+      sprite llega a Y ≥ HEIGHT × 1.5, se descuenta una vida y se respawnea.
+    - Visualización: el sprite parpadea mientras hurt_timer > 0 (alterna frames
+      par/impar).
+
+  Vidas:
+    - El jugador comienza con 2 vidas extra (+ la que está usando).
+    - Si las vidas llegan a -1 (< 0), se activa el estado GAME_OVER.
+    - HUD muestra hasta 2 iconos de vida; si hay más de 2, aparece el símbolo "+".
+
+3.7 Frutas y Power-ups (Pickups)
+  Las frutas aparecen de dos formas:
+    a) Cada 100 fotogramas se crea una fruta en posición aleatoria (X: 70–730,
+       Y: 75–400), siempre que queden enemigos en el nivel.
+    b) Al reventar un orbe que contenía un robot.
+
+  Tipos de fruta:
+  +------------------+--------+-------------------------------------+
+  | Tipo             | Índice | Efecto                              |
+  +------------------+--------+-------------------------------------+
+  | Manzana          |   0    | +100 puntos                         |
+  | Frambuesa        |   1    | +200 puntos                         |
+  | Limón            |   2    | +300 puntos                         |
+  | Salud Extra      |   3    | +1 punto de salud (máx. 3)          |
+  | Vida Extra       |   4    | +1 vida                             |
+  +------------------+--------+-------------------------------------+
+
+  Probabilidad al matar un Robot Agresivo (tipo 1):
+    - Manzana / Frambuesa / Limón: 10 apariciones en la lista de probabilidad.
+    - Salud Extra: 9 apariciones.
+    - Vida Extra: 1 aparición.
+    (Total: 31 entradas → aprox. 3.2% de probabilidad de Vida Extra)
+
+  Al matar un Robot Normal (tipo 0): siempre una fruta básica aleatoria (0–2).
+
+  Comportamiento:
+    - Las frutas tienen gravedad y colisionan con el entorno.
+    - Desaparecen tras 500 fotogramas si no son recogidas (con animación pop).
+    - Animación: 4 frames cíclicos (0,1,2,1) cada 6 fotogramas del juego.
+
+3.8 Condiciones de Fin de Nivel
+  El nivel termina cuando se cumplen TODAS estas condiciones simultáneamente:
+    1. No quedan enemigos pendientes de aparecer (pending_enemies vacío).
+    2. No hay robots activos en pantalla (enemies vacío).
+    3. No hay frutas en pantalla (fruits vacío).
+    4. No hay animaciones pop activas (pops vacío).
+    5. No hay orbes con enemigos atrapados en pantalla.
+  Nota: los orbes vacíos NO bloquean el fin de nivel.
+
+--------------------------------------------------------------------------------
+4. ESTRUCTURA DE NIVELES
+--------------------------------------------------------------------------------
+
+4.1 Dimensiones del Mundo
+  - Resolución de pantalla: 800 × 480 píxeles.
+  - Grilla de juego: 28 columnas × 18 filas.
+  - Tamaño de cada bloque: 25 × 25 píxeles.
+  - Offset horizontal del nivel: 50 px (hay paredes en los bordes laterales).
+  - Zona jugable X: 70 – 730 px.
+
+4.2 Diseño de los Niveles (Rotación de 3 mapas)
+  Los niveles rotan cíclicamente entre 3 layouts base. La fila inferior de
+  cada nivel es idéntica a su primera fila (loop visual).
+
+  Nivel A (índice 0):
+    Plataformas cortas en los extremos superiores + plataformas medianas en
+    el centro + dos plataformas largas en la parte media e inferior.
+    Distribución: favorece el movimiento horizontal amplio en el centro.
+
+  Nivel B (índice 1):
+    Plataformas en X superior con hueco central + plataforma larga central +
+    dos rampas diagonales descendentes desde los laterales hacia el centro.
+    Distribución: favorece el uso vertical y los saltos largos.
+
+  Nivel C (índice 2):
+    Cuatro grupos de plataformas cortas en la fila superior + plataformas
+    anchas a media altura + estructura alternada arriba-abajo.
+    Distribución: favorece el movimiento en zigzag y los combates en altura.
+
+4.3 Progresión de Dificultad
+  +------------------+----------------------------------------------+
+  | Variable         | Fórmula                                      |
+  +------------------+----------------------------------------------+
+  | Enemigos totales | 10 + nivel                                   |
+  | Enemigos fuertes | 1 + int(nivel / 1.5)                         |
+  | Máx. en pantalla | min((nivel + 6) // 2, 8)                     |
+  | Prob. disparo    | 0.001 + 0.0001 × min(nivel, 100)             |
+  +------------------+----------------------------------------------+
+
+  Ejemplo de progresión:
+    Nivel 0 : 10 enemigos (1 agresivo), máx. 3 en pantalla, disparo 0.10%/frame.
+    Nivel 5 : 15 enemigos (4 agresivos), máx. 5 en pantalla, disparo 0.15%/frame.
+    Nivel 10: 20 enemigos (7 agresivos), máx. 8 en pantalla, disparo 0.20%/frame.
+    Nivel 100+: 110+ enemigos, máx. 8, disparo máximo 1.10%/frame.
+
+4.4 Colores de Fondo (Level Colour)
+  Cicla entre 4 colores de fondo (bg0.png – bg3.png) y 4 estilos de bloque
+  (block0.png – block3.png), cambiando en cada nuevo nivel para dar variedad
+  visual sin cambiar el gameplay.
+
+--------------------------------------------------------------------------------
+5. SISTEMA DE PUNTUACIÓN
+--------------------------------------------------------------------------------
+
+  - Manzana recogida:    +100 puntos
+  - Frambuesa recogida:  +200 puntos
+  - Limón recogido:      +300 puntos
+  - Salud Extra:         Restaura 1 HP (sin puntos directos)
+  - Vida Extra:          +1 vida (sin puntos directos)
+
+  El puntaje se muestra justificado a la derecha en el HUD inferior (y=451).
+  El número de nivel se muestra centrado en el HUD inferior (ej. "LEVEL 3").
+
+--------------------------------------------------------------------------------
+6. ESTADOS DEL JUEGO (GAME STATES)
+--------------------------------------------------------------------------------
+
+  MENU  ──[ESPACIO]──►  PLAY  ──[vidas < 0]──►  GAME_OVER  ──[ESPACIO]──► MENU
+    ▲                                                                         │
+    └─────────────────────────────────────────────────────────────────────────┘
+
+  MENU:
+    - Muestra la pantalla de título (title.png).
+    - Animación "Press SPACE" (space0.png – space9.png): 10 frames, 4 frames
+      de juego por frame de animación. Se congela en el frame 9 por 75% del
+      ciclo (160 fotogramas totales).
+    - El juego se actualiza en background (música, timer) pero sin jugador.
+
+  PLAY:
+    - El juego está activo con jugador.
+    - Se muestra el HUD (puntuación, nivel, vidas, salud).
+    - Si el jugador pierde todas las vidas → transición a GAME_OVER.
+
+  GAME_OVER:
+    - Se muestra la pantalla "over.png" superpuesta.
+    - Se sigue mostrando el HUD con la puntuación final.
+    - Pulsar ESPACIO reinicia al estado MENU con una nueva partida sin jugador.
+
+--------------------------------------------------------------------------------
+7. AUDIO
+--------------------------------------------------------------------------------
+
+7.1 Música
+  - theme.ogg: Tema musical principal en bucle continuo, volumen al 30%.
+    Suena durante todo el juego (menú, partida y game over).
+
+7.2 Efectos de Sonido
+  Cada efecto tiene hasta 4 variantes (numeradas 0–3) seleccionadas
+  aleatoriamente para dar variedad sonora.
+
+  +-----------+------+--------------------------------------------------+
+  | Archivo   | Var. | Cuándo suena                                     |
+  +-----------+------+--------------------------------------------------+
+  | blow      |  4   | Al disparar un orbe                              |
+  | pop       |  4   | Al explotar un orbe (con o sin enemigo)          |
+  | trap      |  4   | Al atrapar un enemigo en un orbe                 |
+  | laser     |  4   | Cuando un robot dispara un rayo                  |
+  | ouch      |  4   | Jugador recibe daño (salud > 0)                  |
+  | die       |  1   | Jugador pierde toda la salud (muerte)            |
+  | land      |  4   | Jugador aterriza en una plataforma               |
+  | jump      |  1   | Jugador salta                                    |
+  | score     |  1   | Al recoger fruta que da puntos                   |
+  | bonus     |  1   | Al recoger Salud Extra o Vida Extra              |
+  | life      |  1   | (reservado para obtener vida extra)              |
+  | level     |  1   | Al iniciar un nuevo nivel                        |
+  | over      |  1   | Al activarse el Game Over                        |
+  | vanish    |  1   | (reservado / efecto de desaparición)             |
+  | appear    |  1   | (reservado / efecto de aparición)                |
+  +-----------+------+--------------------------------------------------+
+
+  Nota técnica: GDevelop 5 gestiona el audio internamente a través de su motor
+  de sonido basado en Web Audio API / SDL. Los archivos OGG/WAV se importan
+  directamente desde el administrador de recursos del proyecto. Si un sonido
+  falla al cargar, el juego continúa sin interrupciones.
+
+--------------------------------------------------------------------------------
+8. ARTE Y RECURSOS VISUALES
+--------------------------------------------------------------------------------
+
+8.1 Especificaciones Técnicas de Arte
+  +---------------------------+-----------------------------------------------+
+  | Parámetro                 | Valor                                         |
+  +---------------------------+-----------------------------------------------+
+  | Tamaño del jugador        | 64 × 64 px                                    |
+  | Tamaño de los bloques     | 25 × 25 px                                    |
+  | Formato de imagen         | PNG con transparencia (canal alfa)            |
+  | Formato de audio          | OGG / WAV                                     |
+  | Frames por animación      | 4 a 6 frames                                  |
+  | Convención de nombres     | entidad_estado_NN.png  (ej: jugador_correr_01)|
+  +---------------------------+-----------------------------------------------+
+
+  Notas sobre PNG transparente:
+    - Todos los sprites deben exportarse con fondo transparente (RGBA).
+    - El canal alfa permite superponerlos sobre cualquier fondo de nivel.
+    - Evitar halos de color (GDevelop 5 soporta alfa estándar sin pre-multiplicar).
+
+8.2 Convención de Nombres de Archivos
+  Formato general:  <entidad>_<estado>_<frame_dosdígitos>.png
+
+  Ejemplos:
+    jugador_quieto_01.png
+    jugador_correr_01.png  ...  jugador_correr_04.png
+    jugador_saltar_01.png
+    jugador_soplar_01.png  ...  jugador_soplar_04.png
+    jugador_morir_01.png   ...  jugador_morir_06.png
+    enemigo_normal_caminar_01.png  ...  enemigo_normal_caminar_04.png
+    enemigo_agresivo_disparar_01.png ... enemigo_agresivo_disparar_04.png
+    burbuja_vacia_01.png   ...  burbuja_vacia_06.png
+    burbuja_enemigo_normal_01.png  ...  burbuja_enemigo_normal_06.png
+    fruta_manzana_01.png   ...  fruta_manzana_04.png
+    fruta_frambuesa_01.png ...  fruta_frambuesa_04.png
+    fruta_limon_01.png     ...  fruta_limon_04.png
+    fruta_salud_01.png     ...  fruta_salud_04.png
+    fruta_vida_01.png      ...  fruta_vida_04.png
+
+  Reglas:
+    - Nombres completamente en minúsculas.
+    - Palabras separadas por guión bajo (_).
+    - Número de frame siempre con dos dígitos (01, 02 ... 06).
+    - Sin espacios ni caracteres especiales en el nombre.
+
+8.3 Animaciones Requeridas — Jugador (64×64 px)
+  +------------------+--------+----------------------------------------------+
+  | Estado           | Frames | Descripción                                  |
+  +------------------+--------+----------------------------------------------+
+  | quieto           |   1    | Pose de reposo, mirando al frente            |
+  |                  |        | jugador_quieto_01.png                        |
+  +------------------+--------+----------------------------------------------+
+  | correr           |   4    | Ciclo de carrera (loop)                      |
+  |                  |        | jugador_correr_01.png – jugador_correr_04.png|
+  +------------------+--------+----------------------------------------------+
+  | saltar           |   2    | Impulso y vuelo (se usa cada 4 ticks)        |
+  |                  |        | jugador_saltar_01.png – jugador_saltar_02.png|
+  +------------------+--------+----------------------------------------------+
+  | soplar           |   4    | Animación de disparo de orbe                 |
+  |                  |        | jugador_soplar_01.png – jugador_soplar_04.png|
+  +------------------+--------+----------------------------------------------+
+  | morir            |   6    | Caída fuera de pantalla al perder salud      |
+  |                  |        | jugador_morir_01.png – jugador_morir_06.png  |
+  +------------------+--------+----------------------------------------------+
+  | recoil (golpe)   |   1    | Retroceso al recibir daño                    |
+  |                  |        | jugador_recoil_01.png                        |
+  +------------------+--------+----------------------------------------------+
+
+  Nota: cada animación existe en versión derecha e izquierda. La versión
+  izquierda puede generarse por flip horizontal del sprite derecho en el
+  motor, o guardarse como archivo separado:
+    jugador_correr_der_01.png / jugador_correr_izq_01.png
+  La convención actual del proyecto usa un sufijo de dirección (0=izq, 1=der).
+
+8.4 Animaciones Requeridas — Enemigos (Robots)
+  Dos tipos de robot: normal (tipo 0) y agresivo (tipo 1).
+  Cada tipo tiene animaciones para ambas direcciones.
+
+  +-----------------------------+--------+------------------------------------+
+  | Estado                      | Frames | Archivos de ejemplo (tipo normal)  |
+  +-----------------------------+--------+------------------------------------+
+  | caminar                     |   4    | enemigo_normal_caminar_01.png –    |
+  |                             |        | enemigo_normal_caminar_04.png      |
+  +-----------------------------+--------+------------------------------------+
+  | preparar disparo / disparar |   4    | enemigo_normal_disparar_01.png –   |
+  |                             |        | enemigo_normal_disparar_04.png     |
+  +-----------------------------+--------+------------------------------------+
+  | (ídem para tipo agresivo)   |   4    | enemigo_agresivo_caminar_01.png …  |
+  +-----------------------------+--------+------------------------------------+
+
+  Nota: el robot agresivo debe tener una apariencia claramente diferenciada
+  del normal (color, silueta o detalle extra) para que el jugador lo identifique
+  de un vistazo.
+
+8.5 Animaciones Requeridas — Burbuja / Orbe
+  +-----------------------------+--------+------------------------------------+
+  | Estado                      | Frames | Archivos de ejemplo                |
+  +-----------------------------+--------+------------------------------------+
+  | aparición / crecimiento     |   3    | burbuja_crecer_01.png –            |
+  |                             |        | burbuja_crecer_03.png              |
+  +-----------------------------+--------+------------------------------------+
+  | flotando (vacía)            |   4    | burbuja_vacia_01.png –             |
+  |                             |        | burbuja_vacia_04.png               |
+  +-----------------------------+--------+------------------------------------+
+  | con enemigo normal atrapado |   6    | burbuja_enemigo_normal_01.png –    |
+  |                             |        | burbuja_enemigo_normal_06.png      |
+  +-----------------------------+--------+------------------------------------+
+  | con enemigo agresivo        |   6    | burbuja_enemigo_agresivo_01.png –  |
+  |                             |        | burbuja_enemigo_agresivo_06.png    |
+  +-----------------------------+--------+------------------------------------+
+  | explosión (pop)             |   6    | burbuja_pop_01.png –               |
+  |                             |        | burbuja_pop_06.png                 |
+  +-----------------------------+--------+------------------------------------+
+
+8.6 Animaciones Requeridas — Frutas y Power-ups
+  Todas las frutas tienen 4 frames de animación (rebote/brillo cíclico).
+
+  +------------------+--------+----------------------------------------------+
+  | Tipo             | Frames | Archivos de ejemplo                          |
+  +------------------+--------+----------------------------------------------+
+  | Manzana          |   4    | fruta_manzana_01.png – fruta_manzana_04.png  |
+  | Frambuesa        |   4    | fruta_frambuesa_01.png – fruta_frambuesa_04  |
+  | Limón            |   4    | fruta_limon_01.png – fruta_limon_04.png      |
+  | Salud Extra      |   4    | fruta_salud_01.png – fruta_salud_04.png      |
+  | Vida Extra       |   4    | fruta_vida_01.png – fruta_vida_04.png        |
+  | Pop (explosión)  |   6    | fruta_pop_01.png – fruta_pop_06.png          |
+  +------------------+--------+----------------------------------------------+
+
+8.7 Sprites del Sistema (HUD y Efectos)
+  Estos elementos no siguen la convención de animación por frames múltiples,
+  son sprites únicos o con pocas variantes:
+
+  life.png        (44px ancho) : icono de vida en HUD
+  plus.png        (40px ancho) : símbolo "+" en HUD si vidas > 2
+  health.png      (40px ancho) : icono de salud en HUD
+  blank.png                    : sprite transparente (parpadeo de invulnerabilidad)
+  cursor.png                   : cursor del sistema
+  font0[ASCII].png             : fuente bitmap (letras A–Z, números 0–9, espacio)
+    Anchura variable: mín. 12px ('I'), máx. 38px ('W'), mayoría ~25–27px.
+
+  Rayo láser (Bolt):
+    rayo_der_01.png, rayo_der_02.png  (disparo hacia derecha, 2 frames)
+    rayo_izq_01.png, rayo_izq_02.png  (disparo hacia izquierda, 2 frames)
+
+8.8 Fondos y Nivel
+  bg0.png – bg3.png        : 4 fondos de caverna, 800×480 px, pantalla completa.
+  block0.png – block3.png  : 4 estilos de bloque de plataforma, 25×25 px.
+    Los fondos y bloques se combinan por pares del mismo índice (bg0+block0, etc.)
+
+8.9 Pantallas Especiales
+  title.png              : pantalla de título completa (800×480 px).
+  over.png               : overlay de "Game Over" (800×480 px, semitransparente).
+  space0.png – space9.png: animación "Press SPACE" (10 frames, loop con pausa).
+
+--------------------------------------------------------------------------------
+9. ESPECIFICACIONES TÉCNICAS DE AUDIO
+--------------------------------------------------------------------------------
+
+9.1 Parámetros de Audio
+  +----------------------+-----------------------------------------------------+
+  | Parámetro            | Valor                                               |
+  +----------------------+-----------------------------------------------------+
+  | Formato soportado    | OGG (preferido) / WAV                               |
+  | Frecuencia           | 44100 Hz                                            |
+  | Profundidad de bits  | 16-bit con signo (-16)                              |
+  | Canales              | Estéreo (2)                                         |
+  | Buffer               | 1024 muestras                                       |
+  +----------------------+-----------------------------------------------------+
+
+9.2 Directrices para Efectos de Sonido
+  - Duración recomendada: 0.1 – 1.5 segundos por efecto.
+  - Normalizar a –3 dBFS para evitar distorsión.
+  - Para efectos con variantes (blow, pop, trap, etc.): las 4 versiones deben
+    ser perceptiblemente diferentes (pitch, timbre o duración distintos) para
+    que la aleatorización sea notoria.
+  - Formato de nombres de archivos de audio:
+      <accion><variante>.ogg  (convención actual: blow0.ogg, blow1.ogg ...)
+      Alternativa nueva:      <accion>_<variante>.ogg  (blow_01.ogg)
+
+9.3 Música
+  - Formato: OGG Vorbis en bucle continuo.
+  - Volumen de mezcla: 30% del máximo (definido en código).
+  - La música corre durante todos los estados del juego (menú, partida, game over).
+  - Bitrate recomendado: 128–192 kbps para equilibrio calidad/tamaño.
+
+--------------------------------------------------------------------------------
+10. ARQUITECTURA TÉCNICA (RESUMEN)
+--------------------------------------------------------------------------------
+
+  Motor: GDevelop 5
+    GDevelop 5 es un motor de juegos visual sin necesidad de escribir código.
+    La lógica del juego se implementa mediante hojas de eventos (Event Sheets),
+    donde cada comportamiento se define con condiciones → acciones.
+
+  Objetos principales del proyecto GDevelop:
+  +-----------------------------+----------------------------------------------+
+  | Objeto GDevelop             | Equivalente lógico                           |
+  +-----------------------------+----------------------------------------------+
+  | Sprite "Jugador"            | Personaje controlado por el jugador          |
+  | Sprite "Robot_Normal"       | Enemigo básico con IA de patrulla            |
+  | Sprite "Robot_Agresivo"     | Enemigo con IA de ataque a orbes             |
+  | Sprite "Orbe"               | Proyectil del jugador (burbuja)              |
+  | Sprite "Rayo"               | Proyectil disparado por los robots           |
+  | Sprite "Fruta"              | Pickup de puntos y power-ups                 |
+  | Sprite "Pop"                | Efecto visual de explosión (sin colisión)    |
+  | TileMap / Objeto "Bloque"   | Plataformas del nivel (grid 25×25 px)        |
+  | Objeto de texto "HUD"       | Puntuación, nivel, vidas y salud             |
+  +-----------------------------+----------------------------------------------+
+
+  Comportamientos (Behaviors) utilizados:
+    - "Platform" (Plataforma): aplicado al jugador para gravedad, salto y
+      colisión con plataformas.
+    - "PlatformObject": aplicado a los bloques del nivel.
+    - Comportamiento personalizado mediante eventos para los robots (patrulla,
+      detección del jugador, disparo) y para el orbe (flotación, timer).
+
+  Bucle de juego en GDevelop 5:
+    - Cada frame ejecuta las hojas de eventos en orden de escena.
+    - Las escenas del proyecto corresponden a los estados del juego:
+        Escena "Menu"     → pantalla de título y animación "Press SPACE"
+        Escena "Juego"    → gameplay principal con HUD
+        Escena "GameOver" → pantalla de fin de partida
+    - Las variables globales (puntuación, vidas, nivel) persisten entre escenas.
+
+  Variables globales clave:
+    Puntuacion   (número) : puntaje acumulado del jugador
+    Vidas        (número) : vidas restantes (inicio: 2)
+    Salud        (número) : salud actual (inicio: 3, máx: 3)
+    NivelActual  (número) : nivel en curso (inicio: 0)
+    HurtTimer    (número) : contador de invulnerabilidad tras recibir daño
+
+  Gestión de objetos:
+    - Los enemigos, orbes, rayos y frutas se crean y destruyen dinámicamente
+      mediante acciones "Crear objeto" y "Supprimer l'objet" en los eventos.
+    - Las listas de objetos se gestionan mediante grupos de objetos de GDevelop.
+
+  Resolución de colisiones:
+    - Jugador ↔ plataformas: behavior nativo "Platform".
+    - Orbe ↔ Robot: evento de colisión → robot se destruye, orbe cambia de sprite.
+    - Rayo ↔ Jugador: evento de colisión → restar salud, activar HurtTimer.
+    - Rayo ↔ Orbe: evento de colisión → orbe explota (animación pop).
+    - Jugador ↔ Fruta: evento de colisión → aplicar efecto según tipo de fruta.
+
+--------------------------------------------------------------------------------
+11. FLUJO DE UNA PARTIDA TÍPICA
+--------------------------------------------------------------------------------
+
+  1. El jugador ve la pantalla de título y pulsa ESPACIO.
+  2. Se inicia el Nivel 1 (índice 0): grid A, fondo bg0, bloques block0.
+  3. Aparecen robots cada 81 fotogramas (máx. 3 en pantalla).
+  4. El jugador dispara orbes para atrapar robots y los explota.
+  5. Al eliminar todos los robots (+ frutas + orbes con enemigos), se pasa al
+     siguiente nivel con nuevo color de fondo y diseño de plataformas.
+  6. Si el jugador pierde toda la salud, cae, pierde una vida y reaparece.
+  7. Si las vidas llegan a -1, se muestra "Game Over".
+  8. Desde "Game Over", pulsar ESPACIO vuelve al menú principal.
+
+--------------------------------------------------------------------------------
+12. POSIBLES EXTENSIONES / MEJORAS FUTURAS
+--------------------------------------------------------------------------------
+
+  - Modo 2 jugadores cooperativo (estructura del código lo permitiría).
+  - Jefes de fase cada N niveles con patrones de movimiento únicos.
+  - Tabla de récords local (high score) persistente en archivo.
+  - Más variantes de enemigos con comportamientos distintos.
+  - Power-ups adicionales: invencibilidad temporal, disparo múltiple, etc.
+  - Editor de niveles para crear mapas personalizados.
+  - Versión web con Pygame WASM / Pygbag.
+
+--------------------------------------------------------------------------------
+                    FIN DEL DOCUMENTO — CAVERN GDD v1
+--------------------------------------------------------------------------------

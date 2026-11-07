@@ -1,0 +1,9 @@
+pront para usar el contexto en otros chats (anexar el txt del ultimo informe hecho mas el documento de contexto y otro txt con la programación del juego nuevo actualizada)
+
+listo, teniendo en cuenta esto que estamos haciendo y que ya vamos por la fase 4, como hago para seguir con esto en otro chat ya que este tiene 80 imagenes de 100 que puedo mandar y me tocaria empezar un nuevo chat, yo se que no recuerdas cosas de un chat a otro pero no se si  me puedas dar una forma en la cual tu tengas la informacion de todo lo que se hizo en este chat para poder seguir con las demas faces en otro chat que me permita mandar mas fotos.
+
+Hay una forma, y es la más fiable: un documento de traspaso que le subes al chat nuevo junto con tus otros archivos. Lo preparo con todo lo que haría falta para retomar sin perder nada.
+
+mensaje para arrancar:
+
+Hola. Continuamos un proyecto de GDevelop que venía haciendo en otro chat. Te adjunto el documento de traspaso (nombre del documento en donde esta el contexto del chat anterior), el informe de avance (ultimo informe), la programación del juego como quedo hasta ahora (programación actualizada del juego nuevo) y la programación del juego original para tener como referencia todo lo que hace ya que estamos haciendo un rediseño del juego pero sus mecánicas serán iguales (programación del juego original). Lee los tres con calma y empecemos con la Fase (numeor).

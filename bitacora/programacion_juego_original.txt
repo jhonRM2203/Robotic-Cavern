@@ -1,0 +1,138 @@
+﻿================================================================================
+ PROGRAMACION DEL JUEGO ORIGINAL (CAVERN - cavern-master) - REFERENCIA
+ Motor original: Python (cavern.py). Rediseño en GDevelop mantiene mecánicas.
+================================================================================
+
+RESUMEN
+  Plataformas 2D arcade estilo Bubble Bobble. 1 jugador. Pantalla 800x480,
+  grid 28x18 de bloques de 25px. Offset horizontal 50px, zona jugable X 70-730.
+  3 layouts de nivel (A/B/C) que rotan, fondos bg0-bg3 y bloques block0-block3.
+  Fila inferior = primera fila (loop visual). Colores de fondo cambian por nivel.
+
+ESTADOS DEL JUEGO
+  MENU -> (ESPACIO) PLAY -> (vidas<0) GAME_OVER -> (ESPACIO) MENU.
+  MENU: title.png + animacion "Press SPACE" (space0-9, 10 frames, 4 ticks por
+  frame, se congela en frame 9 el 75% del ciclo, total 160 frames). Juego en
+  background (musica, timer) sin jugador.
+  PLAY: gameplay + HUD.
+  GAME_OVER: over.png superpuesto + HUD con puntuacion final.
+
+CONTROLES
+  Flechas izq/der mover, arriba saltar (solo en suelo), ESPACIO disparar/soplar.
+
+MOVIMIENTO JUGADOR
+  Velocidad horizontal 4 px/frame. Salto impulso -16. Gravedad +1 por frame
+  acumulativa, caida maxima 10 px/frame. Si cae por borde inferior, reaparece
+  arriba (Y=1). Movimiento horizontal bloqueado primeros 10 frames tras disparar
+  (fire_timer > 10). Tamaño jugador 64x64.
+
+SISTEMA DE ORBES
+  Nacimiento: 38px delante del jugador, 35px encima de su Y.
+  Desplazamiento horizontal: 4 px/frame durante blown_frames.
+  Flotacion: al chocar con pared o pasar blown_frames, flota hacia arriba a
+  velocidad aleatoria 1-2 px/frame.
+  Expiracion: 250 frames o salida por arriba (Y <= -40), con animacion pop.
+  Estados visuales: frames 0-2 crecimiento (orb0-2); frame 3+ flotando ciclico
+  (orb3-6); con enemigo atrapado: trap[tipo][frame], 8 frames.
+  Soplar: mantener ESPACIO empuja mas lejos, maximo 120 frames de empuje.
+  Maximo 5 orbes en pantalla. Recarga minima 20 frames (fire_timer).
+  Si robot toca centro de orbe vacio -> queda atrapado; orbe adopta animacion
+  del tipo. Al explotar (rayo enemigo o tiempo) suelta fruta con probabilidad
+  de power-up segun tipo de enemigo.
+
+ENEMIGOS (ROBOTS)
+  Tipo 0 Normal: vel 1-3 px/frame, patrulla horizontal, 2/3 prob. ir hacia
+  jugador, dispara rayos con prob. base. Al morir suelta fruta basica aleatoria.
+  Tipo 1 Agresivo: igual base + detecta orbes en misma linea horizontal (±200px)
+  y se gira para dispararles (necesita >=24 frames de recarga). Al morir suelta
+  fruta con posibilidad de power-up.
+  Spawn: cada 81 frames en huecos libres de fila superior. Max simultaneos =
+  min((nivel+6)//2, 8). Total por nivel = 10 + nivel. Agresivos = 1 + int(nivel/1.5).
+  Lista de pendientes barajada (orden aleatorio).
+
+DISPARO ENEMIGO (RAYO)
+  Prob. base por frame: 0.001 + 0.0001*min(nivel,100). Si jugador en misma
+  franja vertical: x10. Velocidad 7 px/frame horizontal. Se destruye al chocar
+  con pared, orbe o jugador. Si golpea jugador con hurt_timer<0 -> dano.
+  Animacion bolt[dir][frame], alterna cada 4 frames.
+
+SALUD Y VIDAS
+  Salud inicial 3, max 3. Al recibir disparo: -1 HP, retroceso horizontal en
+  direccion del rayo, inmunidad hurt_timer=200. Al aterrizar tras golpe, hurt_timer
+  baja a max 100. Durante retroceso (hurt_timer>100) jugador se desplaza 4 px/frame
+  en direccion del golpe. Si salud=0: cae fuera de pantalla; al llegar Y>=HEIGHT*1.5
+  se descuenta una vida y respawn. Sprite parpadea mientras hurt_timer>0 (alterna
+  frames par/impar). Vidas iniciales 2 (+ la actual). Si vidas<0 -> GAME_OVER.
+  HUD muestra hasta 2 iconos de vida; si mas de 2, simbodo "+".
+
+FRUTAS Y POWER-UPS
+  Aparecen: (a) cada 100 frames en posicion aleatoria (X 70-730, Y 75-400) si
+  quedan enemigos; (b) al reventar orbe con robot.
+  Tipos: 0 Manzana +100 pts, 1 Frambuesa +200 pts, 2 Limon +300 pts,
+  3 Salud Extra +1 HP (max 3), 4 Vida Extra +1 vida.
+  Prob. al matar robot agresivo: manzana/frambuesa/limon 10 apariciones cada,
+  salud extra 9, vida extra 1 (total 31 -> ~3.2% vida extra).
+  Al matar robot normal: siempre fruta basica aleatoria (0-2).
+  Comportamiento: gravedad, colision con entorno, desaparecen tras 500 frames
+  (con pop). Animacion 4 frames ciclicos (0,1,2,1) cada 6 frames.
+
+CONDICIONES DE FIN DE NIVEL
+  Todas simultaneas: (1) pending_enemies vacio, (2) enemies vacio, (3) fruits
+  vacio, (4) pops vacio, (5) no orbes con enemigo atrapado. Orbes vacios NO
+  bloquean.
+
+PROGRESION DE DIFICULTAD
+  Enemigos totales = 10 + nivel. Agresivos = 1 + int(nivel/1.5).
+  Max en pantalla = min((nivel+6)//2, 8). Prob. disparo = 0.001+0.0001*min(nivel,100).
+  Ej: nivel0: 10 enemigos (1 agresivo), max 3, disparo 0.10%/frame.
+  nivel5: 15 (4 agresivos), max 5, 0.15%. nivel10: 20 (7), max 8, 0.20%.
+  nivel100+: 110+, max 8, 1.10%.
+
+PUNTUACION
+  Manzana +100, Frambuesa +200, Limon +300. HUD: puntuacion a la derecha
+  (Y=451), nivel centrado ("LEVEL X"). Vidas: hasta 2 iconos + "+".
+
+AUDIO
+  Musica theme.ogg en bucle, volumen 30%, durante todo el juego.
+  Efectos (hasta 4 variantes aleatorias): blow (disparar), pop (explotar),
+  trap (atrapar), laser (disparo robot), ouch (dano), die (muerte), land
+  (aterrizar), jump (saltar), score (fruta puntos), bonus (salud/vida extra),
+  life, level (nuevo nivel), over (game over), vanish, appear.
+  Formato OGG/WAV, 44100Hz, 16-bit, stereo, buffer 1024. Efectos 0.1-1.5s,
+  normalizar -3 dBFS.
+
+ARTE
+  Jugador 64x64, bloques 25x25, PNG transparente, OGG/WAV. Frames 4-6 por
+  animacion. Convencion nombres: entidad_estado_NN.png.
+  Animaciones jugador: quieto(1), correr(4), saltar(2), soplar(4), morir(6),
+  recoil(1). Cada una en version derecha/izquierda (sufijo 0=izq,1=der).
+  Enemigos: caminar(4), disparar(4) por tipo y direccion.
+  Burbuja: crecer(3), flotar vacia(4), con enemigo(6), pop(6).
+  Frutas: 4 frames rebote/brillo. Pop explosion 6 frames.
+  HUD: life.png (44px), plus.png (40px), health.png (40px), blank.png, cursor.png,
+  font0[ASCII].png (letras/numeros, ancho variable 12-38px).
+  Rayo: rayo_der_01/02, rayo_izq_01/02.
+  Fondos bg0-3 (800x480), bloques block0-3 (25x25). Fondos y bloques por pares.
+  Pantallas: title.png, over.png (800x480 semitransparente), space0-9.
+
+ARQUITECTURA GDEVELOP 5
+  Hojas de eventos (condiciones->acciones), escenas Menu/Juego/GameOver.
+  Variables globales persisten entre escenas: Puntuacion, Vidas, Salud,
+  NivelActual, HurtTimer.
+  Objetos: Jugador, Robot_Normal, Robot_Agresivo, Orbe, Rayo, Fruta, Pop,
+  Bloque, Texto HUD. Comportamiento "Platform" en jugador y bloques.
+  Colisiones: Jugador-plataformas (nativo); Orbe-Robot -> robot destruido,
+  orbe cambia sprite; Rayo-Jugador -> -salud + HurtTimer; Rayo-Orbe -> orbe
+  explota (pop); Jugador-Fruta -> aplicar efecto segun tipo.
+  Enemigos/orbes/rayos/frutas se crean y destruyen dinamicamente.
+
+FLUJO DE PARTIDA TIPICA
+  1. Pantalla titulo, ESPACIO.
+  2. Nivel 1 (grid A, bg0, block0).
+  3. Robots aparecen cada 81 frames (max 3).
+  4. Jugador dispara orbes, atrapa robots, los explota.
+  5. Al eliminar todos (+ frutas + orbes con enemigo) -> siguiente nivel con
+     nuevo fondo y layout.
+  6. Si pierde salud, cae, pierde vida, respawn.
+  7. Si vidas<0 -> Game Over.
+  8. Desde Game Over, ESPACIO -> menu (nueva partida).
